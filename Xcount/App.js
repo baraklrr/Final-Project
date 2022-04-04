@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Xcount app!</Text>
+      <Text>Xcount app page!</Text>
       <StatusBar style="auto" />
     </View>
   );
