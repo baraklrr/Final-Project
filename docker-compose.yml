@@ -38,7 +38,7 @@ services:
     container_name: server_container
     env_file: ./.env
     ports:
-      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      - $NODE_DOCKER_PORT:$NODE_DOCKER_PORT
     volumes:
       - ./server:/server
     environment:
@@ -52,18 +52,25 @@ services:
       - backend
       - frontend
 
-  client:
-    depends_on:
-      - server
-    build:
-      context: ./client
-      args:
-        - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
-    container_name: client_container
-    ports:
-      - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
-    networks:
-      - frontend 
+  # client:
+  #   depends_on:
+  #     - server
+  #   build:
+  #     context: ./client
+  #   container_name: client_expo_container
+  #   env_file: .env
+  #   ports:
+  #     - 19000:19000
+  #     - 19001:19001
+  #     - 19002:19002
+  #     - 19006:19006
+  #   environment:
+  #     - REACT_NATIVE_PACKAGER_HOSTNAME=$REACT_NATIVE_PACKAGER_HOSTNAME
+  #     - EXPO_DEVTOOLS_LISTEN_ADDRESS=$ADB_IP
+  #   volumes:
+  #     - ./client:/client
+  #   networks:
+  #     - frontend 
 
   swagger-ui:
    depends_on:

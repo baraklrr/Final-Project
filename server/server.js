@@ -5,7 +5,8 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:8081",
+  // origin: process.env.CLIENT_ORIGIN || "http://localhost:8081",
+  origin: "http://localhost:19006",
 };
 
 app.use(cors(corsOptions));
@@ -52,7 +53,7 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/turorial.routes")(app);
+require("./app/routes/invoice.routes")(app);
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 

@@ -34,10 +34,10 @@ afterAll((done) => {
 });
 
 describe("Test", () => {
-  test("simple get", async () => {
-    const response = await request(app).get("/");
-    expect(response.statusCode).toEqual(200);
-  });
+  // test("simple get", async () => {
+  //   const response = await request(app).get("/");
+  //   expect(response.statusCode).toEqual(200);
+  // });
   test("post sign in", async () => {
     const response = await request(app).post("/api/auth/signin").send({
         'username' : username,

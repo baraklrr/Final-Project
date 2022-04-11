@@ -1,12 +1,16 @@
-FROM node:10-alpine
+FROM node:14
 
-RUN mkdir -p /app
-WORKDIR /app
+EXPOSE 19000
+EXPOSE 19001
+EXPOSE 19002
+EXPOSE 19006
 
-COPY package.json /app
-COPY yarn.lock /app
-COPY . /app
+WORKDIR /client
+COPY package.json .
+RUN npm install && npm install -g expo-cli
+COPY . .
 
-RUN yarn install
+# ARG REACT_APP_API_BASE_URL
+# ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 
-CMD ["yarn", "start"]
+CMD npm start
