@@ -1,4 +1,52 @@
 
 ###
 
-GET http://localhost:3000
+
+
+GET http://localhost:8888/
+
+###
+
+
+POST http://localhost:6868/api/auth/signup
+Content-Type: application/json
+
+{
+    "username" : "alon",
+    "email" : "aalon@asd.com",
+    "password" : "123456",
+    "roles" : ["moderator" , "user"]
+}
+
+###
+
+POST http://localhost:6868/api/auth/signin
+Content-Type: application/json
+
+{
+    "username" : "alon",
+    "password" : "123456"
+}
+
+###
+
+POST http://localhost:6868/api/auth/signin
+Content-Type: application/json
+
+{
+    "username" : "mod",
+    "password" : "12345678"
+}
+
+###
+
+GET http://localhost:6868/api/test/admin
+
+###
+
+POST http://localhost:6868/api/auth/refreshtoken
+Content-Type: application/json
+
+{
+    "refreshToken": "6b9579c4-766e-4908-9b91-15521b244a5d"
+}

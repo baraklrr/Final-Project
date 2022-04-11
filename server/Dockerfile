@@ -1,12 +1,7 @@
-FROM node:12
+FROM node:14
 
-RUN mkdir -p /app
-WORKDIR /app
-
-COPY package.json /app
-
-COPY . /app
-
+WORKDIR /server
+COPY package.json .
 RUN npm install
-
-CMD ["npm", "start"]
+COPY . .
+CMD npm start

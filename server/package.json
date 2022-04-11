@@ -2,22 +2,37 @@
   "name": "server",
   "version": "1.0.0",
   "description": "final project Xcount",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon -L server.js",
+    "test": "jest --detectOpenHandles --forceExit",
+    "debug": "node --inspect=0.0.0.0:9229 server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "nodejs",
+    "express",
+    "rest",
+    "api",
+    "sequelize",
+    "mysql"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "dotenv": "^16.0.0",
-	"mysql": "^2.18.1",
-    "nodemon": "^2.0.4"
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.0.2",
+    "sequelize": "^5.21.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "dockest": "^3.0.1",
+    "jest": "^27.5.1",
+    "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "swagger-jsdoc": "^6.2.0",
+    "swagger-ui-express": "^4.3.0"
   }
 }
