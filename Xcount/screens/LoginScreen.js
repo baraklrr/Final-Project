@@ -22,10 +22,10 @@ export default function LoginScreen({ navigation }) {
     //   setPassword({ ...password, error: passwordError })
     //   return
     // }
-    /*navigation.reset({
+    navigation.reset({
       index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })*/
+      routes: [{ name: "Dashboard" }],
+    });
     navigation.replace("MyProfileScreen");
   };
 
