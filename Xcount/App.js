@@ -9,10 +9,7 @@ import {
   RegisterScreen,
   Dashboard,
 } from './screens'
-
-
 const Stack = createStackNavigator()
-
 
 
 export default function App() {
@@ -26,7 +23,7 @@ export default function App() {
       }}>
       <Stack.Screen name="LoginScreen" component={LoginScreen} />
       <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-      <Stack.Screen name="Dashboard" component={Dashboard} />
+      <Stack.Screen name="Dashboard" component={Dashboard}  options={{title: "הוספת הכנסה",headerShown:true,headerBackVisble:false}}/>
     </Stack.Navigator>
   </NavigationContainer>
 </Provider>
