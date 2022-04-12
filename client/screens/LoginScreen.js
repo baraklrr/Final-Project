@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View,Alert } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../components/Background";
 import Logo from "../components/Logo";
@@ -11,13 +11,12 @@ import { theme } from "../core/theme";
 //import { passwordValidator } from '../helpers/passwordValidator'
 
 import AuthService from "../services/auth.service";
-import http from "../http-common";
 
 export default function LoginScreen({ navigation }) {
+
   // const [email, setEmail] = useState({ value: "", error: "" });
   const [username, setUsername] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
-
   const onLoginPressed = () => {
     // const emailError = emailValidator(email.value)
     // const passwordError = passwordValidator(password.value)
@@ -27,31 +26,18 @@ export default function LoginScreen({ navigation }) {
     //   return
     // }
     username.toString();
-    AuthService.login(username, password).then(
+    AuthService.login(username.value, password.value).then(
       () => {
-        // navigate("/profile");
-        // window.location.reload();
-        console.log("signed in");
+        navigation.replace("Dashboard");
+        console.log();
       },
       (error) => {
-        const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
-
-        // setLoading(false);
-        // setMessage(resMessage);
+        const resMessage = error.response.data.message;
+        console.log(resMessage);
       }
     );
-
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Dashboard" }],
-    });
   };
-
+  
   return (
     <Background>
       <Logo />

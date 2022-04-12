@@ -8,9 +8,10 @@ import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
+import AuthService from "../services/auth.service";
 
 export default function RegisterScreen({ navigation }) {
-  const [name, setName] = useState({ value: '', error: '' })
+  const [username, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
 
@@ -24,10 +25,17 @@ export default function RegisterScreen({ navigation }) {
     //   setPassword({ ...password, error: passwordError })
     //   return
     // }
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Dashboard' }],
-    })
+
+    AuthService.register(username.value, email.value, password.value).then(
+      (response) => {
+        navigation.replace("Dashboard");
+        console.log();
+      },
+      (error) => {
+        const resMessage = error.response.data.message;
+        console.log(resMessage);
+      }
+    );
   }
 
   return (
@@ -38,10 +46,10 @@ export default function RegisterScreen({ navigation }) {
       <TextInput
         label="שם"
         returnKeyType="next"
-        value={name.value}
+        value={username.value}
         onChangeText={(text) => setName({ value: text, error: '' })}
-        error={!!name.error}
-        errorText={name.error}
+        error={!!username.error}
+        errorText={username.error}
       />
       <TextInput
         label="מייל"

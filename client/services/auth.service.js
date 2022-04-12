@@ -1,18 +1,19 @@
-import axios from "axios";
 import http from "../http-common";
 
 const register = (username, email, password) => {
-  return axios.post("/signup", {
+  return http.post("/signup", {
+
     username,
     email,
-    password
+    password,
   });
 };
 
 const login = (username, password) => {
-  return http.post("/signin", {
-    username : "alon",
-    password : "123456"
+  return http
+    .post("/signin", {
+      username,
+      password
     })
     .then((response) => {
       if (response.data.accessToken) {
