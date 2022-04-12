@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 13,
+    textAlign: 'right' ,
     color: theme.colors.secondary,
     paddingTop: 8,
   },
