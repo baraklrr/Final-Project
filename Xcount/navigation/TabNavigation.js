@@ -4,6 +4,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screens/Dashboard';
 import NotificationScreen from '../screens/NotificationScreen';
 import SettingNavigation from './SettingNavigation';
+import UserInformation from '../screens/UserInformation';
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +23,7 @@ return (
     <Ionicons name="home-outline" color={color} size={size} />)}}/>
 
 
-<Tab.Screen name="העסק שלי"  component={NotificationScreen}
+<Tab.Screen name="העסק שלי"  component={UserInformation}
 options=
 {{tabBarIcon: ({color, size}) => (
     <Ionicons name="person" color={color} size={size} />)}}/>   
