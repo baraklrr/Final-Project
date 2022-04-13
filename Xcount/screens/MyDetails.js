@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
+import { theme } from "../core/theme";
 
 const constants = {
   fullNameLable: "שם",
@@ -65,7 +66,7 @@ const style = StyleSheet.create({
   textInput: {
     marginVertical: "8px",
     marginHorizontal: "8px",
-    //direction: "rtl",
+    textAlign: "start",
   },
   phoneTextInput: {
     width: "250px",

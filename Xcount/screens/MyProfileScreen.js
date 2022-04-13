@@ -1,18 +1,19 @@
 import React from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import TopBarNavigator from "../components/TopBarNavigator";
 
 export default function MyProfileScreen(props) {
   return (
-    <SafeAreaProvider style={styles.container}>
+    <View style={styles.container}>
       {/* <View style={styles.header}></View> */}
-      {/*<TopBarNavigator />*/}
+      <TopBarNavigator />
       <Image
         style={styles.avatar}
         source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
       />
       {/* <MyTabs/> */}
-    </SafeAreaProvider>
+    </View>
   );
 }
 
@@ -33,15 +34,16 @@ const styles = StyleSheet.create({
     flexDirection: "column",
   },
   avatar: {
-    width: 130,
-    height: 130,
+    marginTop: "-1px",
+    width: 60,
+    height: 60,
     borderRadius: 63,
     borderWidth: 4,
     borderColor: "white",
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
-    marginTop: 35,
+    // marginTop: 35,
   },
   name: {
     fontSize: 22,

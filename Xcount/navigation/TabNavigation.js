@@ -4,6 +4,7 @@ import Dashboard from "../screens/Dashboard";
 import SettingsScreen from "../screens/SettingsScreen";
 import MyProfileScreen from "../screens/MyProfileScreen";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import TopBarNavigator from "../components/TopBarNavigator";
 
 const Tab = createBottomTabNavigator();
 
