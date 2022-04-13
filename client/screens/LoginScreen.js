@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, View,Alert } from "react-native";
-import { Text } from "react-native-paper";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import { theme } from "../core/theme";
-//import { emailValidator } from '../helpers/emailValidator'
-//import { passwordValidator } from '../helpers/passwordValidator'
+import React, { useState } from 'react'
+import { TouchableOpacity, StyleSheet, View } from 'react-native'
+import { Text } from 'react-native-paper'
+import Background from '../components/Background'
+import Logo from '../components/Logo'
+import Header from '../components/Header'
+import Button from '../components/Button'
+import TextInput from '../components/TextInput'
+import { theme } from '../core/theme'
+import { emailValidator } from '../helpers/emailValidator'
+import { passwordValidator } from '../helpers/passwordValidator'
 
 import AuthService from "../services/auth.service";
 
@@ -18,9 +18,9 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const onLoginPressed = () => {
-    // const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    // if (emailError || passwordError) {
+     const emailError = emailValidator(email.value)
+    const passwordError = passwordValidator(password.value)
+    //  if (emailError || passwordError) {
     //   setEmail({ ...email, error: emailError })
     //   setPassword({ ...password, error: passwordError })
     //   return
@@ -71,12 +71,12 @@ export default function LoginScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
-
-      <Button mode="contained" onPress={onLoginPressed}>
+   
+      <Button mode="contained" onPress={onLoginPressed }>
         התחבר
       </Button>
       <View style={styles.row}>
-        <TouchableOpacity onPress={() => navigation.replace("RegisterScreen")}>
+      <TouchableOpacity onPress={() => navigation.push('RegisterScreen')}>
           <Text style={styles.link}>הרשם</Text>
         </TouchableOpacity>
         <Text>עדיין אין לך משתמש? </Text>
