@@ -37,7 +37,7 @@ export default function Dashboard({ navigation }) {
     
 <TouchableOpacity >
   <Card style={styles.list}>
-    <Text>מס הכנסה</Text>
+    <Text>מקדמות מס הכנסה</Text>
   </Card>
 </TouchableOpacity>
 
@@ -49,7 +49,7 @@ export default function Dashboard({ navigation }) {
 
 <TouchableOpacity >
   <Card style={styles.list}>
-    <Text>ביטוח ללאומי</Text>
+    <Text>ביטוח לאומי</Text>
   </Card>
 </TouchableOpacity>
 
