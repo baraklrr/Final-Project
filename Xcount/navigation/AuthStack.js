@@ -1,3 +1,4 @@
+import React from "react";
 
 import React from 'react';
 
@@ -7,9 +8,8 @@ import StartScreen from '../screens/StartScreen'
 import TabNavigation from './TabNavigation';
 const Stack = createStackNavigator();
 
-
-const AuthStack=()=>{
-  return(
+const AuthStack = () => {
+  return (
     <Stack.Navigator
     initialRouteName="StartScreen"
     screenOptions={{
