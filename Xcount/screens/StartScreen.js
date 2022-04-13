@@ -9,21 +9,21 @@ export default function StartScreen({ navigation }) {
   return (
     <Background>
       <Logo />
-      <Header>Login Template</Header>
+      <Header>Xcount</Header>
       <Paragraph>
-        The easiest way to start with your amazing application.
+        התקדם לרואה חשבון חכם יותר.
       </Paragraph>
       <Button
         mode="contained"
         onPress={() => navigation.navigate('LoginScreen')}
       >
-        Login
+        התחבר
       </Button>
       <Button
         mode="outlined"
         onPress={() => navigation.navigate('RegisterScreen')}
       >
-        Sign Up
+        הרשם
       </Button>
     </Background>
   )

@@ -2,8 +2,9 @@ import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screens/Dashboard';
-import SettingsScreen from '../screens/SettingsScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import SettingNavigation from './SettingNavigation';
+
 const Tab = createBottomTabNavigator();
 
 
@@ -36,9 +37,9 @@ options=
 {{tabBarIcon: ({color, size}) => (
     <Ionicons name="alert" color={color} size={size} />)}}/>   
 
-<Tab.Screen name="הגדרות" component={SettingsScreen}
+<Tab.Screen name="הגדרות" component={SettingNavigation}
 options=
-{{tabBarIcon: ({color, size}) => (
+{  {tabBarStyle: { display: "none" },tabBarIcon: ({color, size}) => (
     <Ionicons name="settings" color={color} size={size} />)}}/>
 
 
