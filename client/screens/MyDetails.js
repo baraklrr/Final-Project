@@ -66,7 +66,7 @@ const style = StyleSheet.create({
   textInput: {
     marginVertical: "8px",
     marginHorizontal: "8px",
-    textAlign: "start",
+    textAlign: "left",
   },
   phoneTextInput: {
     width: "250px",

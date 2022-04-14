@@ -1,19 +1,18 @@
-import React, { useState } from 'react'
-import { TouchableOpacity, StyleSheet, View } from 'react-native'
-import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
+import React, { useState } from "react";
+import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
+import Background from "../components/Background";
+import Logo from "../components/Logo";
+import Header from "../components/Header";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import { theme } from "../core/theme";
+import { emailValidator } from "../helpers/emailValidator";
+import { passwordValidator } from "../helpers/passwordValidator";
 
 import AuthService from "../services/auth.service";
 
 export default function LoginScreen({ navigation }) {
-
   // const [email, setEmail] = useState({ value: "", error: "" });
   const [username, setUsername] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -25,19 +24,17 @@ export default function LoginScreen({ navigation }) {
     //   setPassword({ ...password, error: passwordError })
     //   return
     // }
-    username.toString();
     AuthService.login(username.value, password.value).then(
       () => {
+        console.log('logged in');
         navigation.replace("Dashboard");
-        console.log();
       },
       (error) => {
-        const resMessage = error.response.data.message;
-        console.log(resMessage);
+        console.log(error);
       }
     );
   };
-  
+
   return (
     <Background>
       <Logo />
@@ -71,12 +68,12 @@ export default function LoginScreen({ navigation }) {
         errorText={password.error}
         secureTextEntry
       />
-   
-      <Button mode="contained" onPress={onLoginPressed }>
+
+      <Button mode="contained" onPress={onLoginPressed}>
         התחבר
       </Button>
       <View style={styles.row}>
-      <TouchableOpacity onPress={() => navigation.push('RegisterScreen')}>
+        <TouchableOpacity onPress={() => navigation.push("RegisterScreen")}>
           <Text style={styles.link}>הרשם</Text>
         </TouchableOpacity>
         <Text>עדיין אין לך משתמש? </Text>
