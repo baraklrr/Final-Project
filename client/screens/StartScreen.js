@@ -4,28 +4,19 @@ import Logo from "../components/Logo";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import Paragraph from "../components/Paragraph";
-import AuthService from "../services/auth.service";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function StartScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState(undefined);
-
   useEffect(() => {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      console.log(user);
-      setCurrentUser(user);
-      // setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
-      // setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
-    }
-
-    // EventBus.on("logout", () => {
-    //   logOut();
-    // });
-
-    // return () => {
-    //   EventBus.remove("logout");
-    // };
+    AsyncStorage.getItem('user').then((value) => {
+      if (value) {
+        setCurrentUser(JSON.parse(value));
+        navigation.replace("Dashboard");
+      }else{
+        console.log('blat')
+      }
+    });
   }, []);
 
   return (

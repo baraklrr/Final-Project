@@ -19,6 +19,7 @@ const login = (username, password) => {
       if (response.data.accessToken) {
         saveUserToLocalStorage(response.data);
       }
+      //  else logout();
       return response.data;
     });
 };
@@ -32,35 +33,22 @@ const saveUserToLocalStorage = async (value) => {
 
   console.log("Done.");
 };
-const logout = () => {
-  removeValue = async () => {
-    try {
-      await AsyncStorage.removeItem("user");
-    } catch (e) {
-      // remove error
-    }
-    console.log("Done.");
-  };
+
+const logout = async () => {
+  try {
+    await AsyncStorage.removeItem("user");
+  } catch (e) {
+    // remove error
+  }
+
+  console.log("Done.");
 };
 
-const getCurrentUser = () => {
-  async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem("user");
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
-    } catch (e) {
-      // read error
-    }
-
-    console.log("Done.");
-  };
-};
 
 const AuthService = {
   register,
   login,
   logout,
-  getCurrentUser,
 };
 
 export default AuthService;
