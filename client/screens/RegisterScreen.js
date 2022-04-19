@@ -19,11 +19,11 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
+    const nameError = nameValidator(username.value)
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
     if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
+      setName({ ...username, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return

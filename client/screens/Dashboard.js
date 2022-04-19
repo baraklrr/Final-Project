@@ -1,9 +1,12 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Card } from "@rneui/themed";
+import TabContainer from "../components/TabContainer";
+
 
 export default function Dashboard({ navigation }) {
   return (
+    <TabContainer>
     <View>
       <Card>
         <View style={styles.user}>
@@ -119,6 +122,7 @@ export default function Dashboard({ navigation }) {
         </Card>
       </View>
     </View>
+    </TabContainer>
   );
 }
 const styles = StyleSheet.create({
