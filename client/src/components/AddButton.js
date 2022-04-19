@@ -54,11 +54,13 @@ const AddButton = ({ opened, toggleOpened }) => {
           ]}
         >
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/images/Arrow_Down.png")}
-              resizeMode="contain"
-              style={styles.itemIcon}
-            />
+            <View style={styles.IconContainer}>
+              <Image
+                source={require("../../assets/images/Arrow_Down.png")}
+                resizeMode="contain"
+                style={styles.itemIcon}
+              />
+            </View>
           </TouchableOpacity>
         </Animated.View>
         <Animated.View
@@ -78,11 +80,13 @@ const AddButton = ({ opened, toggleOpened }) => {
           ]}
         >
           <TouchableOpacity>
-            <Image
-              source={require("../../assets/images/Transactions.png")}
-              resizeMode="contain"
-              style={styles.itemIcon}
-            />
+            <View style={styles.IconContainer}>
+              <Image
+                source={require("../../assets/images/Transactions.png")}
+                resizeMode="contain"
+                style={styles.itemIcon}
+              />
+            </View>
           </TouchableOpacity>
         </Animated.View>
         <Animated.View
@@ -108,11 +112,13 @@ const AddButton = ({ opened, toggleOpened }) => {
           ]}
         >
           <TouchableOpacity onPressIn={() => console.log("clicked")}>
-            <Image
-              source={require("../../assets/images/Arrow_Top.png")}
-              resizeMode="contain"
-              style={styles.itemIcon}
-            />
+            <View style={styles.IconContainer}>
+              <Image
+                source={require("../../assets/images/Arrow_Top.png")}
+                resizeMode="contain"
+                style={styles.itemIcon}
+              />
+            </View>
           </TouchableOpacity>
         </Animated.View>
         <View style={styles.addButtonHolder}>
@@ -149,6 +155,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flex: 1,
+    height: 0,
   },
   box: {
     position: "relative",
@@ -158,16 +165,19 @@ const styles = StyleSheet.create({
   },
   addButton: {
     shadowColor: COLORS.dark,
-    shadowOpacity: 1,
+    shadowOpacity: 10,
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
   },
   addButtonInner: {
+    elevation: 6,
     alignItems: "center",
     justifyContent: "center",
+    // backgroundColor: 'transparent',
     backgroundColor: COLORS.primary,
+    marginBottom:10,
     width: 60,
     height: 60,
     borderRadius: 30,
@@ -192,6 +202,12 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     tintColor: COLORS.white,
+  },
+  IconContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 50,
+    height: 50,
   },
 });
 

@@ -23,7 +23,7 @@ const TabsNavigator = () => {
       initialRouteName="Home"
       screenOptions={{
         headerShown: false,
-        tabBarShowLabel: true,
+        tabBarShowLabel: false,
         tabBarStyle: styles.tabBar,
       }}
     >
