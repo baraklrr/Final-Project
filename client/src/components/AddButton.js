@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
   // TouchableOpacity,
@@ -6,11 +6,15 @@ import {
   StyleSheet,
   Image,
   Animated,
+  // Button,
 } from "react-native";
+// import InvoiceForm from "../screens/InvoiceForm";
 import { COLORS } from "../theme/theme";
+import { useNavigation } from "@react-navigation/native";
 
 const AddButton = ({ opened, toggleOpened }) => {
   const animation = React.useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
 
   React.useEffect(() => {
     Animated.timing(animation, {
@@ -28,123 +32,135 @@ const AddButton = ({ opened, toggleOpened }) => {
     }),
   };
 
+  // const [openInvoice, setOpenInvoice] = useState(false);
+  const GoToButton = (screenName) => {
+    navigation.navigate(screenName);
+    toggleOpened();
+  };
   return (
-    <View style={styles.container}>
-      <View style={styles.box}>
-        <Animated.View
-          style={[
-            styles.item,
-            opacity,
-            {
-              transform: [
-                {
-                  translateX: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -60],
-                  }),
-                },
-                {
-                  translateY: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -50],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <TouchableOpacity>
-            <View style={styles.IconContainer}>
-              <Image
-                source={require("../../assets/images/Arrow_Down.png")}
-                resizeMode="contain"
-                style={styles.itemIcon}
-              />
-            </View>
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.item,
-            opacity,
-            {
-              transform: [
-                {
-                  translateY: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -100],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <TouchableOpacity>
-            <View style={styles.IconContainer}>
-              <Image
-                source={require("../../assets/images/Transactions.png")}
-                resizeMode="contain"
-                style={styles.itemIcon}
-              />
-            </View>
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.item,
-            opacity,
-            {
-              transform: [
-                {
-                  translateX: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 60],
-                  }),
-                },
-                {
-                  translateY: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -50],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <TouchableOpacity onPressIn={() => console.log("clicked")}>
-            <View style={styles.IconContainer}>
-              <Image
-                source={require("../../assets/images/Arrow_Top.png")}
-                resizeMode="contain"
-                style={styles.itemIcon}
-              />
-            </View>
-          </TouchableOpacity>
-        </Animated.View>
-        <View style={styles.addButtonHolder}>
-          <TouchableOpacity onPressIn={toggleOpened} style={styles.addButton}>
-            <Animated.View
-              style={[
-                styles.addButtonInner,
-                {
-                  transform: [
-                    {
-                      rotate: animation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ["0deg", "45deg"],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            >
-              <Image
-                source={require("../../assets/images/Add.png")}
-                resizeMode="contain"
-                style={styles.addButtonIcon}
-              />
-            </Animated.View>
-          </TouchableOpacity>
+    <View>
+      {/* <InvoiceForm
+        visible={openInvoice}
+        closeDisplay={() => setOpenInvoice(false)} // 
+      /> */}
+      <View style={styles.container}>
+        <View style={styles.box}>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateX: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -60],
+                    }),
+                  },
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -50],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            <TouchableOpacity>
+              <View style={styles.IconContainer}>
+                <Image
+                  source={require("../../assets/images/Arrow_Down.png")}
+                  resizeMode="contain"
+                  style={styles.itemIcon}
+                />
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -100],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            <TouchableOpacity onPress={()=>GoToButton("modal")}>
+              <View style={styles.IconContainer}>
+                <Image
+                  source={require("../../assets/images/Transactions.png")}
+                  resizeMode="contain"
+                  style={styles.itemIcon}
+                />
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateX: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, 60],
+                    }),
+                  },
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -50],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            {/* <TouchableOpacity onPress={() => setOpenInvoice(true)}> */}
+            <TouchableOpacity onPress={() => GoToButton("modal")}>
+              <View style={styles.IconContainer}>
+                <Image
+                  source={require("../../assets/images/Arrow_Top.png")}
+                  resizeMode="contain"
+                  style={styles.itemIcon}
+                />
+              </View>
+            </TouchableOpacity>
+          </Animated.View>
+          <View style={styles.addButtonHolder}>
+            <TouchableOpacity onPress={toggleOpened} style={styles.addButton}>
+              <Animated.View
+                style={[
+                  styles.addButtonInner,
+                  {
+                    transform: [
+                      {
+                        rotate: animation.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: ["0deg", "45deg"],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              >
+                <Image
+                  source={require("../../assets/images/Add.png")}
+                  resizeMode="contain"
+                  style={styles.addButtonIcon}
+                />
+              </Animated.View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -177,7 +193,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     // backgroundColor: 'transparent',
     backgroundColor: COLORS.primary,
-    marginBottom:10,
+    marginBottom: 10,
     width: 60,
     height: 60,
     borderRadius: 30,
