@@ -6,9 +6,7 @@ import {
   StyleSheet,
   Image,
   Animated,
-  // Button,
 } from "react-native";
-// import InvoiceForm from "../screens/InvoiceForm";
 import { COLORS } from "../theme/theme";
 import { useNavigation } from "@react-navigation/native";
 
@@ -32,17 +30,13 @@ const AddButton = ({ opened, toggleOpened }) => {
     }),
   };
 
-  // const [openInvoice, setOpenInvoice] = useState(false);
   const GoToButton = (screenName) => {
     navigation.navigate(screenName);
     toggleOpened();
   };
   return (
     <View>
-      {/* <InvoiceForm
-        visible={openInvoice}
-        closeDisplay={() => setOpenInvoice(false)} // 
-      /> */}
+     
       <View style={styles.container}>
         <View style={styles.box}>
           <Animated.View

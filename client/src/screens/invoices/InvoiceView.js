@@ -6,13 +6,112 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Card, Input, Button, Divider } from "@rneui/themed";
-import { DataTable } from "react-native-paper";
+import { Card, Divider } from "@rneui/themed";
+import { Chip, DataTable, Button } from "react-native-paper";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Header from "../../../components/Header";
 
-const InvoiceSecond = ({ navigation }) => {
+const InvoiceView = ({ navigation }) => {
   return (
     <ScrollView>
       <View>
+        <Card>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <View style={{ height: 20, width: 20 }}>
+              <Text style={{ alignSelf: "center" }}></Text>
+            </View>
+            <Chip
+              style={{
+                borderColor: `lightgreen`,
+                backgroundColor: `lightgreen`,
+                alignSelf: "center",
+              }}
+              icon="check"
+            >
+              מסמך סגור
+            </Chip>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("אפשרויות")}
+              style={{
+                alignSelf: "center",
+              }}
+            >
+              <Icon name="dots-vertical" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
+          <Header
+            style={{ textAlign: "center", marginTop: 15, color: "black" }}
+          >
+           24 יולי, 2022
+          </Header>
+          <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          </Text>
+          <Card.Title
+            style={{
+              textAlign: "center",
+              color: "grey",
+              marginTop: 10,
+              fontSize: 14,
+            }}
+          >
+            סכום ההכנסה (לא כולל מע"מ)
+          </Card.Title>
+          <Header
+            style={{
+              textAlign: "center",
+              fontSize: 50,
+              paddingVertical: 0,
+              marginTop: -15,
+              color: "black",
+            }}
+          >
+            ₪240
+          </Header>
+          <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          </Text>
+          <View style={{ flex: 1, padding: 5, flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: "grey" }}>סכום ההכנסה (כולל מע"מ)</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: "black",
+                  textAlign: "right",
+                  fontWeight: "bold",
+                }}
+              >
+                {"\u20AA"}345
+              </Text>
+            </View>
+          </View>
+          <View style={{ flex: 1, padding: 5, flexDirection: "row" }}>
+            <View style={{ flex: 1 }}>
+              <Text style={{ color: "grey" }}>שם לקוח</Text>
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text
+                style={{
+                  color: "black",
+                  textAlign: "right",
+                  fontWeight: "bold",
+                }}
+              >
+                אלון אלוני
+              </Text>
+            </View>
+          </View>
+          <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+          </Text>
+        </Card>
         <Card>
           <Card.Title style={{ textAlign: "left", fontSize: 20 }}>
             פרטי המסמך
@@ -138,14 +237,6 @@ const InvoiceSecond = ({ navigation }) => {
             </View>
           </View>
         </Card>
-        <Button
-          title={"הפקת חשבונית מס / קבלה"}
-          onPress={() => navigation.navigate("חשבונית מס/קבלה 240796")}
-          containerStyle={{
-            padding: 15,
-            marginVertical: 10,
-          }}
-        />
       </View>
     </ScrollView>
   );
@@ -159,4 +250,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InvoiceSecond;
+export default InvoiceView;
