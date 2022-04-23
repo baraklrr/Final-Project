@@ -8,7 +8,7 @@ import SettingNavigation from './SettingNavigation';
 import UserInformation from '../screens/UserInformation';
 import { useTabMenu } from "../navigation/TabContext";
 import AddButton from "../components/AddButton";
-
+import {COLORS} from "../core/theme";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,38 +19,61 @@ return (
 <Tab.Navigator
 initialRouteName='Dashboard' 
 screenOptions={{
-        headerShown: false,
+        headerShown: true,
         tabBarShowLabel: false,
-        
+        headerTitleAlign:'center',
+        tabBarStyle:styles.tabBar,
+        headerTitleStyle: {alignItems: 'center'},
+        headerStyle: {
+            backgroundColor: COLORS.primary,
+            borderBottomRightRadius: 100,
+            height: 120
+        },
+        headerBackTitleStyle: {
+            color: 'transparent',
+        },
+        headerBackTitleVisible: false    
 }}>
 
 <Tab.Screen name="בית" component={Dashboard}  options={
-    {headerShown:true,
-    headerBackVisble:false,
-    headerTitleAlign:'center', tabBarIcon: ({color, size}) => (
-    <Ionicons name="home-outline" color={color} size={size} />)}}/>
+    {headerTitle: '', tabBarIcon: ({color, size}) => (
+    <Ionicons name="home-outline" color={color} size={size} />)}}
+    listeners={{
+      tabPress: e => opened && e.preventDefault(),
+    }}/>
 
 
 <Tab.Screen name="העסק שלי"  component={UserInformation}
 options=
 {{tabBarIcon: ({color, size}) => (
-    <Ionicons name="person" color={color} size={size} />)}}/>   
+    <Ionicons name="person" color={color} size={size} />)}}
+    listeners={{
+      tabPress: e => opened && e.preventDefault(),
+ }}/>   
 
 
 <Tab.Screen name="הוספה" component={Dashboard} options=
 {{tabBarButton: () => (
     <AddButton opened={opened} toggleOpened={toggleOpened} />
-  ),}}/>
+  ),}}   listeners={{
+    tabPress: e => opened && e.preventDefault(),
+}}/>
 
 <Tab.Screen name="התראות"  component={NotificationScreen}
 options=
 {{tabBarIcon: ({color, size}) => (
-    <Ionicons name="alert" color={color} size={size} />)}}/>   
+    <Ionicons name="alert" color={color} size={size} />)}}
+    listeners={{
+      tabPress: e => opened && e.preventDefault(),
+ }}/>   
 
 <Tab.Screen name="הגדרות" component={SettingNavigation}
 options=
-{  {tabBarStyle: { display: "none" },tabBarIcon: ({color, size}) => (
-    <Ionicons name="settings" color={color} size={size} />)}}/>
+{  { headerShown: false,tabBarIcon: ({color, size}) => (
+    <Ionicons name="settings" color={color} size={size} />)}}
+    listeners={{
+      tabPress: e => opened && e.preventDefault(),
+ }}/>
 
 
 </Tab.Navigator>

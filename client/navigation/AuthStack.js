@@ -19,7 +19,7 @@ const AuthStack = () => {
        <Stack.Screen name="StartScreen" component={TabNavigation} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-    <Stack.Screen name="Dashboard" component={StartScreen}/>
+    <Stack.Screen name="Dashboard" component={StartScreen} />
   </Stack.Navigator>
   </TabContextProvider>)
 }

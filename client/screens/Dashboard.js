@@ -7,6 +7,7 @@ import TabContainer from "../components/TabContainer";
 export default function Dashboard({ navigation }) {
   return (
     <TabContainer>
+
     <View>
       <Card>
         <View style={styles.user}>

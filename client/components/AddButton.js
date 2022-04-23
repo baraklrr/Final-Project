@@ -1,15 +1,15 @@
 import React from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
+
 import {
-  // TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
   StyleSheet,
   Image,
   Animated,
 } from "react-native";
-import { COLORS } from "../core/theme";
+import {COLORS} from "../core/theme";
 
-const AddButton = ({ opened, toggleOpened }) => {
+const AddButton = ({opened, toggleOpened}) => {
   const animation = React.useRef(new Animated.Value(0)).current;
 
   React.useEffect(() => {
@@ -31,91 +31,111 @@ const AddButton = ({ opened, toggleOpened }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Animated.View
-          style={[
-            styles.item,
-            opacity,
-            {
-              transform: [
-                {
-                  translateX: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -60],
-                  }),
-                },
-                {
-                  translateY: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -50],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <TouchableOpacity>
+        <TouchableWithoutFeedback>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateX: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -60],
+                    }),
+                  },
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -50],
+                    }),
+                  },
+                ],
+              },
+            ]}>
             <Image
-            source={require("../assets/shekel_in.png")}
+              source={require("../assets/Arrow_Down.png")}
               resizeMode="contain"
               style={styles.itemIcon}
             />
-          </TouchableOpacity>
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.item,
-            opacity,
-            {
-              transform: [
-                {
-                  translateX: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 60],
-                  }),
-                },
-                {
-                  translateY: animation.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, -50],
-                  }),
-                },
-              ],
-            },
-          ]}
-        >
-          <TouchableOpacity onPressIn={() => console.log("clicked1")}>
+          </Animated.View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -100],
+                    }),
+                  },
+                ],
+              },
+            ]}>
             <Image
-              source={require("../assets/shekel_out.png")}
+              source={require("../assets/Transactions.png")}
               resizeMode="contain"
               style={styles.itemIcon}
             />
-          </TouchableOpacity>
-        </Animated.View>
-        <View style={styles.addButtonHolder}>
-          <TouchableOpacity onPressIn={toggleOpened} style={styles.addButton}>
-            <Animated.View
-              style={[
-                styles.addButtonInner,
-                {
-                  transform: [
-                    {
-                      rotate: animation.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: ["0deg", "45deg"],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            >
-              <Image
-                source={require("../assets/add.png")}
-                resizeMode="contain"
-                style={styles.addButtonIcon}
-              />
-            </Animated.View>
-          </TouchableOpacity>
-        </View>
+          </Animated.View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback>
+          <Animated.View
+            style={[
+              styles.item,
+              opacity,
+              {
+                transform: [
+                  {
+                    translateX: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, 60],
+                    }),
+                  },
+                  {
+                    translateY: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0, -50],
+                    }),
+                  },
+                ],
+              },
+            ]}>
+            <Image
+              source={require("../assets/Arrow_Top.png")}
+              resizeMode="contain"
+              style={styles.itemIcon}
+            />
+          </Animated.View>
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={toggleOpened}
+          style={styles.addButton}>
+          <Animated.View
+            style={[
+              styles.addButtonInner,
+              {
+                transform: [
+                  {
+                    rotate: animation.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: ["0deg", "45deg"],
+                    }),
+                  },
+                ],
+              },
+            ]}>
+            <Image
+              source={require("../assets/add.png")}
+              resizeMode="contain"
+              style={styles.addButtonIcon}
+            />
+          </Animated.View>
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );
@@ -125,6 +145,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flex: 1,
+    height: 0,
   },
   box: {
     position: "relative",
@@ -134,7 +155,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     shadowColor: COLORS.dark,
-    shadowOpacity: 1,
+    shadowOpacity: 0.3,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -165,8 +186,8 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   itemIcon: {
-    width: 50,
-    height: 50,
+    width: 32,
+    height: 32,
     tintColor: COLORS.white,
   },
 });
