@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   mysqldb:
@@ -29,7 +29,7 @@ services:
     ports:
       - 8000:80
     restart: always
-        
+
   server:
     depends_on:
       - mysqldb
@@ -52,37 +52,37 @@ services:
       - backend
       - frontend
 
-  # client:
-  #   depends_on:
-  #     - server
-  #   build:
-  #     context: ./client
-  #   container_name: client_expo_container
-  #   env_file: .env
-  #   ports:
-  #     - 19000:19000
-  #     - 19001:19001
-  #     - 19002:19002
-  #     - 19006:19006
-  #   environment:
-  #     - REACT_NATIVE_PACKAGER_HOSTNAME=$REACT_NATIVE_PACKAGER_HOSTNAME
-  #     - EXPO_DEVTOOLS_LISTEN_ADDRESS=$ADB_IP
-  #   volumes:
-  #     - ./client:/client
-  #   networks:
-  #     - frontend 
+  client:
+    depends_on:
+      - server
+    build:
+      context: ./client
+    container_name: client_expo_container
+    env_file: .env
+    ports:
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002
+      - 19006:19006
+    environment:
+      - REACT_NATIVE_PACKAGER_HOSTNAME=$REACT_NATIVE_PACKAGER_HOSTNAME
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=$ADB_IP
+    volumes:
+      - ./client:/client
+    networks:
+      - frontend
 
   swagger-ui:
-   depends_on:
+    depends_on:
       - server
-   image: swaggerapi/swagger-ui
-   container_name: swagger_ui_container
-   ports:
+    image: swaggerapi/swagger-ui
+    container_name: swagger_ui_container
+    ports:
       - $SWAGGER_PORT:$NODE_DOCKER_PORT
-   environment:
+    environment:
       API_URL: $SWAGGER_API_URL
 
-volumes: 
+volumes:
   db:
 
 networks:
