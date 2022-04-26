@@ -14,7 +14,7 @@ const sequelize = new Sequelize(
       max: dbConfig.pool.max,
       min: dbConfig.pool.min,
       acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle
+      idle: dbConfig.pool
     }
   }
 );
@@ -65,5 +65,9 @@ db.user.hasOne(db.refreshToken, {
 //   otherKey: "userID"
 // });
 db.ROLES = ["user", "admin", "moderator"];
+db.bankAccount = require("./bankAccount.model.js")(sequelize, Sequelize);
+db.customer = require("./customer.model.js")(sequelize, Sequelize);
+db.item = require("./item.model.js")(sequelize, Sequelize);
+db.receipt = require("./receipt.model.js")(sequelize, Sequelize);
 
 module.exports = db;

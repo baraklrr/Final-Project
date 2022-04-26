@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     paymentMethod: {
-      type: Sequelize.paymentMethod
+      type: Sequelize.STRING
     }
   });
 
