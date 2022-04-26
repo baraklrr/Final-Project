@@ -41,12 +41,12 @@ if (process.env.NODE_ENV == "development") {
 const db = require("./app/models");
 const Role = db.role;
 
-// db.sequelize.sync(); //For production
+//db.sequelize.sync(); //For production
 // force: true will drop the table if it already exists
 db.sequelize.sync({ force: true }).then(() => {
-   console.log("Drop and re-sync db.");
-   initial();
- });
+  console.log("Drop and re-sync db.");
+  initial();
+});
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to Xcount application." });
@@ -79,4 +79,4 @@ function initial() {
   });
 }
 
-module.exports = app
+module.exports = app;

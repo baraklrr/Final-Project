@@ -1,3 +1,5 @@
+const { user } = require(".");
+
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
     userID: {
@@ -8,31 +10,41 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER
     },
     username: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     email: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     phoneNumber: {
       type: Sequelize.INTEGER
     },
     password: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
-    numOfChildren: {
-      type: Sequelize.INTEGER
+    phoneNumber: {
+      type: Sequelize.STRING,
     },
-
-      //list of customers
-
-      //status 
-
-      //type of company
-
-      //bank account
-
-      //credit card
+    status: {
+      type: Sequelize.ENUM("Bachelor", "Married", "divorcee"),
+    },
+    numberOfChildren: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
+    },
+    businessId: {
+      type: Sequelize.INTEGER,
+    },
+    // bankAccount: {
+    //   type: Sequelize.ENUM(...Object.values(BankAccount)),
+    //   defaultValue: "pending",
+    // },
   });
 
   return User;
+};
+
+const BankAccount = {
+  HAPOALIM: "hapoalim",
+  DISCOUNT: "discount",
+  LEUMI: "leumi",
 };
