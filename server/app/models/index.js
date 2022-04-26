@@ -9,7 +9,7 @@ const sequelize = new Sequelize(
   {
     host: dbConfig.HOST,
     dialect: dbConfig.dialect,
-    operatorsAliases: false,
+    operatorsAliases: 0,
     pool: {
       max: dbConfig.pool.max,
       min: dbConfig.pool.min,
@@ -53,12 +53,17 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
-db.refreshToken.belongsTo(db.user, {
-  foreignKey: 'userId', targetKey: 'id'
-});
+// db.refreshToken.belongsTo(db.user, {
+//   foreignKey: 'userId', targetKey: 'id'
+// });
 db.user.hasOne(db.refreshToken, {
   foreignKey: 'userId', targetKey: 'id'
 });
+// db.user.belongsToMany(db.customer, {
+//   through: "user_customer",
+//   foreignKey: "companyID",
+//   otherKey: "userID"
+// });
 db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
