@@ -1,3 +1,4 @@
+placeholder="סכום"
 import React from "react";
 import {
   View,
@@ -5,12 +6,34 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Share
 } from "react-native";
 import { Button, Card } from "@rneui/themed";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Header from "../../../components/Header";
 
 const InvoiceFinal = ({ navigation }) => {
+
+  onShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'React Native | A framework for building native apps using React',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <View style={styles.container}>
       <Card>
@@ -98,7 +121,7 @@ const InvoiceFinal = ({ navigation }) => {
           <Button
             icon={<Icon name="upload" size={24} color="white" />}
             iconContainerStyle={{ background: "#000" }}
-            onPress={() => navigation.navigate("צפה בהכנסה")}
+            onPress={onShare}
             containerStyle={{
               padding: 15,
               marginVertical: 10,

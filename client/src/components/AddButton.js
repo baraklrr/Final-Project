@@ -61,7 +61,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               },
             ]}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>GoToButton("InvoicesStack")}>
               <View style={styles.IconContainer}>
                 <Image
                   source={require("../../assets/images/Arrow_Down.png")}
@@ -87,7 +87,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               },
             ]}
           >
-            <TouchableOpacity onPress={()=>GoToButton("modal")}>
+            <TouchableOpacity>
               <View style={styles.IconContainer}>
                 <Image
                   source={require("../../assets/images/Transactions.png")}
@@ -119,8 +119,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               },
             ]}
           >
-            {/* <TouchableOpacity onPress={() => setOpenInvoice(true)}> */}
-            <TouchableOpacity onPress={() => GoToButton("modal")}>
+            <TouchableOpacity onPress={() => GoToButton("ExpenditureStack")}>
               <View style={styles.IconContainer}>
                 <Image
                   source={require("../../assets/images/Arrow_Top.png")}

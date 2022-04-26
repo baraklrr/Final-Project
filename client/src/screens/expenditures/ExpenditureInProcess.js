@@ -11,21 +11,9 @@ function SettingsScreen() {
   );
 }
 const Tab = createMaterialTopTabNavigator();
-const InvoicePayment = ({ navigation }) => {
+const ExpenditureInProcess = ({ navigation }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Button
-          containerStyle={{
-            width: 80,
-            marginVertical: 10,
-          }}
-          onPress={() => navigation.navigate("חשבונית מס/קבלה", { id: 123 })}
-          title="הוספה"
-          type="clear"
-          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-        />
-      ),
     });
   }, [navigation]);
 
@@ -33,17 +21,13 @@ const InvoicePayment = ({ navigation }) => {
     <NavigationContainer independent={true}>
       <Tab.Navigator
         screenOptions={{
-          tabBarScrollEnabled: true,
+          tabBarScrollEnabled: false,
           tabBarLabelStyle: { fontSize: 14 },
-          tabBarItemStyle: { width: 100 },
           // tabBarStyle: { backgroundColor: "powderblue" },
         }}
       >
-        <Tab.Screen name="העברה בנקאית" component={SettingsScreen} />
-        <Tab.Screen name="כ.אשראי" component={SettingsScreen} />
-        <Tab.Screen name="שיק" component={SettingsScreen} />
-        <Tab.Screen name="אפליקציית תשלום" component={SettingsScreen} />
-        <Tab.Screen name="אחר" component={SettingsScreen} />
+        <Tab.Screen name="הוצאות שנדחו" component={SettingsScreen} />
+        <Tab.Screen name="הוצאות שטרם אושרו" component={SettingsScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -57,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InvoicePayment;
+export default ExpenditureInProcess;

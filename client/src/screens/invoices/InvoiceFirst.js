@@ -1,28 +1,22 @@
 import React, { useState, useRef } from "react";
-import { TouchableOpacity, View, Text, StyleSheet, ScrollView } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from "react-native";
 import { Card, Input, Button, Divider } from "@rneui/themed";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { TextInput, Checkbox, DataTable } from "react-native-paper";
+import { Checkbox, DataTable } from "react-native-paper";
 import RNPickerSelect from "react-native-picker-select";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import InvoiceTextInput from "../../components/InvoiceTextInput";
+import CustomDivider from "../../components/CustomDivider";
+import DateSelect from "../../components/DateSelect";
 
 const InvoiceFirst = ({ navigation }) => {
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [mode, setMode] = useState("date");
-  const [show, setShow] = useState(false);
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(false);
-    setDate(currentDate);
-  };
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
-  };
-  const showDatepicker = () => {
-    showMode("date");
-  };
+
   const [checked, setChecked] = React.useState(false);
   const [vat, setVat] = useState();
   const [currency, setCurrency] = useState();
@@ -45,57 +39,35 @@ const InvoiceFirst = ({ navigation }) => {
             textAlignVertical="center"
             maxLength={24}
             disabledInputStyle={{ background: "#ddd" }}
-            // leftIcon={<Icon name="account-outline" size={20} />}
-            // rightIcon={<Icon name="close" size={20} />}
             placeholder="תיאור ההכנסה"
           ></Input>
-          <TextInput
-            label="תאריך"
-            mode="outlined"
-            textAlign="center"
-            right={<TextInput.Icon name="calendar" />}
-            // left={<TextInput.Icon name="arrow-up-down" />}
-            textAlignVertical="center"
-            onPressIn={showDatepicker}
-            value={date.toLocaleDateString()}
-          />
-          {show && (
-            <DateTimePicker
-              testID="dateTimePicker"
-              value={date}
-              mode={mode}
-              is24Hour={true}
-              onChange={onChange}
-            />
-          )}
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <DateSelect/>
+          <CustomDivider />
           <Card.Title style={{ textAlign: "left" }}>לכבוד</Card.Title>
-          <Input
-            textAlign="right"
-            textAlignVertical="center"
-            disabledInputStyle={{ background: "#ddd" }}
-            rightIcon={<Icon name="account-plus" size={20} />}
-            placeholder="שם"
-          />
+          <TouchableOpacity>
+            <Input
+              textAlign="right"
+              textAlignVertical="center"
+              disabledInputStyle={{ background: "#ddd" }}
+              rightIcon={<Icon name="account-plus" size={20} />}
+              icon
+              placeholder="שם"
+            />
+          </TouchableOpacity>
           <Input
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: "#ddd" }}
             rightIcon={<Icon name="phone" size={20} />}
             placeholder="טלפון"
+            keyboardType="number-pad"
           />
           <Input
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: "#ddd" }}
             placeholder="מספר עוסק או ח.פ"
+            keyboardType="number-pad"
           />
           <Input
             textAlign="right"
@@ -108,6 +80,7 @@ const InvoiceFirst = ({ navigation }) => {
             textAlignVertical="center"
             disabledInputStyle={{ background: "#ddd" }}
             placeholder="אימייל"
+            keyboardType="email-address"
           />
           <Checkbox.Item
             label="שמור לקוח לפעם הבאה"
@@ -116,14 +89,8 @@ const InvoiceFirst = ({ navigation }) => {
               setChecked(!checked);
             }}
           />
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider />
+
           <Card.Title style={{ textAlign: "left" }}>
             פירוט עסקה ושירותים
           </Card.Title>
@@ -295,14 +262,8 @@ const InvoiceFirst = ({ navigation }) => {
               </View>
             </View>
           </DataTable>
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider/>
+
           <Card.Title style={{ textAlign: "left" }}>תקבולים</Card.Title>
           <DataTable>
             <DataTable.Header>

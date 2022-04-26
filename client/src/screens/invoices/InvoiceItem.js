@@ -80,6 +80,7 @@ const InvoiceItem = ({ navigation }) => {
               disabledInputStyle={{ background: "#ddd" }}
               // rightIcon={<Icon name="account-plus" size={20} />}
               placeholder="כמות"
+              keyboardType="numeric"
             />
           </View>
         </View>
@@ -90,6 +91,7 @@ const InvoiceItem = ({ navigation }) => {
             disabledInputStyle={{ background: "#ddd" }}
             // rightIcon={<Icon name="account-plus" size={20} />}
             placeholder="סכום (לפריט בודד)"
+            keyboardType="numeric"
           />
         </View>
       </View>

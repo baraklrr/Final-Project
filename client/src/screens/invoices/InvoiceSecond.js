@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import { Card, Input, Button, Divider } from "@rneui/themed";
 import { DataTable } from "react-native-paper";
+import CustomDivider from "../../components/CustomDivider";
 
 const InvoiceSecond = ({ navigation }) => {
   return (
@@ -28,14 +29,7 @@ const InvoiceSecond = ({ navigation }) => {
             חשבונית מס / קבלה
           </Card.Title>
 
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider/>
 
           <Card.Title style={{ textAlign: "left" }}>
             פירוט עסקה ושירותים
@@ -103,14 +97,8 @@ const InvoiceSecond = ({ navigation }) => {
               </View>
             </View>
           </DataTable>
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider/>
+
           <Card.Title style={{ textAlign: "left" }}>תקבולים</Card.Title>
           <DataTable>
             <DataTable.Header>
@@ -140,7 +128,16 @@ const InvoiceSecond = ({ navigation }) => {
         </Card>
         <Button
           title={"הפקת חשבונית מס / קבלה"}
-          onPress={() => navigation.navigate("חשבונית מס/קבלה 240796")}
+          onPress={() => 
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: 'חשבונית מס/קבלה 240796',
+                  params: { someParam: 'Param1' },
+                },
+              ],
+            })}
           containerStyle={{
             padding: 15,
             marginVertical: 10,

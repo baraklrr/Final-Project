@@ -4,6 +4,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import TabsNavigator from "./TabsNavigator";
 import InvoiceFormNavigator from "./InvoiceFormNavigator";
 import {TabContextProvider} from "../context/TabContext";
+import ExpenditureNavigator from "./ExpenditureNavigator";
 
 const Stack = createStackNavigator();
 
@@ -16,8 +17,17 @@ const MainNavigator = () => {
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Root" component={TabsNavigator} />
           <Stack.Screen
-          name="modal"
+          name="InvoicesStack"
           component={InvoiceFormNavigator}
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+            // ...TransitionPresets.ModalPresentationIOS,
+          }}
+        /> 
+          <Stack.Screen
+          name="ExpenditureStack"
+          component={ExpenditureNavigator}
           options={{
             headerShown: false,
             presentation: 'modal',

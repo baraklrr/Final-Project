@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Card } from "@rneui/themed";
 import TabContainer from "../src/components/TabContainer";
-import {COLORS} from "../src/theme/theme";
+import { COLORS } from "../src/theme/theme";
 
 export default function Dashboard({ navigation }) {
   return (

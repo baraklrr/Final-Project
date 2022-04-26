@@ -10,6 +10,7 @@ import { Card, Divider } from "@rneui/themed";
 import { Chip, DataTable, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Header from "../../../components/Header";
+import CustomDivider from "../../components/CustomDivider";
 
 const InvoiceView = ({ navigation }) => {
   return (
@@ -127,14 +128,7 @@ const InvoiceView = ({ navigation }) => {
             חשבונית מס / קבלה
           </Card.Title>
 
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider/>
 
           <Card.Title style={{ textAlign: "left" }}>
             פירוט עסקה ושירותים
@@ -202,14 +196,7 @@ const InvoiceView = ({ navigation }) => {
               </View>
             </View>
           </DataTable>
-          <Card.Divider
-            style={{
-              marginTop: 24,
-              marginRight: -15,
-              marginLeft: -15,
-              elevation: 1,
-            }}
-          />
+          <CustomDivider/>
           <Card.Title style={{ textAlign: "left" }}>תקבולים</Card.Title>
           <DataTable>
             <DataTable.Header>
