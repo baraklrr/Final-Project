@@ -60,19 +60,9 @@ export default function MyDetails() {
 }
 
 const style = StyleSheet.create({
-  pageContainer: {
-    marginTop: "42px",
-  },
+  
   textInput: {
-    marginVertical: "8px",
-    marginHorizontal: "8px",
     textAlign: "left",
-  },
-  phoneTextInput: {
-    width: "250px",
-  },
-  kidsTextInput: {
-    width: "80px",
   },
 
   text: {
