@@ -33,16 +33,19 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.invoices = require("./invoice.model.js")(sequelize, Sequelize);
-db.expense = require("./expense.model.js")(sequelize, Sequelize);
-db.income = require("./income.model.js")(sequelize, Sequelize);
-db.business = require("./business.model.js")(sequelize, Sequelize);
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.refreshToken = require("../models/refreshToken.model.js")(
   sequelize,
   Sequelize
 );
+db.invoices = require("./item.model.js")(sequelize, Sequelize);
+db.invoices = require("./customer.model.js")(sequelize, Sequelize);
+db.invoices = require("./bankAccount.model.js")(sequelize, Sequelize);
+//db.invoices = require("./invoice.model.js")(sequelize, Sequelize);
+db.expense = require("./expense.model.js")(sequelize, Sequelize);
+db.income = require("./income.model.js")(sequelize, Sequelize);
+db.business = require("./business.model.js")(sequelize, Sequelize);
 db.role.belongsToMany(db.user, {
   through: "user_roles",
   foreignKey: "roleId",

@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
     userID: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
+      //primaryKey: true,
     },
     companyUserID: {
       type: Sequelize.INTEGER,

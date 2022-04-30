@@ -1,15 +1,17 @@
+const { item } = require(".");
+
 module.exports = (sequelize, Sequelize) => {
   const Item = sequelize.define("items", {
     itemID: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     itemName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     price: {
-      type: Sequelize.INTEGER
-    }
+      type: Sequelize.INTEGER,
+    },
   });
 
   return Item;

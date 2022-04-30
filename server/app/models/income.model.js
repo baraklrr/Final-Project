@@ -42,6 +42,9 @@ module.exports = (sequelize, Sequelize) => {
         "Credit invoice"
       ),
     },
+    paymentMethod: {
+      type: Sequelize.STRING,
+    },
     confirmed: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,

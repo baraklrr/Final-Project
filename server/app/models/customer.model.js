@@ -1,15 +1,17 @@
+const { customer } = require(".");
+
 module.exports = (sequelize, Sequelize) => {
   const Customer = sequelize.define("customers", {
     companyID: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     companyName: {
-      type: Sequelize.STRING
+      type: Sequelize.STRING,
     },
     userID: {
-      type: Sequelize.INTEGER
-    }
+      type: Sequelize.INTEGER,
+    },
   });
 
   return Customer;

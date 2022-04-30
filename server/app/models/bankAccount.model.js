@@ -1,17 +1,22 @@
+const { bankAccount } = require(".");
+
 module.exports = (sequelize, Sequelize) => {
   const BankAccount = sequelize.define("bank Accounts", {
     bankID: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
-    numOfBank: {
-      type: Sequelize.INTEGER
+    bankNumber: {
+      type: Sequelize.INTEGER,
     },
-    numOfBranch: {
-      type: Sequelize.INTEGER
+    branchNumber: {
+      type: Sequelize.INTEGER,
     },
-    numOfAccount: {
-      type: Sequelize.INTEGER
+    accountOwnerName: {
+      type: Sequelize.STRING,
+    },
+    accountNumer: {
+      type: Sequelize.INTEGER,
     },
   });
 
