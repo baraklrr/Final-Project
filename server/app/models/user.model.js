@@ -4,10 +4,10 @@ module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
     userID: {
       type: Sequelize.INTEGER,
-      primaryKey: true
+      primaryKey: true,
     },
     companyUserID: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     username: {
       type: Sequelize.STRING,
@@ -16,10 +16,9 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.STRING,
     },
     phoneNumber: {
-      type: Sequelize.INTEGER
+      type: Sequelize.INTEGER,
     },
     password: {
-<<<<<<< HEAD
       type: Sequelize.STRING,
     },
     phoneNumber: {
@@ -39,23 +38,6 @@ module.exports = (sequelize, Sequelize) => {
     //   type: Sequelize.ENUM(...Object.values(BankAccount)),
     //   defaultValue: "pending",
     // },
-=======
-      type: Sequelize.STRING
-    },
-    numOfChildren: {
-      type: Sequelize.INTEGER
-    },
-
-      //list of customers
-
-      //status 
-
-      //type of company
-
-      //bank account
-
-      //credit card
->>>>>>> 4367ca71bb844a434bfd92eb8ac8920d29488dba
   });
 
   return User;

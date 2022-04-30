@@ -2,7 +2,6 @@ const dbConfig = require("../config/db.config.js");
 
 const Sequelize = require("sequelize");
 
-<<<<<<< HEAD
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -14,25 +13,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle,
   },
 });
-=======
-const sequelize = new Sequelize(
-  dbConfig.DB,
-  dbConfig.USER,
-  dbConfig.PASSWORD,
-  {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorsAliases: 0,
-    pool: {
-      max: dbConfig.pool.max,
-      min: dbConfig.pool.min,
-      acquire: dbConfig.pool.acquire,
-      idle: dbConfig.pool.idle
-    }
-  }
-);
-
->>>>>>> 4367ca71bb844a434bfd92eb8ac8920d29488dba
 
 // const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 //   host: dbConfig.HOST,
@@ -73,32 +53,18 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId",
 });
-<<<<<<< HEAD
 db.refreshToken.belongsTo(db.user, {
   foreignKey: "userId",
   targetKey: "id",
 });
-=======
-// db.refreshToken.belongsTo(db.user, {
-//   foreignKey: 'userId', targetKey: 'id'
-// });
->>>>>>> 4367ca71bb844a434bfd92eb8ac8920d29488dba
 db.user.hasOne(db.refreshToken, {
   foreignKey: "userId",
   targetKey: "id",
 });
-<<<<<<< HEAD
 /*db.expense.hasOne(db.refreshToken, {
   foreignKey: 'userId', targetKey: 'id'
 });*/
 
-=======
-// db.user.belongsToMany(db.customer, {
-//   through: "user_customer",
-//   foreignKey: "companyID",
-//   otherKey: "userID"
-// });
->>>>>>> 4367ca71bb844a434bfd92eb8ac8920d29488dba
 db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
