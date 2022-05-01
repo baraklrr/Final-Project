@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screens/Dashboard';
 import NotificationScreen from '../screens/NotificationScreen';
 import SettingNavigation from './SettingNavigation';
-import UserInformation from '../screens/UserInformation';
+import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
 import { useTabMenu } from "../navigation/TabContext";
 import AddButton from "../components/AddButton";
 import {COLORS} from "../core/theme";
@@ -43,9 +43,11 @@ screenOptions={{
     }}/>
 
 
-<Tab.Screen name="העסק שלי"  component={UserInformation}
+<Tab.Screen name="העסק שלי"  component={MyBuissnessNavigator}
 options=
-{{tabBarIcon: ({color, size}) => (
+{{ 
+  headerShown: false,
+tabBarIcon: ({color, size}) => (
     <Ionicons name="person" color={color} size={size} />)}}
     listeners={{
       tabPress: e => opened && e.preventDefault(),

@@ -31,7 +31,6 @@ const MybuissnessNavigator = () =>
     <Stack.Screen name="הדיווחים שלי" component={ReportScreen}/>
     <Stack.Screen name="ערוך את הפרטים שלי" component={MyDetails} />
     <Stack.Screen name= "המסמכים שלי" component={Myfiles} />
-
     </Stack.Navigator>
   )
 }
