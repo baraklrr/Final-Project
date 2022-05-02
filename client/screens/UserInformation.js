@@ -1,17 +1,17 @@
 import * as React from 'react';
+
 import {
+  ScrollView,
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
-  Image,
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../components/Header'
 import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
 
 const styles = StyleSheet.create({
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   
 export default function Settings({ navigation }) {
 return (
+  <ScrollView>
   <TabContainer>
     <View style={styles.container}>
       <Card >
@@ -67,7 +68,7 @@ return (
   </TouchableOpacity>
 
   <TouchableOpacity  onPress={()=>{navigation.navigate("ערוך את הפרטים שלי")}}>
-      <Card.Title
+    <Card.Title
      style={styles.list}
      titleStyle={{fontSize:16}}
      title="ערוך פרטים אישיים"
@@ -76,10 +77,16 @@ return (
   </TouchableOpacity>
 
     <Card style={styles.list} >
-    <Text></Text>
+    <Text> עמלת ביטוח </Text>
+    <Text>ריבית ושוק ההון </Text>
+    <Text> סוגי שכר מסוימים </Text>
+
     </Card>
 
   </View>
+  
   </TabContainer>
+  </ScrollView>
+
 )
 }

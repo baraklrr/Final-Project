@@ -6,23 +6,15 @@ import TopBarNavigator from "../components/TopBarNavigator";
 export default function MyProfileScreen(props) {
   return (
     <View style={styles.container}>
-      {/* <View style={styles.header}></View> */}
       <TopBarNavigator />
       <Image
         style={styles.avatar}
         source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
       />
-      {/* <MyTabs/> */}
     </View>
   );
 }
 
-/*<NavigationContainer>
-                <Tab.Navigator>
-                    <Tab.Screen name="Home" component={HomeScreen} />
-                    <Tab.Screen name="Settings" component={SettingsScreen} />
-                </Tab.Navigator>
-              </NavigationContainer>*/
 
 const styles = StyleSheet.create({
   displayUser: {},

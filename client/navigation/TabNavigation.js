@@ -43,7 +43,7 @@ screenOptions={{
     }}/>
 
 
-<Tab.Screen name="העסק שלי"  component={MyBuissnessNavigator}
+<Tab.Screen name="user info"  component={MyBuissnessNavigator}
 options=
 {{ 
   headerShown: false,
