@@ -29,13 +29,9 @@ export default function RegisterScreen({ navigation }) {
       return
     }
     AuthService.register(username.value, email.value, password.value).then(
-      (response) => {
+      () => {
         navigation.replace("Dashboard");
-        console.log();
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{ name: 'Dashboard' }],
-        // })
+
       },
       (error) => {
         const resMessage = error.response.data.message;

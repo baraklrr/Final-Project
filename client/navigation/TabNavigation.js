@@ -77,9 +77,28 @@ options=
       tabPress: e => opened && e.preventDefault(),
  }}/>
 
+      <Tab.Screen
+        name="התראות"
+        component={NotificationScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="alert" color={color} size={size} />
+          ),
+        }}
+      />
 
-</Tab.Navigator>
- );
+      <Tab.Screen
+        name="הגדרות"
+        component={SettingNavigation}
+        options={{
+          tabBarStyle: { display: "none" },
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
+  );
 };
 
 const styles = StyleSheet.create({
