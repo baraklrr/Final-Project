@@ -41,6 +41,6 @@ const ExpenditureNavigator = () => {
       </ModalStack.Group>
     </ModalStack.Navigator>
   );
-};
+ };
 
 export default ExpenditureNavigator;

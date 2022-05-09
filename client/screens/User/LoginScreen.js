@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import { theme } from "../core/theme";
-import { emailValidator } from "../helpers/emailValidator";
-import { passwordValidator } from "../helpers/passwordValidator";
+import Background from "../../components/Background";
+import Logo from "../../components/Logo";
+import Header from "../../components/Header";
+import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
+import { theme } from "../../core/theme";
+import { emailValidator } from "../../helpers/emailValidator";
+import { passwordValidator } from "../../helpers/passwordValidator";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../services/auth.service";
 
 export default function LoginScreen({ navigation }) {
   // const [email, setEmail] = useState({ value: "", error: "" });
@@ -73,10 +73,10 @@ export default function LoginScreen({ navigation }) {
         התחבר
       </Button>
       <View style={styles.row}>
+      <Text>עדיין אין לך משתמש? </Text>
         <TouchableOpacity onPress={() => navigation.push("RegisterScreen")}>
-          <Text style={styles.link}>הרשם</Text>
+          <Text style={styles.link}>  הרשם</Text>
         </TouchableOpacity>
-        <Text>עדיין אין לך משתמש? </Text>
       </View>
     </Background>
   );

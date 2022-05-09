@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { Button, Card } from "@rneui/themed";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Header from "../../../components/Header";
+import Header from "../../components/Header";
 
 const InvoiceFinal = ({ navigation }) => {
 

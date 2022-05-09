@@ -1,10 +1,10 @@
 import React from "react";
-import {createStackNavigator} from "@react-navigation/stack";
+import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
-import TabNavigation from "./TabNavigation";
-import MybuissnessNavigator from './MyBuissnessNavigator';
-
-import {TabContextProvider} from "./TabContext";
+import TabsNavigator from "../navigation/TabNavigation";
+import InvoiceFormNavigator from "./InvoiceFormNavigator";
+import {TabContextProvider} from "../context/TabContext";
+import ExpenditureNavigator from "./ExpenditureNavigator";
 
 const Stack = createStackNavigator();
 
@@ -15,8 +15,25 @@ const MainNavigator = () => {
         <Stack.Navigator
           initialRouteName="Root"
           screenOptions={{headerShown: false}}>
-          <Stack.Screen name="Root" component={TabNavigation} />
-          <Stack.Screen name="MyBuissness" component={MybuissnessNavigator} />
+          <Stack.Screen name="Root" component={TabsNavigator} />
+          <Stack.Screen
+          name="InvoicesStack"
+          component={InvoiceFormNavigator}
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+            // ...TransitionPresets.ModalPresentationIOS,
+          }}
+        /> 
+          <Stack.Screen
+          name="ExpenditureStack"
+          component={ExpenditureNavigator}
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+            // ...TransitionPresets.ModalPresentationIOS,
+          }}
+        /> 
         </Stack.Navigator>
       </NavigationContainer>
     </TabContextProvider>

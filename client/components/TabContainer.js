@@ -1,6 +1,6 @@
 import React from "react";
 import {View, StyleSheet, Animated} from "react-native";
-import {useTabMenu} from "../navigation/TabContext";
+import {useTabMenu} from "../context/TabContext";
 import {COLORS} from "../core/theme";
 
 const TabContainer = ({children}) => {

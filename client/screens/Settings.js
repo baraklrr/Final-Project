@@ -10,12 +10,13 @@ import Constants from 'expo-constants';
 import Header from '../components/Header'
 import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
+import {COLORS} from "../core/theme";
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: Constants.statusBarHeight,
-      backgroundColor: 'white',
+      backgroundColor: COLORS.bg,
       padding: 8,
     },
     Text:{

@@ -7,6 +7,8 @@ import {
   Image,
   FlatList
 } from 'react-native';
+import {COLORS} from "../core/theme";
+
 
 export default class Notifications extends Component {
 
@@ -68,7 +70,7 @@ export default class Notifications extends Component {
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "#FFFFFF"
+    backgroundColor: COLORS.bg,
   },
   container: {
     padding: 16,

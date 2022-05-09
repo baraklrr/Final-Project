@@ -1,47 +1,13 @@
 import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Card } from "@rneui/themed";
-import TabContainer from "../components/TabContainer";
-import { COLORS } from "../core/theme";
+import TabContainer from "../src/components/TabContainer";
+import { COLORS } from "../src/theme/theme";
 
 export default function Dashboard({ navigation }) {
   return (
     <TabContainer>
-      <Card>
-        <View style={styles.user}>
-          <View
-            style={{
-              width: 20,
-              height: 20,
-              marginRight: 10,
-              borderRadius: 6,
-              backgroundColor: "yellow",
-              resizeMode: "cover",
-            }}
-          ></View>
-          <View style={{ flex: 1, flexDirection: "row" }}>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.name}>יתרה מוערכת</Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={{ textAlign: "right", color: "grey" }}>
-                מרץ - אפריל
-              </Text>
-            </View>
-          </View>
-        </View>
-        <Text
-          style={{
-            textAlign: "left",
-            fontSize: 24,
-            marginLeft: 18,
-            fontWeight: "bold",
-          }}
-        >
-          {"\u20AA"}14,357
-        </Text>
-      </Card>
-      <View style={styles.space}>
+      <View style={styles.screenContainer}>
         <Card>
           <View style={styles.user}>
             <View
