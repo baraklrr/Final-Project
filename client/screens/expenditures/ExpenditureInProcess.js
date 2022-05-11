@@ -1,33 +1,32 @@
-import React from "react";
-import { Text, View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Input, Button } from "@rneui/themed";
+import ExpenditureNotYetConfirmed from "./ExpenditureNotYetConfirmed";
+import ExpenditureDeferred from "./ExpenditureDeferred";
 
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    </View>
-  );
-}
 const Tab = createMaterialTopTabNavigator();
-const ExpenditureInProcess = ({ navigation }) => {
+
+const ExpenditureInProcess = ({ navigation, props }) => {
   React.useLayoutEffect(() => {
-    navigation.setOptions({
-    });
+    navigation.setOptions({});
   }, [navigation]);
 
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
+        initialRouteName="הוצאות שטרם אושרו"
         screenOptions={{
           tabBarScrollEnabled: false,
           tabBarLabelStyle: { fontSize: 14 },
           // tabBarStyle: { backgroundColor: "powderblue" },
         }}
       >
-        <Tab.Screen name="הוצאות שנדחו" component={SettingsScreen} />
-        <Tab.Screen name="הוצאות שטרם אושרו" component={SettingsScreen} />
+        <Tab.Screen name="הוצאות שנדחו" component={ExpenditureDeferred} />
+        <Tab.Screen
+          name="הוצאות שטרם אושרו"
+          component={ExpenditureNotYetConfirmed}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -38,6 +37,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  item: {
+    backgroundColor: "green",
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30,
   },
 });
 

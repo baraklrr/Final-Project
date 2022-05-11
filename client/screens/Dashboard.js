@@ -73,7 +73,7 @@ export default function Dashboard({ navigation }) {
                 </View>
               </View>
             </View>
-            <Card.Divider></Card.Divider>
+            <Card.Divider width={1}></Card.Divider>
             <View style={styles.user}>
               <View
                 style={{
@@ -96,7 +96,7 @@ export default function Dashboard({ navigation }) {
                 </View>
               </View>
             </View>
-            <Card.Divider></Card.Divider>
+            <Card.Divider width={1}></Card.Divider>
             <View style={styles.user}>
               <View
                 style={{
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 38,
   },
   screenContainer: {
+    paddingTop: 100,
     flex: 1,
     backgroundColor: COLORS.bg,
   },
