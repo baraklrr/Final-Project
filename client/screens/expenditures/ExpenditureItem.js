@@ -10,8 +10,8 @@ import {
 import { Card, Divider } from "@rneui/themed";
 import { Chip, DataTable, Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import Header from "../../../components/Header";
-import CustomDivider from "../../components/CustomDivider";
+import Header from "../../components/Header";
+//import CustomDivider from "../../components/CustomDivider";
 
 const ExpenditureItem = ({ navigation }) => {
   return (

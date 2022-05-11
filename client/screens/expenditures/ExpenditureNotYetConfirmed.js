@@ -4,7 +4,7 @@ import { ListItem } from "@rneui/themed";
 import { Agenda } from "react-native-calendars";
 import { Card, Avatar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import * as RootNavigation from "../../navigations/RootNavigation";
+import * as RootNavigation from "../../navigation/RootNavigation";
 
 const timeToString = (time) => {
   const date = new Date(time);
