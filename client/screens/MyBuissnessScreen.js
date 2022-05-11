@@ -76,12 +76,22 @@ return (
      right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}/>
   </TouchableOpacity>
 
-    <Card style={styles.list} >
+
+  <TouchableOpacity  >
+    <Card.Title
+     style={styles.list}
+     titleStyle={{fontSize:16}}
+     title="נהלים"
+     left={() => <Icon name="book" color="#212121" size={27} />}
+     right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}/>
+  </TouchableOpacity>
+
+    {/* <Card style={styles.list} >
     <Text> עמלת ביטוח </Text>
     <Text>ריבית ושוק ההון </Text>
     <Text> סוגי שכר מסוימים </Text>
 
-    </Card>
+    </Card> */}
 
   </View>
   

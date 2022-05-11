@@ -1,7 +1,7 @@
 import React from "react";
 
 import { createStackNavigator } from '@react-navigation/stack'
-import UserInformation from "../screens/UserInformation"
+import MyBuissnessScreen from "../screens/MyBuissnessScreen"
 import MyDetails from "../screens/MyDetails"
 import TabNavigation from "./TabNavigation";
 import Myfiles from "../screens/MyFiles"
@@ -27,9 +27,9 @@ const MybuissnessNavigator = () =>
     },
     headerBackTitleVisible: false }} 
     >
-    <Stack.Screen name="העסק שלי" component={UserInformation} />
+    <Stack.Screen name="העסק שלי" component={MyBuissnessScreen} />
     <Stack.Screen name="הדיווחים שלי" component={ReportScreen}/>
-    {/* <Stack.Screen name="ערוך את הפרטים שלי" component={MyDetails} /> */}
+     <Stack.Screen name="ערוך את הפרטים שלי" component={MyDetails} /> 
     <Stack.Screen name= "המסמכים שלי" component={Myfiles} />
     </Stack.Navigator>
   )

@@ -17,17 +17,17 @@ export default function LoginScreen({ navigation }) {
   const [username, setUsername] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
   const onLoginPressed = () => {
-    //  const emailError = emailValidator(email.value)
-    // const passwordError = passwordValidator(password.value)
-    //  if (emailError || passwordError) {
-    //   setEmail({ ...email, error: emailError })
-    //   setPassword({ ...password, error: passwordError })
-    //   return
-    // }
+    // const emailError = emailValidator(email.value)
+    const passwordError = passwordValidator(password.value)
+     if (emailError || passwordError) {
+      setEmail({ ...email, error: emailError })
+      setPassword({ ...password, error: passwordError })
+      return
+    }
     AuthService.login(username.value, password.value).then(
       () => {
         console.log('logged in');
-        navigation.replace("Dashboard");
+        //navigation.replace("Dashboard");
       },
       (error) => {
         console.log(error);

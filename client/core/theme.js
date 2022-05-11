@@ -12,7 +12,7 @@ export const theme = {
 }
 
 export const COLORS = {
-  primary: "#6360DC",
+  primary: "#449afe",
   dark: "#161719",
   white: "#fff",
   body: "#405792",

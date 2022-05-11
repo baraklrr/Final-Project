@@ -31,7 +31,6 @@ export default function RegisterScreen({ navigation }) {
     AuthService.register(username.value, email.value, password.value).then(
       () => {
         navigation.replace("Dashboard");
-
       },
       (error) => {
         const resMessage = error.response.data.message;

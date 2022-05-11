@@ -11,6 +11,8 @@ import Header from '../components/Header'
 import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
 import {COLORS} from "../core/theme";
+import AuthService from "../services/auth.service";
+
 
 const styles = StyleSheet.create({
     container: {
@@ -31,6 +33,9 @@ const styles = StyleSheet.create({
   });
   
 export default function Settings({ navigation }) {
+  const logOut=()=>{
+    AuthService.logOut();
+  }
 return (
   <TabContainer>
     <View style={styles.container}>
@@ -47,7 +52,7 @@ return (
         <Text>מדיניות פרטיות</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity style={styles.list} onPress={() =>{navigation.navigate('StartScreen') }}>
+    <TouchableOpacity style={styles.list} onPress={() =>{logOut}}>
         <Text>התנתקות</Text>
     </TouchableOpacity>
 
