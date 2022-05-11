@@ -5,13 +5,14 @@ import TabsNavigator from "./TabsNavigator";
 import InvoiceFormNavigator from "./InvoiceFormNavigator";
 import {TabContextProvider} from "../context/TabContext";
 import ExpenditureNavigator from "./ExpenditureNavigator";
+import { navigationRef } from './RootNavigation';
 
 const Stack = createStackNavigator();
 
 const MainNavigator = () => {
   return (
     <TabContextProvider>
-      <NavigationContainer>
+      <NavigationContainer ref={navigationRef}>
         <Stack.Navigator
           initialRouteName="Root"
           screenOptions={{headerShown: false}}>

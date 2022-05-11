@@ -60,7 +60,7 @@ const InvoiceViewOptions = ({ navigation }) => {
           icon={<Icon name="share" size={24} color="black" />}
           onPress={() => console.log("Pressed")}
         />
-        <Button
+        {/* <Button
           title="תיעוד שליחת מסמך"
           containerStyle={{ margin: 5 }}
           titleStyle={{ marginHorizontal: 5, color: "black" }}
@@ -69,7 +69,7 @@ const InvoiceViewOptions = ({ navigation }) => {
           type="clear"
           icon={<Icon name="account" size={24} color="black" />}
           onPress={() => console.log("Pressed")}
-        />
+        /> */}
       </Animated.View>
     </View>
   );

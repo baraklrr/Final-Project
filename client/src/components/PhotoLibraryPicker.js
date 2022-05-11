@@ -22,7 +22,7 @@ const PhotoLibraryPicker = ({
     setIsLoading(true);
     const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
     if (permissionResult.granted === false) {
-      alert("You've refused to allow this app to access your camera!");
+      alert("Permission to access camera roll is required!");
       return;
     }
     let result = await ImagePicker.launchCameraAsync({
@@ -65,7 +65,7 @@ const PhotoLibraryPicker = ({
         ref={refRBSheet}
         closeOnDragDown={true}
         closeOnPressMask={true}
-        height={360}
+        height={260}
       >
         <View style={styles.panel}>
           <View style={{ alignItems: "center" }}>
@@ -73,17 +73,17 @@ const PhotoLibraryPicker = ({
             <Text style={styles.panelSubtitle}>Choose Your Picture</Text>
           </View>
           <TouchableOpacity style={styles.panelButton} onPress={openCamera}>
-            <Text style={styles.panelButtonTitle}>Take Photo</Text>
+            <Text style={styles.panelButtonTitle}>Take a Photo</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.panelButton} onPress={pickImage}>
-            <Text style={styles.panelButtonTitle}>Choose From Library</Text>
+            <Text style={styles.panelButtonTitle}>Choose From Gallery</Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={styles.panelButton}
             onPress={() => refRBSheet.current.close()}
           >
             <Text style={styles.panelButtonTitle}>Cancel</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </RBSheet>
 
@@ -94,7 +94,6 @@ const PhotoLibraryPicker = ({
         >
           <Text style={styles.panelButtonTitle}>צירוף חשבונית / קבלה</Text>
         </TouchableOpacity>
-        
       </View>
     </View>
   );
@@ -163,14 +162,14 @@ const styles = StyleSheet.create({
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: "#2089dc",
+    backgroundColor: "#90EE90",
     alignItems: "center",
     marginVertical: 7,
   },
   panelButtonTitle: {
     fontSize: 17,
     fontWeight: "bold",
-    color: "white",
+    color: "black",
   },
 });
 
