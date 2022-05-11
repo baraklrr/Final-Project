@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     marginBottom: 38,
   },
   screenContainer: {
-    paddingTop: 100,
+    paddingTop: 20,
     flex: 1,
     backgroundColor: COLORS.bg,
   },

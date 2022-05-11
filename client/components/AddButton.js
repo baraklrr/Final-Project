@@ -87,7 +87,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               },
             ]}
           >
-            <TouchableOpacity>
+            <TouchableOpacity onPress={()=>GoToButton("trasactions")}>
               <View style={styles.IconContainer}>
                 <Image
                   source={require("../assets/images/Transactions.png")}

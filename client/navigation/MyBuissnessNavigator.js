@@ -20,7 +20,6 @@ const MybuissnessNavigator = () =>
     <Stack.Navigator
     screenOptions={{headerTitleStyle: {alignItems: 'center'},
     headerStyle: {
-      backgroundColor: COLORS.primary,
     },
     headerBackTitleStyle: {
         color: 'transparent',

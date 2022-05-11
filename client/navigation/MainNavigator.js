@@ -5,6 +5,7 @@ import TabsNavigator from "../navigation/TabNavigation";
 import InvoiceFormNavigator from "./InvoiceFormNavigator";
 import {TabContextProvider} from "../context/TabContext";
 import ExpenditureNavigator from "./ExpenditureNavigator";
+import TransactionsScreen  from "../screens/TransactionsScreen";
 import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
 import { navigationRef } from './RootNavigation';
 
@@ -18,7 +19,13 @@ const MainNavigator = () => {
           initialRouteName="Root"
           screenOptions={{headerShown: false}}>
           <Stack.Screen name="Root" component={TabsNavigator} />
-
+          <Stack.Screen name="trasactions" component={TransactionsScreen} 
+          options={{
+            headerShown: true,
+            presentation: 'modal',
+            // ...TransitionPresets.ModalPresentationIOS,
+          }}
+          />
           
           <Stack.Screen
           name="InvoicesStack"

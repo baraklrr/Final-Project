@@ -11,7 +11,7 @@ import { Card, ListItem } from "@rneui/themed";
 import { Caption, Card as PaperCard } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Agenda } from "react-native-calendars";
-import * as RootNavigation from "../navigations/RootNavigation";
+import * as RootNavigation from "../navigation/RootNavigation";
 
 const TransactionsScreen = () => {
   const [selectedIndex, setselectedIndex] = useState(-1);

@@ -31,8 +31,6 @@ screenOptions={{
         tabBarStyle:styles.tabBar,
         headerTitleStyle: {alignItems: 'center'},
         headerStyle: {
-            backgroundColor: COLORS.primary,
-            borderBottomRightRadius: 100,
             height: 120
         },
         headerBackTitleStyle: {
@@ -56,7 +54,7 @@ screenOptions={{
     }}/>
 
 
-<Tab.Screen name="העסק שלי"  component={MyBuissnessNavigator}
+<Tab.Screen name="MyBuissness"  component={MyBuissnessNavigator}
 options=
 {{ 
   headerShown: false,
