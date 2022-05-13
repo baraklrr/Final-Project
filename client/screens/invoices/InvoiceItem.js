@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState , useLayoutEffect} from "react";
 import { View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import RNPickerSelect from "react-native-picker-select";
-import { Input, Button } from "@rneui/themed";
+import { Input } from "@rneui/themed";
+import {Button} from "@rneui/base"
 
 const InvoiceItem = ({ navigation }) => {
   const [selectedVat, setSelectedVat] = useState();
 
-  React.useLayoutEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <Button

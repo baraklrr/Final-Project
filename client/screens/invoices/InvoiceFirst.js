@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { Card, Input, Button, Divider } from "@rneui/themed";
+import { Card, Input, Divider } from "@rneui/themed";
+import {Button} from "@rneui/base"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Checkbox, DataTable } from "react-native-paper";
 import RNPickerSelect from "react-native-picker-select";
@@ -208,7 +209,7 @@ const InvoiceFirst = ({ navigation }) => {
               disabledTitleStyle={{ color: "#00F" }}
               icon={<Icon name="plus" size={15} color="#2089dc" />}
               iconContainerStyle={{ background: "#000" }}
-              iconLeft
+              // iconLeft
               raised
               loadingProps={{ animating: true }}
               loadingStyle={{}}
@@ -289,7 +290,7 @@ const InvoiceFirst = ({ navigation }) => {
               disabledTitleStyle={{ color: "#00F" }}
               icon={<Icon name="plus" size={15} color="#2089dc" />}
               iconContainerStyle={{ background: "#000" }}
-              iconLeft
+              // iconLeft
               raised
               loadingProps={{ animating: true }}
               loadingStyle={{}}
