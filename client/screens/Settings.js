@@ -4,18 +4,25 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Linking,
+  Image,
 } from 'react-native';
 import Constants from 'expo-constants';
 import Header from '../components/Header'
-import { Card } from 'react-native-paper';
+import TabContainer from "../components/TabContainer";
+import { Card,Paragraph } from 'react-native-paper';
+import {COLORS} from "../core/theme";
+import AuthService from "../services/auth.service";
+
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       paddingTop: Constants.statusBarHeight,
-      backgroundColor: '#ecf0f1',
+      backgroundColor: COLORS.bg,
       padding: 8,
+    },
+    Text:{
+      textAlign:'center'
     },
     list: {
       padding: 20,
@@ -26,29 +33,30 @@ const styles = StyleSheet.create({
   });
   
 export default function Settings({ navigation }) {
+  const logOut=()=>{
+    AuthService.logOut();
+  }
 return (
-    
+  <TabContainer>
     <View style={styles.container}>
-        <Header>שם העסק</Header>
-        
-    <TouchableOpacity >
-      <Card style={styles.list}>
-        <Text>תנאי שימוש</Text>
+      <Card >
+      <Header>עסק עסק</Header>
+     <Paragraph style={styles.Text} >moti@xcount.com</Paragraph>
+     <Paragraph style={styles.Text}>0504499805</Paragraph>
       </Card>
+    <TouchableOpacity style={styles.list} >
+        <Text>תנאי שימוש</Text>
     </TouchableOpacity>
     
-    <TouchableOpacity >
-      <Card style={styles.list}>
+    <TouchableOpacity style={styles.list} >
         <Text>מדיניות פרטיות</Text>
-      </Card>
     </TouchableOpacity>
 
-    <TouchableOpacity onPress={() =>{navigation.navigate('StartScreen') }}>
-      <Card style={styles.list}>
+    <TouchableOpacity style={styles.list} onPress={() =>{logOut}}>
         <Text>התנתקות</Text>
-      </Card>
     </TouchableOpacity>
 
   </View>
+  </TabContainer>
 )
 }

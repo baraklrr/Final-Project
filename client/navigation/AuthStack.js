@@ -1,13 +1,19 @@
 import React from "react";
 
 import { createStackNavigator } from '@react-navigation/stack'
-import {LoginScreen,RegisterScreen} from '../screens'
-import StartScreen from '../screens/StartScreen'
+import LoginScreen from '../screens/User/LoginScreen'
+import RegisterScreen from '../screens/User/StartScreen'
+import StartScreen from '../screens/User/StartScreen'
 import TabNavigation from './TabNavigation';
+import {TabContextProvider} from "../context/TabContext";
+import {NavigationContainer} from "@react-navigation/native";
+
 const Stack = createStackNavigator();
 
 const AuthStack = () => {
   return (
+    <TabContextProvider>
+    <NavigationContainer>
     <Stack.Navigator
     initialRouteName="StartScreen"
     screenOptions={{
@@ -16,8 +22,9 @@ const AuthStack = () => {
        <Stack.Screen name="StartScreen" component={StartScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-    <Stack.Screen name="Dashboard" component={TabNavigation}/>
-  </Stack.Navigator>)
+  </Stack.Navigator>
+  </NavigationContainer>
+  </TabContextProvider>)
 }
 
 export default AuthStack;

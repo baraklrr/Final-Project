@@ -10,3 +10,11 @@ export const theme = {
     error: '#f13a59',
   },
 }
+
+export const COLORS = {
+  primary: "#449afe",
+  dark: "#161719",
+  white: "#fff",
+  body: "#405792",
+  bg: "#ECECEC",
+};

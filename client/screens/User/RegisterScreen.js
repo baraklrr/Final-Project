@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper'
-import Background from '../components/Background'
-import Logo from '../components/Logo'
-import Header from '../components/Header'
-import Button from '../components/Button'
-import TextInput from '../components/TextInput'
-import BackButton from '../components/BackButton'
-import { theme } from '../core/theme'
-import AuthService from "../services/auth.service";
-import { passwordValidator } from '../helpers/passwordValidator'
-import { emailValidator } from '../helpers/emailValidator'
-import { nameValidator } from '../helpers/nameValidator'
+import Background from '../../components/Background'
+import Logo from '../../components/Logo'
+import Header from '../../components/Header'
+import Button from '../../components/Button'
+import TextInput from '../../components/TextInput'
+import BackButton from '../../components/BackButton'
+import { theme } from '../../core/theme'
+import AuthService from "../../services/auth.service";
+import { passwordValidator } from '../../helpers/passwordValidator'
+import { emailValidator } from '../../helpers/emailValidator'
+import { nameValidator } from '../../helpers/nameValidator'
 
 export default function RegisterScreen({ navigation }) {
   const [username, setName] = useState({ value: '', error: '' })
@@ -19,23 +19,18 @@ export default function RegisterScreen({ navigation }) {
   const [password, setPassword] = useState({ value: '', error: '' })
 
   const onSignUpPressed = () => {
-    const nameError = nameValidator(name.value)
+    const nameError = nameValidator(username.value)
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
     if (emailError || passwordError || nameError) {
-      setName({ ...name, error: nameError })
+      setName({ ...username, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return
     }
     AuthService.register(username.value, email.value, password.value).then(
-      (response) => {
+      () => {
         navigation.replace("Dashboard");
-        console.log();
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{ name: 'Dashboard' }],
-        // })
       },
       (error) => {
         const resMessage = error.response.data.message;
