@@ -7,7 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import Constants from 'expo-constants';
 import Header from '../components/Header'
 import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
