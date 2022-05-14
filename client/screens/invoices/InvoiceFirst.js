@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   TouchableOpacity,
   View,
@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import { Card, Input, Divider } from "@rneui/themed";
-import {Button} from "@rneui/base"
+import { Button } from "@rneui/base"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Checkbox, DataTable } from "react-native-paper";
 import RNPickerSelect from "react-native-picker-select";
@@ -17,17 +17,29 @@ import CustomDivider from "../../components/CustomDivider";
 import DateSelect from "../../components/DateSelect";
 
 const InvoiceFirst = ({ navigation }) => {
-
   const [checked, setChecked] = React.useState(false);
   const [vat, setVat] = useState();
   const [currency, setCurrency] = useState();
+  const [dataTableValues, setDataTableValues] = useState([]);
+  const [sumPrice, setSumPrice] = useState(0);
+  const [isSum, setIsSum] = useState(false)
+  console.log('sumPrice', sumPrice)
+
+
+  useEffect(() => {
+    if(isSum){
+      dataTableValues.map((obj) => setSumPrice(Number(sumPrice) + (Number(obj?.price) * Number(obj?.intity))));
+      setIsSum(false);
+    }
+  }, [dataTableValues])
+
   const pickerRef = useRef();
 
-  function open() {
+  const open = () => {
     pickerRef.current.focus();
   }
 
-  function close() {
+  const close = () => {
     pickerRef.current.blur();
   }
 
@@ -42,7 +54,7 @@ const InvoiceFirst = ({ navigation }) => {
             disabledInputStyle={{ background: "#ddd" }}
             placeholder="תיאור ההכנסה"
           ></Input>
-          <DateSelect/>
+          <DateSelect />
           <CustomDivider />
           <Card.Title style={{ textAlign: "left" }}>לכבוד</Card.Title>
           <TouchableOpacity>
@@ -177,29 +189,25 @@ const InvoiceFirst = ({ navigation }) => {
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>פריט</DataTable.Title>
-              <DataTable.Title numeric>כמות</DataTable.Title>
-              <DataTable.Title numeric>מחיר ליח'</DataTable.Title>
+              <DataTable.Title >כמות</DataTable.Title>
+              <DataTable.Title >מחיר ליח'</DataTable.Title>
               <DataTable.Title numeric>סה"כ</DataTable.Title>
               <DataTable.Title numeric></DataTable.Title>
             </DataTable.Header>
-            <DataTable.Row>
-              <DataTable.Cell>פריט 1</DataTable.Cell>
-              <DataTable.Cell numeric>1</DataTable.Cell>
-              <DataTable.Cell numeric>{"\u20AA"}345</DataTable.Cell>
-              <DataTable.Cell numeric>{"\u20AA"}345</DataTable.Cell>
-              <DataTable.Cell numeric>
-                {<Icon name="dots-vertical" size={20} />}
-              </DataTable.Cell>
-            </DataTable.Row>
-            <DataTable.Row>
-              <DataTable.Cell>פריט 2</DataTable.Cell>
-              <DataTable.Cell numeric>2</DataTable.Cell>
-              <DataTable.Cell numeric>{"\u20AA"}150</DataTable.Cell>
-              <DataTable.Cell numeric>{"\u20AA"}300</DataTable.Cell>
-              <DataTable.Cell numeric>
-                {<Icon name="dots-vertical" size={20} />}
-              </DataTable.Cell>
-            </DataTable.Row>
+            {dataTableValues.map((obj, index) => {
+              return (
+                <DataTable.Row key={index}>
+                  <DataTable.Cell>{obj?.itemName}</DataTable.Cell>
+                  <DataTable.Cell>{obj?.intity}</DataTable.Cell>
+                  <DataTable.Cell>{"\u20AA"}{obj?.price}</DataTable.Cell>
+                  <DataTable.Cell numeric>{"\u20AA"}{Number(obj?.price) * Number(obj?.intity)}</DataTable.Cell>
+                  <DataTable.Cell numeric>
+                    {<Icon name="dots-vertical" size={20} />}
+                  </DataTable.Cell>
+                </DataTable.Row>
+              )
+            })}
+
             <Button
               containerStyle={{ margin: 20 }}
               disabledStyle={{
@@ -213,7 +221,7 @@ const InvoiceFirst = ({ navigation }) => {
               raised
               loadingProps={{ animating: true }}
               loadingStyle={{}}
-              onPress={() => navigation.navigate("הוספת פריט")}
+              onPress={() => navigation.navigate("הוספת פריט", { setDataTableValues: setDataTableValues, dataTableValues: dataTableValues, setIsSum: setIsSum })}
               title="הוספת פריט"
               titleProps={{}}
               titleStyle={{ marginHorizontal: 5 }}
@@ -222,11 +230,11 @@ const InvoiceFirst = ({ navigation }) => {
             <Divider style={{ elevation: 0.5 }} />
             <View style={{ flex: 1, padding: 5, flexDirection: "row" }}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.name}>סה"כ:</Text>
+                <Text style={[styles.name, {textAlign: 'left'}]}>סה"כ:</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={{ textAlign: "right", fontWeight: "bold" }}>
-                  {"\u20AA"}345
+                  {"\u20AA"}{sumPrice}
                 </Text>
               </View>
             </View>
@@ -236,11 +244,11 @@ const InvoiceFirst = ({ navigation }) => {
             </Text>
             <View style={{ flex: 1, padding: 5, flexDirection: "row" }}>
               <View style={{ flex: 1 }}>
-                <Text style={styles.name}>מע"מ:</Text>
+                <Text style={[styles.name, {textAlign: 'left'}]}>מע"מ:</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={{ textAlign: "right", fontWeight: "bold" }}>
-                  {"\u20AA"}200
+                  {"\u20AA"}{(Number(sumPrice) * 0.17).toFixed(2)}
                 </Text>
               </View>
             </View>
@@ -254,16 +262,16 @@ const InvoiceFirst = ({ navigation }) => {
               }}
             >
               <View style={{ flex: 1 }}>
-                <Text style={styles.name}>סה"כ לתשלום:</Text>
+                <Text style={[styles.name, {textAlign: 'left'}]}>סה"כ לתשלום:</Text>
               </View>
               <View style={{ flex: 1 }}>
                 <Text style={{ textAlign: "right", fontWeight: "bold" }}>
-                  {"\u20AA"}1550
+                  {"\u20AA"}{(Number(sumPrice) * 1.17).toFixed(2)}
                 </Text>
               </View>
             </View>
           </DataTable>
-          <CustomDivider/>
+          <CustomDivider />
 
           <Card.Title style={{ textAlign: "left" }}>תקבולים</Card.Title>
           <DataTable>

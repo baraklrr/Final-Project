@@ -1,29 +1,43 @@
-import React, { useState , useLayoutEffect} from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import RNPickerSelect from "react-native-picker-select";
 import { Input } from "@rneui/themed";
-import {Button} from "@rneui/base"
+import { Button } from "@rneui/base"
 
-const InvoiceItem = ({ navigation }) => {
+const InvoiceItem = ({ navigation, route }) => {
+  const { setDataTableValues, dataTableValues,setIsSum } = route.params
   const [selectedVat, setSelectedVat] = useState();
+  const [name, setName] = useState('');
+  const [intity, setIntity] = useState('');
+  const [price, setPrice] = useState('');
+  console.log(name)
+  console.log(intity)
+  console.log(price)
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          containerStyle={{
-            width: 80,
-            marginVertical: 10,
-          }}
-          onPress={() => navigation.navigate("חשבונית מס/קבלה", { id: 123 })}
-          title="הוספה"
-          type="clear"
-          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-        />
-      ),
-    });
-  }, [navigation]);
+  // useLayoutEffect(() => {
+  //   navigation.setOptions({
+  //     headerRight: () => (
+  //       <Button
+  //         containerStyle={{
+  //           width: 80,
+  //           marginVertical: 10,
+  //         }}
+  //         onPress={() => {
+  //           setDataTableValues([...dataTableValues, {  itemName: name,
+  //           intity: intity,
+  //           price: price}])
+  //           navigation.navigate("חשבונית מס/קבלה", {  itemName: name,
+  //             intity: intity,
+  //             price: price})
+  //       }}
+  //         title="הוספה"
+  //         type="clear"
+  //         titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
+  //       />
+  //     ),
+  //   });
+  // }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -72,6 +86,7 @@ const InvoiceItem = ({ navigation }) => {
               disabledInputStyle={{ background: "#ddd" }}
               // rightIcon={<Icon name="account-plus" size={20} />}
               placeholder="תיאור פריט"
+              onChangeText={(e) => setName(e)}
             />
           </View>
           <View style={{ flex: 2 }}>
@@ -82,6 +97,7 @@ const InvoiceItem = ({ navigation }) => {
               // rightIcon={<Icon name="account-plus" size={20} />}
               placeholder="כמות"
               keyboardType="numeric"
+              onChangeText={(e) => setIntity(e)}
             />
           </View>
         </View>
@@ -93,8 +109,27 @@ const InvoiceItem = ({ navigation }) => {
             // rightIcon={<Icon name="account-plus" size={20} />}
             placeholder="סכום (לפריט בודד)"
             keyboardType="numeric"
+            onChangeText={(e) => setPrice(e)}
           />
         </View>
+        <Button
+          containerStyle={{
+            width: 80,
+            marginVertical: 10,
+          }}
+          onPress={() => {
+            setDataTableValues([...dataTableValues, {
+              itemName: name,
+              intity: intity,
+              price: price
+            }])
+            setIsSum(true)
+            navigation.navigate("חשבונית מס/קבלה")
+          }}
+          title="הוספה"
+          type="clear"
+          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
+        />
       </View>
     </View>
   );
