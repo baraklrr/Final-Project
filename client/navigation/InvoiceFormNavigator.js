@@ -11,24 +11,27 @@ import InvoicePayment from "../screens/invoices/InvoicePayment";
 import InvoiceFinal from "../screens/invoices/InvoiceFinal";
 import InvoiceView from "../screens/invoices/InvoiceView";
 import InvoiceViewOptions from "../screens/invoices/InvoiceViewOptions";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ModalStack = createStackNavigator();
 
 const InvoiceFormNavigator = () => {
   return (
-    <ModalStack.Navigator initialRouteName="חשבונית מס/קבלה">
-      <ModalStack.Group screenOptions={{ headerShown: false}}>
+    <ModalStack.Navigator initialRouteName="חשבונית מס/קבלה" >
+      <ModalStack.Group screenOptions={{ headerShown: false }}>
         <ModalStack.Screen
           name="חשבונית מס/קבלה"
           component={InvoiceFirst}
-          options={{
+          options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: "center",
-            headerBackImage: () => (
-              <Ionicons name="close-sharp" size={28} color="black" />
-            ),
-            presentation: "modal",
-          }}
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} >
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
+            ),entation: "modal",
+          })}
+
         />
 
         <ModalStack.Screen
@@ -37,8 +40,10 @@ const InvoiceFormNavigator = () => {
           options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: "center",
-            headerBackImage: () => (
-              <Ionicons name="close-sharp" size={28} color="black" />
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} >
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
             ),
             presentation: "modal",
           })}
@@ -49,8 +54,10 @@ const InvoiceFormNavigator = () => {
           options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: "center",
-            headerBackImage: () => (
-              <Ionicons name="close-sharp" size={28} color="black" />
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} >
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
             ),
             presentation: "modal",
           })}
@@ -69,26 +76,30 @@ const InvoiceFormNavigator = () => {
         <ModalStack.Screen
           name="חשבונית מס/קבלה 240796"
           component={InvoiceFinal}
-          options={{
+          options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: "center",
-            headerBackImage: () => (
-              <Ionicons name="close-sharp" size={28} color="black" />
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} >
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
             ),
             presentation: "modal",
-          }}
+          })}
         />
         <ModalStack.Screen
           name="צפה בהכנסה"
           component={InvoiceView}
-          options={{
+          options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: "center",
-            headerBackImage: () => (
-              <Ionicons name="close-sharp" size={28} color="black" />
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()} >
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
             ),
             presentation: "modal",
-          }}
+          })}
         />
         <ModalStack.Screen
           name="אפשרויות"

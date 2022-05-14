@@ -2,7 +2,7 @@ import React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { Input, Button } from "@rneui/themed";
+import { Input, Button } from "@rneui/base";
 
 function SettingsScreen() {
   return (
