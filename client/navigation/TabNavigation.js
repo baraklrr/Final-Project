@@ -56,10 +56,13 @@ screenOptions={{
 
 <Tab.Screen name="MyBuissness"  component={MyBuissnessNavigator}
 options=
-{{ 
-  headerShown: false,
-tabBarIcon: ({color, size}) => (
-    <Ionicons name="person" color={color} size={size} style={{ top: Platform.OS === 'ios' && 15}} /> )}}
+{{ headerShown: false, tabBarIcon: ({ focused }) => (
+  <View style={styles.tabIconContainer}>
+  <Image source={require("../assets/images/person.png")}
+  resizeMode="contain"
+  style={[styles.tabIcon, getIconColor(focused)]}/>
+  </View> )
+  }}
     listeners={{
       tabPress: e => opened && e.preventDefault(),
  }}/>   
@@ -74,8 +77,13 @@ tabBarIcon: ({color, size}) => (
 
 <Tab.Screen name="התראות"  component={NotificationScreen}
 options=
-{{tabBarIcon: ({color, size}) => (
-    <Ionicons name="alert" color={color} size={size} style={{ top: Platform.OS === 'ios' && 15}}/>)}}
+{{ headerShown: false, tabBarIcon: ({ focused }) => (
+  <View style={styles.tabIconContainer}>
+  <Image source={require("../assets/images/notification.png")}
+  resizeMode="contain"
+  style={[styles.tabIcon, getIconColor(focused)]}/>
+  </View> )
+  }}
     listeners={{
       tabPress: e => opened && e.preventDefault(),
  }}/>   
