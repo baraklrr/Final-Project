@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   mysqldb:
-    platform: linux/x86_64
     image: mysql:5.7
     restart: unless-stopped
     container_name: mysql_container
@@ -11,6 +10,7 @@ services:
       - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - MYSQL_DATABASE=$MYSQLDB_DATABASE
     ports:
+      # - 3307:3306
       - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
     volumes:
       - db:/var/lib/mysql
@@ -39,7 +39,7 @@ services:
     container_name: server_container
     env_file: ./.env
     ports:
-      - $NODE_DOCKER_PORT:$NODE_DOCKER_PORT
+      - 8080:8080
     volumes:
       - ./server:/server
     environment:
@@ -47,41 +47,21 @@ services:
       - DB_USER=$MYSQLDB_USER
       - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
       - DB_NAME=$MYSQLDB_DATABASE
-      - DB_PORT=$MYSQLDB_DOCKER_PORT
+      - DB_PORT=3306
       - CLIENT_ORIGIN=$CLIENT_ORIGIN
     networks:
       - backend
       - frontend
 
-  client:
-    depends_on:
-      - server
-    build:
-      context: ./client
-    container_name: client_expo_container
-    env_file: .env
-    ports:
-      - 19000:19000
-      - 19001:19001
-      - 19002:19002
-      - 19006:19006
-    environment:
-      - REACT_NATIVE_PACKAGER_HOSTNAME=$REACT_NATIVE_PACKAGER_HOSTNAME
-      - EXPO_DEVTOOLS_LISTEN_ADDRESS=$ADB_IP
-    volumes:
-      - ./client:/client
-    networks:
-      - frontend
-
-  swagger-ui:
-    depends_on:
-      - server
-    image: swaggerapi/swagger-ui
-    container_name: swagger_ui_container
-    ports:
-      - $SWAGGER_PORT:$NODE_DOCKER_PORT
-    environment:
-      API_URL: $SWAGGER_API_URL
+#   swagger-ui:
+#     depends_on:
+#       - server
+#     image: swaggerapi/swagger-ui
+#     container_name: swagger_ui_container
+#     ports:
+#       - $SWAGGER_PORT:$NODE_DOCKER_PORT
+#     environment:
+#       API_URL: $SWAGGER_API_URL
 
 volumes:
   db:
