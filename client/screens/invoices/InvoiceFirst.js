@@ -302,7 +302,7 @@ const InvoiceFirst = ({ navigation }) => {
               raised
               loadingProps={{ animating: true }}
               loadingStyle={{}}
-              onPress={() => navigation.navigate("הוספת אמצעי תשלום")}
+              onPress={() => navigation.navigate("הוספת אמצעי תשלום", {sumPrice: `₪${(Number(sumPrice) * 1.17).toFixed(2)}`})}
               title="הוספת אמצעי תשלום"
               titleProps={{}}
               titleStyle={{ marginHorizontal: 5 }}
