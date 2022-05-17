@@ -59,7 +59,10 @@ options=
 {{ 
   headerShown: false,
 tabBarIcon: ({color, size}) => (
-    <Ionicons name="person" color={color} size={size} style={{ top: Platform.OS === 'ios' && 15}} /> )}}
+  <View style={styles.tabIconContainer}>
+    <Ionicons name="person" color={color} size={size} /> 
+    </View>
+    )}}
     listeners={{
       tabPress: e => opened && e.preventDefault(),
  }}/>   
@@ -75,7 +78,10 @@ tabBarIcon: ({color, size}) => (
 <Tab.Screen name="התראות"  component={NotificationScreen}
 options=
 {{tabBarIcon: ({color, size}) => (
-    <Ionicons name="alert" color={color} size={size} style={{ top: Platform.OS === 'ios' && 15}}/>)}}
+  <View style={styles.tabIconContainer}>
+    <Ionicons name="alert" color={color} size={size}  /> 
+    </View>
+  )}}
     listeners={{
       tabPress: e => opened && e.preventDefault(),
  }}/>   

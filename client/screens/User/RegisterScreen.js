@@ -17,6 +17,7 @@ export default function RegisterScreen({ navigation }) {
   const [username, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
+  const [password2, setPassword2] = useState({ value: '', error: '' })
 
   const onSignUpPressed = () => {
     const nameError = nameValidator(username.value)
@@ -26,11 +27,12 @@ export default function RegisterScreen({ navigation }) {
       setName({ ...username, error: nameError })
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
+      setPassword2({ ...password2, error: passwordError })
       return
     }
     AuthService.register(username.value, email.value, password.value).then(
       () => {
-        navigation.replace("Dashboard");
+        //navigation.replace("Dashboard");
       },
       (error) => {
         const resMessage = error.response.data.message;
@@ -76,10 +78,10 @@ export default function RegisterScreen({ navigation }) {
    <TextInput
         label="אמת סיסמה"
         returnKeyType="done"
-        value={password.value}
-        onChangeText={(text) => setPassword({ value: text, error: '' })}
-        error={!!password.error}
-        errorText={password.error}
+        value={password2.value}
+        onChangeText={(text) => setPasswor2({ value: text, error: '' })}
+        error={!!password2.error}
+        errorText={password2.error}
         secureTextEntry
       />
       <Button
