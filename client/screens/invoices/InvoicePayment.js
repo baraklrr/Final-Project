@@ -1,14 +1,15 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { Button } from "@rneui/base";
-import InvoiceAddPayment from "./InvoicePayments/InvoiceAddPayment";
-import InvoiceApp from "./InvoicePayments/InvoiceApp";
-import InvoiceBank from "./InvoicePayments/InvoiceBank";
-import InvoiceCheckBook from "./InvoicePayments/InvoiceCheckBook";
-import InvoiceCreditCard from "./InvoicePayments/InvoiceCreditCard";
+import React, { useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Button } from '@rneui/base';
+import InvoiceAddPayment from './InvoicePayments/InvoiceAddPayment';
+import InvoiceApp from './InvoicePayments/InvoiceApp';
+import InvoiceBank from './InvoicePayments/InvoiceBank';
+import InvoiceCheckBook from './InvoicePayments/InvoiceCheckBook';
+import InvoiceCreditCard from './InvoicePayments/InvoiceCreditCard';
 
 const InvoicePayment = ({ navigation, route }) => {
+  const { setIsSumPayment } = route?.params;
   const [openModal, setOpenModal] = useState(false);
   const [payment, setPayment] = useState({
     addPayment: true,
@@ -18,45 +19,36 @@ const InvoicePayment = ({ navigation, route }) => {
     app: false,
   });
 
-  React.useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <Button
-          containerStyle={{
-            width: 80,
-            marginVertical: 10,
-          }}
-          onPress={() => navigation.navigate("חשבונית מס/קבלה", { id: 123 })}
-          title="הוספה"
-          type="clear"
-          titleStyle={{ color: "rgba(78, 116, 289, 1)" }}
-        />
-      ),
-    });
-  }, [navigation]);
+  const handleSubmit = (from, obj) => {
+    setPayment({ ...payment, [from]: false });
+    setIsSumPayment(true);
+    navigation.navigate('חשבונית מס/קבלה', { payment: obj, isSum: true });
+  };
 
   return (
-    <View style={{ backgroundColor: openModal ? "#a9a9a9" : "white" }}>
+    <View style={{ backgroundColor: openModal ? '#a9a9a9' : 'white' }}>
       <View
         style={{
-          backgroundColor: "#CCCCFF",
-          flexDirection: "row",
-          justifyContent: "space-between",
+          backgroundColor: '#CCCCFF',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
           paddingHorizontal: 20,
         }}
       >
-        <Text style={{ textAlign: "left", lineHeight: 40, fontSize: 20 }}>
-          יתרה לתשלום
-        </Text>
-        <Text style={{ textAlign: "left", lineHeight: 40, fontSize: 20 }}>
+        <Text style={{ textAlign: 'left', lineHeight: 40, fontSize: 20 }}>יתרה לתשלום</Text>
+        <Text style={{ textAlign: 'left', lineHeight: 40, fontSize: 20 }}>
           {route.params.sumPrice}
         </Text>
       </View>
-      {payment.addPayment && <InvoiceAddPayment setPayment={setPayment}/>}
-      {payment.app && <InvoiceApp setPayment={setPayment} />}
-      {payment.bank && <InvoiceBank setPayment={setPayment}/>}
-      {payment.checkBook && <InvoiceCheckBook setPayment={setPayment} />}
-      {payment.creditCard && <InvoiceCreditCard setPayment={setPayment}/>}
+      {payment.addPayment && <InvoiceAddPayment setPayment={setPayment} />}
+      {payment.app && <InvoiceApp setPayment={setPayment} handleSubmit={handleSubmit} />}
+      {payment.bank && <InvoiceBank setPayment={setPayment} handleSubmit={handleSubmit} />}
+      {payment.checkBook && (
+        <InvoiceCheckBook setPayment={setPayment} handleSubmit={handleSubmit} />
+      )}
+      {payment.creditCard && (
+        <InvoiceCreditCard setPayment={setPayment} handleSubmit={handleSubmit} />
+      )}
     </View>
   );
 };
@@ -64,21 +56,21 @@ const InvoicePayment = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 130,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -87,11 +79,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height: "50%",
-    width: "90%",
+    height: '50%',
+    width: '90%',
   },
   text: {
-    textAlign: "left",
+    textAlign: 'left',
   },
 });
 
