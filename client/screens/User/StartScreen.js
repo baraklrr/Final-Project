@@ -8,16 +8,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function StartScreen({ navigation }) {
   const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(() => {
-    AsyncStorage.getItem('user').then((value) => {
-      if (value) {
-        setCurrentUser(JSON.parse(value));
-        navigation.replace("Dashboard");
-      }else{
-        console.log('blat')
-      }
-    });
-  }, []);
 
   return (
     <Background>

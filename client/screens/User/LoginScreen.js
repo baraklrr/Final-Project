@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, StyleSheet, View } from "react-native";
+import { TouchableOpacity, StyleSheet, View,KeyboardAvoidingView } from "react-native";
 import { Text } from "react-native-paper";
 import Background from "../../components/Background";
 import Logo from "../../components/Logo";
@@ -19,8 +19,8 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
     // const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
-     if (emailError || passwordError) {
-      setEmail({ ...email, error: emailError })
+     if ( passwordError) {
+      //setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
       return
     }
@@ -36,7 +36,9 @@ export default function LoginScreen({ navigation }) {
   };
 
   return (
+    
     <Background>
+      
       <Logo />
       <Header>ברוך הבא!</Header>
       <TextInput
@@ -78,7 +80,9 @@ export default function LoginScreen({ navigation }) {
           <Text style={styles.link}>  הרשם</Text>
         </TouchableOpacity>
       </View>
+      
     </Background>
+    
   );
 }
 

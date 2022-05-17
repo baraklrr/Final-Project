@@ -2,7 +2,7 @@ import React from "react";
 
 import { createStackNavigator } from '@react-navigation/stack'
 import LoginScreen from '../screens/User/LoginScreen'
-import RegisterScreen from '../screens/User/StartScreen'
+import RegisterScreen from '../screens/User/RegisterScreen'
 import StartScreen from '../screens/User/StartScreen'
 import TabNavigation from './TabNavigation';
 import {TabContextProvider} from "../context/TabContext";
@@ -19,7 +19,7 @@ const AuthStack = () => {
     screenOptions={{
       headerShown: false,
     }}>
-       <Stack.Screen name="StartScreen" component={StartScreen} />
+    <Stack.Screen name="StartScreen" component={StartScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
   </Stack.Navigator>
