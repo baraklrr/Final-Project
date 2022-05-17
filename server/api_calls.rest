@@ -1,14 +1,19 @@
+const http = require('http')
+http.request({
+        method: 'GET',
+        agent: http.Agent({keepAlive:true}),
+        host: 'http://localhost:8081',
+    })
+
+###
+GET http://localhost:8080
+
+###
+GET http://localhost:8080/api/income/total
 
 ###
 
-
-
-GET http://localhost:8888/
-
-###
-
-
-POST http://localhost:6868/api/auth/signup
+POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
@@ -17,6 +22,19 @@ Content-Type: application/json
     "password" : "123456",
     "roles" : ["moderator" , "user"]
 }
+
+###
+
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+    "username" : "sdee",
+    "email" : "aafdsfhlon@asd.com",
+    "password" : "123456",
+    "roles" : ["moderator" , "user"]
+}
+
 
 ###
 
@@ -30,7 +48,17 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:6868/api/auth/signin
+POST http://127.0.0.1:8080/api/auth/signin
+Content-Type: application/json
+
+{
+    "username" : "sdee",
+    "password" : "123456"
+}
+
+###
+
+POST http://localhost:8080/api/auth/signin
 Content-Type: application/json
 
 {
@@ -50,3 +78,5 @@ Content-Type: application/json
 {
     "refreshToken": "6b9579c4-766e-4908-9b91-15521b244a5d"
 }
+
+

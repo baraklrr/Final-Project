@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -12,7 +12,7 @@ import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
 import {COLORS} from "../core/theme";
 import AuthService from "../services/auth.service";
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const styles = StyleSheet.create({
     container: {
@@ -33,9 +33,13 @@ const styles = StyleSheet.create({
   });
   
 export default function Settings({ navigation }) {
-  const logOut=()=>{
-    AuthService.logOut();
-  }
+  const logout =()=>{
+    AsyncStorage.removeItem("user").then(()=>{
+      AuthService.logout
+     console.log("disconnect")
+    })
+ }
+
 return (
   <TabContainer>
     <View style={styles.container}>
@@ -52,7 +56,7 @@ return (
         <Text>מדיניות פרטיות</Text>
     </TouchableOpacity>
 
-    <TouchableOpacity style={styles.list} onPress={() =>{logOut}}>
+    <TouchableOpacity style={styles.list} onPress={() =>{logout()}}>
         <Text>התנתקות</Text>
     </TouchableOpacity>
 

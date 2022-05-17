@@ -12,28 +12,58 @@ import MainNavigator from "./navigation/MainNavigator";
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
 
+export const AuthContext = React.createContext();
+
+ 
+
 export default function App() {
-  const [currentUser, setCurrentUser] = useState(undefined);
-  useEffect(() => {
-    AsyncStorage.getItem('user').then((value) => {
-      if (value) {
-        setCurrentUser(JSON.parse(value));
-      }else{
-        console.log('cant login user')
-      }
-    });
-  }, []);
-  // if(!currentUser)
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async (data) => {
+        // In a production app, we need to send some data (usually username, password) to server and get a token
+        // We will also need to handle errors if sign in failed
+        // After getting token, we need to persist the token using `SecureStore` or any other encrypted storage
+        // In the example, we'll use a dummy token
+
+        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+      },
+      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signUp: async (data) => {
+        // In a production app, we need to send user data to server and get a token
+        // We will also need to handle errors if sign up failed
+        // After getting token, we need to persist the token using `SecureStore` or any other encrypted storage
+        // In the example, we'll use a dummy token
+
+        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+      },
+    }),
+    []
+  );
+
+  const [isloggedin,setLogged] = useState(null)
+
+  const detectLogin= async ()=>{
+     const token = await (await AsyncStorage.getItem('user'))
+   
+     if(token){
+         setLogged(true)
+     }else{
+         setLogged(false)
+     }
+  }
+ useEffect(()=>{
+    detectLogin()
+ },[])
+ console.log(isloggedin)
+
    return (
     <Provider theme={theme}>
-      <MainNavigator />
-   </Provider>
+      {/* {isloggedin ?  */}
+      {/* ( */}
+         <MainNavigator/>
+         {/* ): */}
+       {/* ( <AuthStack/>) */}
+      </Provider>
   );
-  // else{
-    // return (
-    // <Provider theme={theme}>
-    //   <MainNavigator />
-    // </Provider>
-    // );
-  //}
+
 }
