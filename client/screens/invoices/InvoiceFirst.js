@@ -18,7 +18,9 @@ const InvoiceFirst = ({ navigation, route }) => {
   const [dataTableValues, setDataTableValues] = useState([]);
   const [paymentTableValues, setPaymentTableValues] = useState([]);
   const [sumPrice, setSumPrice] = useState(0);
+  const [sumPricePayment, setSumPricePayment] = useState(0);
   const [isSum, setIsSum] = useState(false);
+  const [isSumPayment, setIsSumPayment] = useState(false);
 
   useEffect(() => {
     if (isSum) {
@@ -33,6 +35,15 @@ const InvoiceFirst = ({ navigation, route }) => {
     route?.params?.payment &&
       setPaymentTableValues([...paymentTableValues, route?.params?.payment]);
   }, [route?.params?.payment]);
+
+  useEffect(() => {
+    if (isSumPayment) {
+      paymentTableValues.map((obj) =>
+        setSumPricePayment(Number(sumPricePayment) + Number(obj?.sumPrice))
+      );
+      setIsSumPayment(false);
+    }
+  }, [paymentTableValues]);
 
   const pickerRef = useRef();
 
@@ -316,6 +327,7 @@ const InvoiceFirst = ({ navigation, route }) => {
               onPress={() =>
                 navigation.navigate('הוספת אמצעי תשלום', {
                   sumPrice: `₪${(Number(sumPrice) * 1.17).toFixed(2)}`,
+                  setIsSumPayment: setIsSumPayment,
                 })
               }
               title="הוספת אמצעי תשלום"
@@ -330,7 +342,10 @@ const InvoiceFirst = ({ navigation, route }) => {
               <Text style={styles.name}>סה"כ שולם:</Text>
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}345</Text>
+              <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>
+                {'\u20AA'}
+                {sumPricePayment}
+              </Text>
             </View>
           </View>
         </Card>

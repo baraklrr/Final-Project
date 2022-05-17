@@ -9,6 +9,7 @@ import InvoiceCheckBook from './InvoicePayments/InvoiceCheckBook';
 import InvoiceCreditCard from './InvoicePayments/InvoiceCreditCard';
 
 const InvoicePayment = ({ navigation, route }) => {
+  const { setIsSumPayment } = route?.params;
   const [openModal, setOpenModal] = useState(false);
   const [payment, setPayment] = useState({
     addPayment: true,
@@ -20,7 +21,8 @@ const InvoicePayment = ({ navigation, route }) => {
 
   const handleSubmit = (from, obj) => {
     setPayment({ ...payment, [from]: false });
-    navigation.navigate('חשבונית מס/קבלה', { payment: obj });
+    setIsSumPayment(true);
+    navigation.navigate('חשבונית מס/קבלה', { payment: obj, isSum: true });
   };
 
   return (
