@@ -11,9 +11,7 @@ import Header from '../components/Header'
 import TabContainer from "../components/TabContainer";
 import { Card,Paragraph } from 'react-native-paper';
 import {COLORS} from "../core/theme";
-import AuthService from "../services/auth.service";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { AuthContext } from "../context/AuthContext";
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -33,11 +31,12 @@ const styles = StyleSheet.create({
   });
   
 export default function Settings({ navigation }) {
+
+ const { signOut } = React.useContext(AuthContext);
+
   const logout =()=>{
-    AsyncStorage.removeItem("user").then(()=>{
-      AuthService.logout
-     console.log("disconnect")
-    })
+    signOut();
+    console.log("disconnected")
  }
 
 return (

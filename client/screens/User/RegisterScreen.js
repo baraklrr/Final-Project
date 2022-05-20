@@ -12,8 +12,12 @@ import AuthService from "../../services/auth.service";
 import { passwordValidator } from '../../helpers/passwordValidator'
 import { emailValidator } from '../../helpers/emailValidator'
 import { nameValidator } from '../../helpers/nameValidator'
+import { AuthContext } from "../../context/AuthContext";
 
 export default function RegisterScreen({ navigation }) {
+
+  const { signUp } = React.useContext(AuthContext);
+
   const [username, setName] = useState({ value: '', error: '' })
   const [email, setEmail] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
@@ -30,15 +34,7 @@ export default function RegisterScreen({ navigation }) {
       setPassword2({ ...password2, error: passwordError })
       return
     }
-    AuthService.register(username.value, email.value, password.value).then(
-      () => {
-        //navigation.replace("Dashboard");
-      },
-      (error) => {
-        const resMessage = error.response.data.message;
-        console.log(resMessage);
-      }
-    );
+    signUp(username.value, email.value , password.value)
   }
 
   return (
@@ -79,7 +75,7 @@ export default function RegisterScreen({ navigation }) {
         label="אמת סיסמה"
         returnKeyType="done"
         value={password2.value}
-        onChangeText={(text) => setPasswor2({ value: text, error: '' })}
+        onChangeText={(text) => setPassword2({ value: text, error: '' })}
         error={!!password2.error}
         errorText={password2.error}
         secureTextEntry
