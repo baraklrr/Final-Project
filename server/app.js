@@ -6,7 +6,7 @@ const { db, initial } = require("./models");
 
 const cors = require("cors");
 var corsOptions = {
-  origin: "http://localhost:8081",
+  origin: "http://localhost:8080",
 };
 
 db.sequelize
@@ -23,6 +23,31 @@ db.sequelize
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
 app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
+
+
+if (process.env.NODE_ENV == "development") {
+  const swaggerUI = require("swagger-ui-express");
+  const swaggerJsDoc = require("swagger-jsdoc");
+  const options = {
+    definition: {
+      openapi: "3.0.0",
+      info: {
+        title: "xCount API",
+        version: "1.0.0",
+        description: "A simple Express Library API",
+      },
+      servers: [
+        { url: "http://localhost:" + port },
+      ],
+    },
+    apis: ["./routes/*.js"],
+  };
+  const specs = swaggerJsDoc(options);
+  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
+}
+
+
+
 
 const { authRouter } = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
