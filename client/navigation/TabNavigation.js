@@ -26,6 +26,7 @@ const TabNavigation = () => {
       screenOptions={{
         headerShown: true,
         tabBarShowLabel: true,
+        tabBarLabelStyle: styles.tabLabel,
         headerTitleAlign: 'center',
         tabBarStyle: styles.tabBar,
         headerTitleStyle: { alignItems: 'center' },
@@ -152,9 +153,12 @@ const styles = StyleSheet.create({
   },
   tabIconContainer: {
     position: 'absolute',
-    top: 12,
+    top: 5,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  tabLabel:{
+    marginBottom: 6
   },
   tabIcon: {
     width: 32,

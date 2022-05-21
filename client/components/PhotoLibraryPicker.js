@@ -5,7 +5,7 @@ import {
   View,
   ActivityIndicator,
 } from "react-native";
-import { Text, Avatar, Image, Button } from "@rneui/themed";
+import { Text, Avatar, Image } from "@rneui/themed";
 import * as ImagePicker from "expo-image-picker";
 import RBSheet from "react-native-raw-bottom-sheet";
 
