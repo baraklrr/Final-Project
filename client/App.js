@@ -4,7 +4,7 @@ import "react-native-gesture-handler";
 import { AuthContext } from "./context/AuthContext";
 import { theme } from "./core/theme";
 import AuthStack from "./navigation/AuthStack";
-import { I18nManager } from "react-native";
+import { Alert, I18nManager } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MainNavigator from "./navigation/MainNavigator";
 import AuthService from "./services/auth.service"
@@ -38,6 +38,12 @@ const [state, dispatch] = React.useReducer(
             isSignout: true,
             userToken: null,
           };
+          case 'SIGN_UP':
+            return {
+              ...prevState,
+              isSignout: false,
+              userToken: action.token,
+            };
       }
     },
     {
@@ -55,7 +61,7 @@ const [state, dispatch] = React.useReducer(
       try {
         // Restore token stored in `SecureStore` or any other encrypted storage
         userToken = await AsyncStorage.getItem('token');
-        console.log("token :"+userToken);
+        //console.log("token :"+userToken);
       } catch (e) {
         // Restoring token failed
         console.log("error "+e);
@@ -78,27 +84,29 @@ const [state, dispatch] = React.useReducer(
             console.log('logged in');
           },
           (error) => {
-            alert(error);
+            console.log(error.response.data.message);
+            Alert.alert(error.response.data.message);
           }
         );
-        let userToken = await (await AsyncStorage.getItem('token'));
+        let userToken = await  AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {
         AuthService.logout();
         dispatch({ type: 'SIGN_OUT' })
       },
-      signUp: 
-      async (username,email,password) => {
+      signUp: async (username,email,password) => {
         AuthService.register(username, email, password).then(
-          () => {},
+          () => {console.log("sign up user")},
+
           (error) => {
             const resMessage = error.response.data.message;
             console.log(resMessage);
+            Alert.alert(error.response.data.message);
           }
         );
         let userToken = await AsyncStorage.getItem('token');
-        dispatch({ type: 'SIGN_IN', token: userToken });
+        dispatch({ type: 'SIGN_UP', token: userToken });
       },
     }),
     []
@@ -107,7 +115,8 @@ const [state, dispatch] = React.useReducer(
    return (
     <AuthContext.Provider value={authContext}>
     <Provider theme={theme}>
-     {state.userToken !=null ?  
+     {
+     state.userToken ==null ?  
      ( 
          <MainNavigator/>
      ): 

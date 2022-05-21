@@ -2,7 +2,8 @@ import http from "../http-common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const register = (username, email, password) => {
-  return http.post("/signup", {
+  return http
+  .post("/signup", {
     username,
     email,
     password,

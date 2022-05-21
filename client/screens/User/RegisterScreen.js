@@ -34,7 +34,8 @@ export default function RegisterScreen({ navigation }) {
       setPassword2({ ...password2, error: passwordError })
       return
     }
-    signUp(username.value, email.value , password.value)
+    signUp (username.value, email.value , password.value);
+    navigation.replace('LoginScreen')
   }
 
   return (
