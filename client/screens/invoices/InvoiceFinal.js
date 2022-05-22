@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   Share
 } from "react-native";
-import { Button, Card } from "@rneui/themed";
+import { Card } from "@rneui/themed";
+import { Button } from "@rneui/base";
+
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Header from "../../components/Header";
 

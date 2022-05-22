@@ -7,7 +7,7 @@ import {
   KeyboardAvoidingView,
   Image,
 } from "react-native";
-import { Card, Input, Button } from "@rneui/themed";
+import { Card, Input } from "@rneui/themed";
 import DateSelect from "../../components/DateSelect";
 import { ToggleButton } from "react-native-paper";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";

@@ -6,7 +6,8 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { Card, Input, Button, Divider } from "@rneui/themed";
+import { Card, Input, Divider } from "@rneui/themed";
+import { Button } from "@rneui/base";
 import { DataTable } from "react-native-paper";
 import CustomDivider from "../../components/CustomDivider";
 
