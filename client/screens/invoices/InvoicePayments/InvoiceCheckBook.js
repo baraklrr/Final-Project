@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import DateCalendar from '../../../components/DateCalendar';
 
-const InvoiceCheckBook = ({ handleSubmit }) => {
+const InvoiceCheckBook = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [checkBookObj, setCheckBookObj] = useState({
     title: 'שיק',
     date: '',
@@ -30,12 +31,17 @@ const InvoiceCheckBook = ({ handleSubmit }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            <Input
+            {/* <Input
               textAlign="right"
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setCheckBookObj({ ...checkBookObj, date: e })}
+            /> */}
+            <DateCalendar
+              title="תאריך החשבונית:"
+              setCardObj={setCheckBookObj}
+              cardObj={checkBookObj}
             />
           </View>
           <View style={{ marginTop: '10%' }}>
@@ -44,7 +50,18 @@ const InvoiceCheckBook = ({ handleSubmit }) => {
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="סכום"
-              onChangeText={(e) => setCheckBookObj({ ...checkBookObj, sumPrice: e })}
+              value={checkBookObj.sumPrice}
+              onChangeText={(e) => {
+                if (e <= (sumPricePayment ? sumPrice - sumPricePayment : sumPrice)) {
+                  setCheckBookObj({ ...checkBookObj, sumPrice: e });
+                } else {
+                  Alert.alert(
+                    'שגיאה',
+                    `סכום התשלום גדול מסכום היתרה, אנא בחר סכום נמוך מסכום היתרה`,
+                    [{ text: 'אישור', onPress: () => console.log('OK Pressed') }]
+                  );
+                }
+              }}
             />
           </View>
           <View
