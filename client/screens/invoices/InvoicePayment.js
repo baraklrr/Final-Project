@@ -9,7 +9,7 @@ import InvoiceCheckBook from './InvoicePayments/InvoiceCheckBook';
 import InvoiceCreditCard from './InvoicePayments/InvoiceCreditCard';
 
 const InvoicePayment = ({ navigation, route }) => {
-  const { setIsSumPayment } = route?.params;
+  const { setIsSumPayment, sumPrice, sumPricePayment } = route?.params;
   const [openModal, setOpenModal] = useState(false);
   const [payment, setPayment] = useState({
     addPayment: true,
@@ -37,17 +37,42 @@ const InvoicePayment = ({ navigation, route }) => {
       >
         <Text style={{ textAlign: 'left', lineHeight: 40, fontSize: 20 }}>יתרה לתשלום</Text>
         <Text style={{ textAlign: 'left', lineHeight: 40, fontSize: 20 }}>
-          {route.params.sumPrice}
+          {'\u20AA'}
+          {(sumPrice - sumPricePayment).toFixed(2)}
         </Text>
       </View>
       {payment.addPayment && <InvoiceAddPayment setPayment={setPayment} />}
-      {payment.app && <InvoiceApp setPayment={setPayment} handleSubmit={handleSubmit} />}
-      {payment.bank && <InvoiceBank setPayment={setPayment} handleSubmit={handleSubmit} />}
+      {payment.app && (
+        <InvoiceApp
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
+      )}
+      {payment.bank && (
+        <InvoiceBank
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
+      )}
       {payment.checkBook && (
-        <InvoiceCheckBook setPayment={setPayment} handleSubmit={handleSubmit} />
+        <InvoiceCheckBook
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
       )}
       {payment.creditCard && (
-        <InvoiceCreditCard setPayment={setPayment} handleSubmit={handleSubmit} />
+        <InvoiceCreditCard
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
       )}
     </View>
   );

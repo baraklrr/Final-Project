@@ -43,7 +43,7 @@ const TabNavigation = () => {
         name="בית"
         component={Dashboard}
         options={{
-          headerTitle: '',
+          headerTitle: 'דף הבית',
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tabLabel:{
-    marginBottom: 6
+  tabLabel: {
+    marginBottom: 6,
   },
   tabIcon: {
     width: 32,

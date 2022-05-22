@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { TextInput } from "react-native-paper";
-import DateTimePicker from "@react-native-community/datetimepicker";
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DateSelect = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState("date");
+  const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -17,7 +17,7 @@ const DateSelect = ({ navigation }) => {
     setMode(currentMode);
   };
   const showDatepicker = () => {
-    showMode("date");
+    showMode('date');
   };
 
   return (
@@ -26,10 +26,10 @@ const DateSelect = ({ navigation }) => {
         <TextInput
           label="תאריך"
           mode="outlined"
-          style={{textAlign:'center',fontSize:20}}
+          style={{ textAlign: 'center', fontSize: 20 }}
           editable={false}
           right={<TextInput.Icon name="calendar" />}
-          value={date.toLocaleDateString("he")}
+          value={date.toLocaleDateString('he')}
         />
       </TouchableOpacity>
       {show && (

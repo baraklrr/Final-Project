@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import DateCalendar from '../../../components/DateCalendar';
 
-const InvoiceApp = ({ handleSubmit }) => {
+const InvoiceApp = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [appObj, setAppObj] = useState({
     title: 'דרך אפליקציה',
     date: '',
@@ -30,13 +31,14 @@ const InvoiceApp = ({ handleSubmit }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            <Input
+            {/* <Input
               textAlign="right"
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setAppObj({ ...appObj, date: e })}
-            />
+            /> */}
+            <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} />
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input
@@ -44,7 +46,18 @@ const InvoiceApp = ({ handleSubmit }) => {
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="סכום"
-              onChangeText={(e) => setAppObj({ ...appObj, sumPrice: e })}
+              value={appObj.sumPrice}
+              onChangeText={(e) => {
+                if (e <= (sumPricePayment ? sumPrice - sumPricePayment : sumPrice)) {
+                  setAppObj({ ...appObj, sumPrice: e });
+                } else {
+                  Alert.alert(
+                    'שגיאה',
+                    `סכום התשלום גדול מסכום היתרה, אנא בחר סכום נמוך מסכום היתרה`,
+                    [{ text: 'אישור', onPress: () => console.log('OK Pressed') }]
+                  );
+                }
+              }}
             />
           </View>
           <View

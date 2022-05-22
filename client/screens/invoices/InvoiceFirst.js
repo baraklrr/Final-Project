@@ -326,7 +326,8 @@ const InvoiceFirst = ({ navigation, route }) => {
               loadingStyle={{}}
               onPress={() =>
                 navigation.navigate('הוספת אמצעי תשלום', {
-                  sumPrice: `₪${(Number(sumPrice) * 1.17).toFixed(2)}`,
+                  sumPrice: `${(Number(sumPrice) * 1.17).toFixed(2)}`,
+                  sumPricePayment: `${sumPricePayment}`,
                   setIsSumPayment: setIsSumPayment,
                 })
               }
