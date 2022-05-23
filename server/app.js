@@ -47,8 +47,6 @@ if (process.env.NODE_ENV == "development") {
 }
 
 
-
-
 const { authRouter } = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
@@ -57,6 +55,10 @@ app.use("/", indexRouter);
 
 const incomeRouter = require("./routes/income_routes");
 app.use("/api/income", incomeRouter);
+
+const expenseRouter = require("./routes/expense_routes");
+app.use("/api/expense", expenseRouter);
+
 
 //server
 app.listen(port, () => {

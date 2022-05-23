@@ -10,6 +10,22 @@ GET http://localhost:8080
 
 ###
 GET http://localhost:8080/api/income/total
+###
+GET http://localhost:8080/api/expense/all/1
+###
+###
+GET http://localhost:8080/api/expense/all/4
+###
+
+POST http://localhost:8080/api/expense/create
+Content-Type: application/json
+
+{
+   "businessId":"1",
+   "date":"11.02.1997", 
+   "type":"comp",
+   "expenseSum":"200"
+}
 
 ###
 
