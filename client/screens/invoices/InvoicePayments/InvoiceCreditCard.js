@@ -8,7 +8,9 @@ import DateCalendar from '../../../components/DateCalendar';
 const InvoiceCreditCard = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [cardObj, setCardObj] = useState({
     title: 'כ. אשראי',
-    date: '',
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
     lastNumbers: '',
     sumPrice: '',
   });

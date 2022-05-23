@@ -8,10 +8,9 @@ import RNPickerSelect from 'react-native-picker-select';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import InvoiceTextInput from '../../components/InvoiceTextInput';
 import CustomDivider from '../../components/CustomDivider';
-import DateSelect from '../../components/DateSelect';
+import DateCalendar from '../../components/DateCalendar';
 
 const InvoiceFirst = ({ navigation, route }) => {
-  console.log(route?.params?.payment);
   const [checked, setChecked] = React.useState(false);
   const [vat, setVat] = useState();
   const [currency, setCurrency] = useState();
@@ -21,6 +20,16 @@ const InvoiceFirst = ({ navigation, route }) => {
   const [sumPricePayment, setSumPricePayment] = useState(0);
   const [isSum, setIsSum] = useState(false);
   const [isSumPayment, setIsSumPayment] = useState(false);
+  const [clientObj, setClientObj] = useState({
+    name: '',
+    phone: '',
+    companyNumber: '',
+  });
+  const [date, setDate] = useState({
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
+  });
 
   useEffect(() => {
     if (isSum) {
@@ -67,19 +76,22 @@ const InvoiceFirst = ({ navigation, route }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור ההכנסה"
           ></Input>
-          <DateSelect />
+          {/* <DateSelect /> */}
+          <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />
+
           <CustomDivider />
           <Card.Title style={{ textAlign: 'left' }}>לכבוד</Card.Title>
-          <TouchableOpacity>
-            <Input
-              textAlign="right"
-              textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
-              rightIcon={<Icon name="account-plus" size={20} />}
-              icon
-              placeholder="שם"
-            />
-          </TouchableOpacity>
+          {/* <TouchableOpacity> */}
+          <Input
+            textAlign="right"
+            textAlignVertical="center"
+            disabledInputStyle={{ background: '#ddd' }}
+            rightIcon={<Icon name="account-plus" size={20} />}
+            icon
+            placeholder="שם"
+            onChangeText={(e) => setClientObj({ ...clientObj, name: e })}
+          />
+          {/* </TouchableOpacity> */}
           <Input
             textAlign="right"
             textAlignVertical="center"
@@ -87,6 +99,7 @@ const InvoiceFirst = ({ navigation, route }) => {
             rightIcon={<Icon name="phone" size={20} />}
             placeholder="טלפון"
             keyboardType="number-pad"
+            onChangeText={(e) => setClientObj({ ...clientObj, phone: e })}
           />
           <Input
             textAlign="right"
@@ -94,20 +107,21 @@ const InvoiceFirst = ({ navigation, route }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="מספר עוסק או ח.פ"
             keyboardType="number-pad"
+            onChangeText={(e) => setClientObj({ ...clientObj, companyNumber: e })}
           />
-          <Input
+          {/* <Input
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="כתובת עסק"
-          />
-          <Input
+          /> */}
+          {/* <Input
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="אימייל"
             keyboardType="email-address"
-          />
+          /> */}
           <Checkbox.Item
             label="שמור לקוח לפעם הבאה"
             status={checked ? 'checked' : 'unchecked'}
@@ -119,7 +133,7 @@ const InvoiceFirst = ({ navigation, route }) => {
 
           <Card.Title style={{ textAlign: 'left' }}>פירוט עסקה ושירותים</Card.Title>
 
-          <View style={{ flex: 1, flexDirection: 'row' }}>
+          {/* <View style={{ flex: 1, flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
               <RNPickerSelect
                 placeholder={{}}
@@ -184,14 +198,14 @@ const InvoiceFirst = ({ navigation, route }) => {
                 }}
               />
             </View>
-          </View>
+          </View> */}
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>פריט</DataTable.Title>
               <DataTable.Title>כמות</DataTable.Title>
               <DataTable.Title>מחיר ליח'</DataTable.Title>
               <DataTable.Title numeric>סה"כ</DataTable.Title>
-              <DataTable.Title numeric></DataTable.Title>
+              {/* <DataTable.Title numeric></DataTable.Title> */}
             </DataTable.Header>
             {dataTableValues.map((obj, index) => {
               return (
@@ -206,7 +220,7 @@ const InvoiceFirst = ({ navigation, route }) => {
                     {'\u20AA'}
                     {Number(obj?.price) * Number(obj?.intity)}
                   </DataTable.Cell>
-                  <DataTable.Cell numeric>{<Icon name="dots-vertical" size={20} />}</DataTable.Cell>
+                  {/* <DataTable.Cell numeric>{<Icon name="dots-vertical" size={20} />}</DataTable.Cell> */}
                 </DataTable.Row>
               );
             })}
@@ -340,7 +354,7 @@ const InvoiceFirst = ({ navigation, route }) => {
           <Divider style={{ elevation: 0.5 }} />
           <View style={{ flex: 1, padding: 5, marginTop: 10, flexDirection: 'row' }}>
             <View style={{ flex: 1 }}>
-              <Text style={styles.name}>סה"כ שולם:</Text>
+              <Text style={{ textAlign: 'left' }}>סה"כ שולם:</Text>
             </View>
             <View style={{ flex: 1 }}>
               <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>
@@ -350,7 +364,20 @@ const InvoiceFirst = ({ navigation, route }) => {
             </View>
           </View>
         </Card>
-        <TouchableOpacity onPress={() => navigation.navigate('סיכום')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('סיכום', {
+              paymentTableValues: paymentTableValues,
+              dataTableValues: dataTableValues,
+              sumPricePayment: sumPricePayment,
+              sumPriceWithVAT: (Number(sumPrice) * 1.17).toFixed(2),
+              sumPriceVAT: (Number(sumPrice) * 0.17).toFixed(2),
+              sumPrice: sumPrice,
+              clientObj: clientObj,
+              date: date,
+            })
+          }
+        >
           <View style={styles.button}>
             <Text style={styles.buttonText}>הבא</Text>
           </View>
