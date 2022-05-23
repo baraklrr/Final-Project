@@ -8,7 +8,9 @@ import DateCalendar from '../../../components/DateCalendar';
 const InvoiceApp = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [appObj, setAppObj] = useState({
     title: 'דרך אפליקציה',
-    date: '',
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
     sumPrice: '',
   });
   return (

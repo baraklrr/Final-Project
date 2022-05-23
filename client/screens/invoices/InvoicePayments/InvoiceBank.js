@@ -8,7 +8,9 @@ import DateCalendar from '../../../components/DateCalendar';
 const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [bankObj, setBankObj] = useState({
     title: 'העברה בנקאית',
-    date: '',
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
     sumPrice: '',
   });
   return (
@@ -44,7 +46,8 @@ const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
             <Input
               textAlign="right"
               textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
+              disabledInputStyle={{ background: 'r#ddd' }}
+              keyboardType="number-pad"
               placeholder="סכום"
               value={bankObj.sumPrice}
               onChangeText={(e) => {
