@@ -181,7 +181,7 @@ const TransactionsScreen = () => {
           </View>
         </View>
       </Card>
-        <View style={{ flex: 1 , marginBottom: 100}}>
+        <View style={{ flex: 1 }}>
           {/* <Text>{currentMonth}</Text> */}
 
           <Agenda

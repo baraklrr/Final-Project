@@ -10,7 +10,7 @@ var corsOptions = {
 };
 
 db.sequelize
-  .sync({ force: true })
+  .sync({ force: false })
   .then(() => {
     console.log("Drop and re-sync db.");
     initial;
@@ -32,6 +32,11 @@ app.use("/", indexRouter);
 
 const incomeRouter = require("./routes/income_routes");
 app.use("/api/income", incomeRouter);
+
+// const expenseRouter = require("./routes/expense.routes");
+// app.use("/api/expense", expenseRouter);
+require("./routes/expense.routes")(app);
+
 
 //server
 app.listen(port, () => {
