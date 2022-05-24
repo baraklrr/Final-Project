@@ -34,6 +34,45 @@ Content-Type: application/json
     "password" : "123456",
     "roles" : ["moderator" , "user"]
 }
+###
+
+POST http://localhost:8080/api/expense/create
+Content-Type: application/json
+
+{
+    "businessId": 2,
+    "date": "2017-06-15",
+    "name": "1",
+    "expenseItems": "123",
+    "expenseImg": "1",
+    "expenseSum": 1.1,
+    "currency":"1",
+    "VatType": "1",
+    "VatRefund": 1.1,
+    "IrsRefund": 1.1,
+    "refundSum": 1.1,
+    "confirmed": "1",
+}
+###
+
+GET http://localhost:8080/api/expense/total
+Content-Type: application/json
+
+{
+ 
+}
+
+###
+
+POST http://localhost:8080/api/auth/signup
+Content-Type: application/json
+
+{
+    "username" : "sdee",
+    "email" : "aafdsfhlon@asd.com",
+    "password" : "123456",
+    "roles" : ["moderator" , "user"]
+}
 
 
 ###

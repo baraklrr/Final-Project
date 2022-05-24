@@ -3,6 +3,7 @@ import { Text, View, StyleSheet } from "react-native";
 import { Card } from "@rneui/themed";
 import TabContainer from "../components/TabContainer";
 import { COLORS } from "../core/theme";
+import Constants from 'expo-constants';
 
 export default function Dashboard({ navigation }) {
   return (
@@ -16,7 +17,7 @@ export default function Dashboard({ navigation }) {
                 height: 20,
                 marginRight: 10,
                 borderRadius: 6,
-                backgroundColor: "yellow",
+                backgroundColor: "#80ffdb",
                 resizeMode: "cover",
               }}
             ></View>
@@ -58,7 +59,7 @@ export default function Dashboard({ navigation }) {
                   height: 20,
                   marginRight: 10,
                   borderRadius: 6,
-                  backgroundColor: "#2196F3",
+                  backgroundColor: "#a3cef1",
                   resizeMode: "cover",
                 }}
               ></View>
@@ -81,7 +82,7 @@ export default function Dashboard({ navigation }) {
                   height: 20,
                   marginRight: 10,
                   borderRadius: 6,
-                  backgroundColor: "#8BC34A",
+                  backgroundColor: "#6096ba",
                   resizeMode: "cover",
                 }}
               ></View>
@@ -104,7 +105,7 @@ export default function Dashboard({ navigation }) {
                   height: 20,
                   marginRight: 10,
                   borderRadius: 6,
-                  backgroundColor: "#e3aa1a",
+                  backgroundColor: "#274c77",
                   resizeMode: "cover",
                 }}
               ></View>
@@ -138,27 +139,27 @@ const styles = StyleSheet.create({
     marginBottom: 38,
   },
   screenContainer: {
-    paddingTop: 20,
     flex: 1,
+    paddingTop: Constants.statusBarHeight,
     backgroundColor: COLORS.bg,
   },
   box1: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#2196F3",
+    backgroundColor: "#a3cef1",
   },
   box2: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#8BC34A",
+    backgroundColor: "#6096ba",
   },
   box3: {
     flex: 3,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#e3aa1a",
+    backgroundColor: "#274c77",
   },
   space: {
     marginTop: 14,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     flex: 2,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "yellow",
+    backgroundColor: "#80ffdb",
   },
   user: {
     flexDirection: "row",
