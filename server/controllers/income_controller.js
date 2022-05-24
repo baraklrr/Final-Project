@@ -1,41 +1,44 @@
 const { db } = require("../models");
-
+const receiptController = require("../controllers/receipt.controller");
 const Income = db.income;
 const Op = db.Sequelize.Op;
 
-// // Create and Save a new Invoice
-// exports.create = (req, res) => {
-//   // Validate request
-//   if (!req.body.title) {
-//     res.status(400).send({
-//       message: "Content can not be empty!",
-//     });
-//     return;
-//   }
+const getIncomes = (req, res) => {
+  res.send("total income");
+};
 
-//   // Create a Invoice
-//   const invoice = {
-//     title: req.body.title,
-//     date: req.body.date,
-//     incomSum: req.body.incomSum,
-//     currency: req.body.currency,
-//     description: req.body.description,
-//     published: req.body.published ? req.body.published : false,
-//   };
-
-//   // Save Invoice in the database
-//   Invoice.create(invoice)
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while creating the Invoice.",
-//       });
-//     });
-// };
-
+// Create and Save a new income
+const createIncome = (req, res) => {
+  // Validate request
+  if (!req.body.title) {
+    res.status(400).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
+  Income.create({
+    businessId: req.body.businessId,
+    customerId: req.body.customerId,
+    date: req.body.date,
+    title: req.body.title,
+    incomeImg: req.body.incomeImg,
+    //itemsList: req.body.receipt,
+    incomSum: req.body.incomSum,
+    currency: req.body.currency,
+    //currencyExchangeRate: req.body.currencyExchangeRate,
+    incomeType: req.body.incomeType,
+    paymentMethod: req.body.paymentMethod,
+    //confirmed: req.body.confirmed,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating Income.",
+      });
+    });
+};
 // // Retrieve all Invoices from the database.
 // exports.findAll = (req, res) => {
 //   const title = req.query.title;
@@ -148,13 +151,4 @@ const Op = db.Sequelize.Op;
 //       });
 //     });
 // };
-
-const getIncomesCount = async (req, res) => {
-  db.res.send("total income");
-};
-
-const getIncomes = async (req, res) => {
-  res.send("total income");
-};
-
-module.exports = { getIncomes };
+module.exports = { createIncome, getIncomes };

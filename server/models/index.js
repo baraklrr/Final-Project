@@ -30,15 +30,14 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.role = require("./role.model.js")(sequelize, Sequelize);
-db.user = require("./user.model.js")(sequelize, Sequelize);
+db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.refreshToken = require("./refreshToken.model.js")(sequelize, Sequelize);
-db.item = require("./item.model.js")(sequelize, Sequelize);
+db.item = require("../models/item.model.js")(sequelize, Sequelize);
 db.customer = require("./customer.model.js")(sequelize, Sequelize);
-db.bankAccount = require("./bankAccount.model.js")(sequelize, Sequelize);
 db.expense = require("./expense.model.js")(sequelize, Sequelize);
 db.income = require("./income.model.js")(sequelize, Sequelize);
-db.receipt = require("./receipt.model.js")(sequelize, Sequelize);
+//db.receipt = require("./receipt.model.js")(sequelize, Sequelize);
 db.business = require("./business.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
@@ -51,7 +50,6 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId",
 });
-
 db.refreshToken.belongsTo(db.user, {
   foreignKey: "userId",
   targetKey: "id",
@@ -60,21 +58,39 @@ db.user.hasOne(db.refreshToken, {
   foreignKey: "userId",
   targetKey: "id",
 });
+//db.income.belongsTo(db.receipt);
+/*db.item.belongsToMany(db.receipt, {
+  through: "receipt_items",
+  foreignKey: "itemId",
+  otherKey: "receiptId",
+});*/
+// db.income.hasOne(db.business);
+// db.income.hasOne(db.receipt);
+// db.income.hasOne(db.customer);
+//db.receipt.hasMany(db.item);
+//db.item.belongsToMany(db.receipt);
 
-initial = () => {
-  Role.create({
-    id: 1,
+const initial = async () => {
+  await db.role.create({
     name: "user",
   });
-
-  Role.create({
-    id: 2,
+  await db.role.create({
     name: "moderator",
   });
-
-  Role.create({
-    id: 3,
+  await db.role.create({
     name: "admin",
+  });
+  await db.item.create({
+    itemName: "a",
+    price: 12,
+  });
+  await db.item.create({
+    itemName: "b",
+    price: 13,
+  });
+  await db.item.create({
+    itemName: "c",
+    price: 14,
   });
 };
 

@@ -7,12 +7,28 @@ http.request({
 
 ###
 GET http://localhost:8080
+Content-Type: application/json
+
+{
+ "itemsList": 
+    [{
+        "itemID": 1,
+        "itemName": "a",	
+        "price": 12.0,
+        "amount": 3,
+        "sumPrice": 36.0
+    },{
+        "itemID": 2,
+        "itemName": "b",	
+        "price": 13.0,
+        "amount": 3,
+        "sumPrice": 39.0
+    }]
+}
 
 ###
-GET http://localhost:8080/api/income/total
-
+POST http://localhost:8080/api/auth/signout
 ###
-
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
@@ -22,9 +38,7 @@ Content-Type: application/json
     "password" : "123456",
     "roles" : ["moderator" , "user"]
 }
-
 ###
-
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
@@ -34,8 +48,6 @@ Content-Type: application/json
     "password" : "123456",
     "roles" : ["moderator" , "user"]
 }
-
-
 ###
 
 POST http://127.0.0.1:8080/api/auth/signin
@@ -47,7 +59,25 @@ Content-Type: application/json
 }
 
 ###
+GET http://127.0.0.1:8080/api/income/total
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA1Mjg3LCJleHAiOjE2NTM0MDg4ODd9.s03B07mJBVBhzKnthHo2X1_ORCb9PjGtMZDhzJydvoY
 
+###
+POST  http://127.0.0.1:8080/api/income/create
+Content-Type: application/json
+
+{
+    "businessId": 1,
+    "customerId": 1,
+    "date": "2022-01-17",
+    "title": "test",
+    "incomSum": 125.78,
+    "currency": "shekel",
+    "incomeType": "Tax invoice",
+    "paymentMethod": "Credit"
+}
+
+###
 POST http://127.0.0.1:8080/api/auth/signin
 Content-Type: application/json
 
