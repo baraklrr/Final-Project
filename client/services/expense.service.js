@@ -2,7 +2,7 @@ import http from '../http-common';
 
 class ExpenseDataService {
   getAll() {
-    return http.get('/expense');
+    return http.get('/expense/total');
   }
 
   get(id) {
@@ -10,7 +10,7 @@ class ExpenseDataService {
   }
 
   create(data) {
-    return http.post('/expense', data);
+    return http.post('/expense/create', data);
   }
 
   update(id, data) {

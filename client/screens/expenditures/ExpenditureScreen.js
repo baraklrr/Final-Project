@@ -29,21 +29,21 @@ const ExpenditureScreen = ({ navigation }) => {
 
   const saveExpense = () => {
     var data = {
-      businessId: 1,
-      date: 1,
-      name: 'asd',
-      expenseItems: JSON.stringify({ name: 'Alon' }),
-      expenseImg: 'asd',
-      expenseSum: 1.2,
-      currency: 'asd',
-      VatType: 'asd',
-      VatRefund: 1.2,
-      IrsRefund: 1.2,
-      refundSum: 1.2,
-      confirmed: true,
+      businessId: 3,
+      date: '2017-06-15',
+      name: '1',
+      expenseItems: JSON.stringify([{ key: 'value' }]),
+      expenseImg: '1',
+      expenseSum: 1.1,
+      currency: 1,
+      VatType: 1,
+      VatRefund: 1.1,
+      IrsRefund: 1.1,
+      refundSum: 1.1,
+      confirmed: 1,
     };
-    console.log('api call');
 
+    // ExpenseDataService.getAll()
     ExpenseDataService.create(data)
       .then((response) => {
         // this.setState({
@@ -54,12 +54,12 @@ const ExpenditureScreen = ({ navigation }) => {
 
         //   submitted: true,
         // });
-        console.log('bruh');
-
         console.log(response.data);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data); // => the response payload
+        }
       });
   };
 

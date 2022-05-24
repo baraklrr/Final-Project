@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const register = (username, email, password) => {
   return http
-  .post("/signup", {
+  .post("/auth/signup", {
     username,
     email,
     password,
@@ -12,7 +12,7 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
   return http
-    .post("/signin", {
+    .post("/auth/signin", {
       username,
       password,
     })
