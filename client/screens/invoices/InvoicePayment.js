@@ -6,6 +6,8 @@ import InvoiceAddPayment from './InvoicePayments/InvoiceAddPayment';
 import InvoiceApp from './InvoicePayments/InvoiceApp';
 import InvoiceBank from './InvoicePayments/InvoiceBank';
 import InvoiceCheckBook from './InvoicePayments/InvoiceCheckBook';
+import InvoiceCash from './InvoicePayments/InvoiceCash';
+import InvoicePaypal from './InvoicePayments/InvoicePaypal';
 import InvoiceCreditCard from './InvoicePayments/InvoiceCreditCard';
 
 const InvoicePayment = ({ navigation, route }) => {
@@ -17,6 +19,8 @@ const InvoicePayment = ({ navigation, route }) => {
     checkBook: false,
     bank: false,
     app: false,
+    cash: false,
+    paypal: false,
   });
 
   const handleSubmit = (from, obj) => {
@@ -68,6 +72,22 @@ const InvoicePayment = ({ navigation, route }) => {
       )}
       {payment.creditCard && (
         <InvoiceCreditCard
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
+      )}
+      {payment.cash && (
+        <InvoiceCash
+          setPayment={setPayment}
+          handleSubmit={handleSubmit}
+          sumPrice={sumPrice}
+          sumPricePayment={sumPricePayment}
+        />
+      )}
+      {payment.paypal && (
+        <InvoicePaypal
           setPayment={setPayment}
           handleSubmit={handleSubmit}
           sumPrice={sumPrice}

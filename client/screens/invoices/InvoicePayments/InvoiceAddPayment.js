@@ -48,6 +48,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         checkBook: false,
                         bank: false,
                         app: false,
+                        cash: false,
+                        paypal: false,
                       })
                     }
                   >
@@ -74,6 +76,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         checkBook: false,
                         bank: true,
                         app: false,
+                        cash: false,
+                        paypal: false,
                       })
                     }
                   >
@@ -108,6 +112,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         checkBook: true,
                         bank: false,
                         app: false,
+                        cash: false,
+                        paypal: false,
                       })
                     }
                   >
@@ -134,6 +140,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         checkBook: false,
                         bank: false,
                         app: true,
+                        cash: false,
+                        paypal: false,
                       })
                     }
                   >
@@ -147,6 +155,64 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                       }}
                       source={{
                         uri: 'https://mirrors.creativecommons.org/presskit/icons/share.xlarge.png',
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 20 }}>
+                <View style={{ flexDirection: 'column' }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setPayment({
+                        addPayment: false,
+                        creditCard: false,
+                        checkBook: false,
+                        bank: false,
+                        app: false,
+                        cash: false,
+                        paypal: true,
+                      })
+                    }
+                  >
+                    <Text style={styles.text}>דרך פייפל</Text>
+                    <Image
+                      style={{
+                        width: 70,
+                        height: 70,
+                        right: 5,
+                        bottom: 5,
+                      }}
+                      source={{
+                        uri: 'https://png.pngtree.com/png-vector/20190305/ourlarge/pngtree-paypal-flat-icon-design-png-image_728021.jpg',
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'column' }}>
+                  <TouchableOpacity
+                    onPress={() =>
+                      setPayment({
+                        addPayment: false,
+                        creditCard: false,
+                        checkBook: false,
+                        bank: false,
+                        app: false,
+                        cash: true,
+                        paypal: false,
+                      })
+                    }
+                  >
+                    <Text style={styles.text}>מזומן</Text>
+                    <Image
+                      style={{
+                        width: 40,
+                        height: 40,
+                        left: 5,
+                        marginTop: 10,
+                      }}
+                      source={{
+                        uri: 'https://png.pngtree.com/png-vector/20191128/ourmid/pngtree-coin-money-icon-png-image_2049478.jpg',
                       }}
                     />
                   </TouchableOpacity>
@@ -178,7 +244,7 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
+    padding: 20,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -188,7 +254,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height: '50%',
+    height: '55%',
     width: '90%',
   },
   text: {
