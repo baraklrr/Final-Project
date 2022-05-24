@@ -6,22 +6,30 @@ const Op = db.Sequelize.Op;
 
 //create and save a new expend
 exports.create = (req, res) => {
- const expense ={
-   businessId: req.businessId,
-   date:req.body.date,  
-   type:req.body.type,
-   expenseImg:req.body.expenseImg,
-   expenseSum:req.body.expenseSum,
-   currency: 0,
-   vatRefund: 0,
-   IrsRefund: 0 ,
-   refundSum :0,
-   confirmed:false,
- };
- expenses.create(expense).then(data=>{res.send(data);
-}).catch(err=>{res.status(500).send({
-  message: err.message || "some error occurred while creating the expense."
-})})
+  const expense = {
+    businessId: req.body.businessId,
+    date: req.body.date,
+    name: req.body.name,
+    expenseItems: req.body.expenseItems,
+    expenseImg: req.body.expenseImg,
+    expenseSum: req.body.expenseSum,
+    currency: req.body.currency,
+    VatType: req.body.VatType,
+    VatRefund: req.body.VatRefund,
+    IrsRefund: req.body.IrsRefund,
+    refundSum: req.body.refundSum,
+    confirmed: req.body.confirmed,
+  };
+  expenses.create(expense)
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the Invoice.",
+    });
+  });
 };
 
 
@@ -82,4 +90,20 @@ exports.delete = (req, res) => {
 
       });
     });
+};
+
+
+//todo: change the function and use user token
+exports.find= (req, res) => {
+  var name =req.body.name;
+  const businessId = req.params.businessId;
+  var condition2 = name ? { name: { [Op.ilike]: `%${name}%` } } : null;
+  var condition = businessId ? { businessId: { [Op.like]: `%${businessId}%` } } : null;
+  expenses.findAll({where: {[Op.and]:[{name:condition2},{businessId:condition}]}}).
+  then(data=>{res.send(data);}).catch(err=>{
+    res.status(500).send({
+      message:
+      err.message || "some error occured while retrieving"
+    });
+  })
 };

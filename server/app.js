@@ -5,7 +5,7 @@ const port = process.env.PORT;
 const { db, initial } = require("./models");
 const cors = require("cors");
 var corsOptions = {
-  origin: "http://localhost:8001",
+  origin: "http://localhost:8080",
 };
 
 if (process.env.NODE_ENV == "development") {
