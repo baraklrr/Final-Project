@@ -1,42 +1,85 @@
 const { db } = require("../models");
 
-const Expense = db.expense;
+
+const expenses = db.expense;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new expense
+//create and save a new expend
 exports.create = (req, res) => {
-  // Validate request
-  // if (!req.body.title) {
-  //   res.status(400).send({
-  //     message: "Content can not be empty!",
-  //   });
-  //   return;
-  // }
+ const expense ={
+   businessId: req.businessId,
+   date:req.body.date,  
+   type:req.body.type,
+   expenseImg:req.body.expenseImg,
+   expenseSum:req.body.expenseSum,
+   currency: 0,
+   vatRefund: 0,
+   IrsRefund: 0 ,
+   refundSum :0,
+   confirmed:false,
+ };
+ expenses.create(expense).then(data=>{res.send(data);
+}).catch(err=>{res.status(500).send({
+  message: err.message || "some error occurred while creating the expense."
+})})
+};
 
-  // Create expense
-  const expense = {
-    businessId: req.body.businessId,
-    date: req.body.date,
-    name: req.body.name,
-    expenseItems: req.body.expenseItems,
-    expenseImg: req.body.expenseImg,
-    expenseSum: req.body.expenseSum,
-    currency: req.body.currency,
-    VatType: req.body.VatType,
-    VatRefund: req.body.VatRefund,
-    IrsRefund: req.body.IrsRefund,
-    refundSum: req.body.refundSum,
-    confirmed: req.body.confirmed,
-  };
-  // Save expense in the database
-  Expense.create(expense)
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
+
+exports.getexpenses = async (req, res) => {
+    const businessId = req.params.businessId;
+    var condition = businessId ? { businessId: { [Op.like]: `%${businessId}%` } } : null;
+    expenses.findAll({where: condition}).then(data=>{res.send(data);}).catch(err=>{
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the Invoice.",
+        err.message || "some error occured while retrieving"
+      });
+    })
+  };
+
+
+exports.update = (req, res) => {
+    const id = req.params.id;
+    expenses.update(req.body, {
+      where: { id: id }
+    })  .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "expense was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update expense with id=${id}. Maybe expense was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating expense with id=" + id
+      });
+    });
+};
+  
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  expenses.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "expense was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete expense with id=${id}. Maybe expense was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete expense with id=" + id
+
       });
     });
 };
