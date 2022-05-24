@@ -6,7 +6,7 @@ const Op = db.Sequelize.Op;
 //create and save a new expend
 exports.create = (req, res) => {
  const expense ={
-   businessId:req.body.businessId,
+   businessId: req.businessId,
    date:req.body.date,  
    type:req.body.type,
    expenseImg:req.body.expenseImg,
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
    vatRefund: 0,
    IrsRefund: 0 ,
    refundSum :0,
-   confirm:false,
+   confirmed:false,
  };
  expenses.create(expense).then(data=>{res.send(data);
 }).catch(err=>{res.status(500).send({
@@ -25,8 +25,8 @@ exports.create = (req, res) => {
 
 
 exports.getexpenses = async (req, res) => {
-    const userId = req.query.buissnesId;
-    var condition = userId ? { userId: { [Op.like]: `%${userId}%` } } : null;
+    const businessId = req.params.businessId;
+    var condition = businessId ? { businessId: { [Op.like]: `%${businessId}%` } } : null;
     expenses.findAll({where: condition}).then(data=>{res.send(data);}).catch(err=>{
       res.status(500).send({
         message:
@@ -36,9 +36,48 @@ exports.getexpenses = async (req, res) => {
   };
 
 
-
-
-// Find a single expend with an id
-// exports.findOne = (req, res) => {
+exports.update = (req, res) => {
+    const id = req.params.id;
+    expenses.update(req.body, {
+      where: { id: id }
+    })  .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "expense was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update expense with id=${id}. Maybe expense was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating expense with id=" + id
+      });
+    });
+};
   
-// };
+
+exports.delete = (req, res) => {
+  const id = req.params.id;
+  expenses.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "expense was deleted successfully!"
+        });
+      } else {
+        res.send({
+          message: `Cannot delete expense with id=${id}. Maybe expense was not found!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Could not delete expense with id=" + id
+      });
+    });
+};

@@ -13,6 +13,7 @@ exports.signup = (req, res) => {
     username: req.body.username,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
+    businessId:req.body.businessId,
   })
     .then((user) => {
       if (req.body.roles) {
@@ -75,6 +76,7 @@ exports.signin = (req, res) => {
           roles: authorities,
           accessToken: token,
           refreshToken: refreshToken,
+          businessId:'1',
         });
       });
     })
