@@ -10,6 +10,33 @@ GET http://localhost:8080
 
 ###
 GET http://localhost:8080/api/income/total
+###
+GET http://localhost:8080/api/expense/all/1
+###
+###
+GET http://localhost:8080/api/expense/all/4
+###
+### 
+PUT  http://localhost:8080/api/expense/update/1
+Content-Type: application/json
+
+{
+    "expenseSum":"3000",
+    "type":"clothes"
+}
+### 
+DELETE   http://localhost:8080/api/expense/delete/1
+Content-Type: application/json
+###
+
+POST http://localhost:8080/api/expense/create
+Content-Type: application/json
+
+{   
+   "date":"11.02.1997", 
+   "type":"comp",
+   "expenseSum":"200"
+}
 
 ###
 
@@ -18,9 +45,9 @@ Content-Type: application/json
 
 {
     "username" : "alon",
-    "email" : "aalon@asd.com",
+    "email" : "alon@asd.com",
     "password" : "123456",
-    "roles" : ["moderator" , "user"]
+    "roles" : ["moderator" , "user"], 
 }
 
 ###
