@@ -54,7 +54,7 @@ POST http://localhost:8080/api/expense/create
 Content-Type: application/json
 
 {
-    "businessId": 2,
+    "businessId": 1,
     "date": "2017-06-15",
     "name": "1",
     "expenseItems": "123",
@@ -65,19 +65,28 @@ Content-Type: application/json
     "VatRefund": 1.1,
     "IrsRefund": 1.1,
     "refundSum": 1.1,
-    "confirmed": "1",
+    "confirmed": "1"
 }
+
 ###
 
-GET http://localhost:8080/api/expense/total
+GET http://localhost:8080/api/expense/all/1
+
+###
+GET http://localhost:8080/api/expense/find/1/comp
+###
+
+DELETE  http://localhost:8080/api/expense/delete/1
+
+###
+PUT  http://localhost:8080/api/expense/update/3
 Content-Type: application/json
 
 {
- 
+    "expenseSum":"3000",
+    "type":"clothes"
 }
-
 ###
-
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 

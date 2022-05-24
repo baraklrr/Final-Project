@@ -126,11 +126,49 @@ expenseRouter.get("/all/:businessId", expenseController.getexpenses);
 
  expenseRouter.put("/update/:id", expenseController.update);
 
-
-
+/**
+ * @swagger
+ * /api/expenses/delete/id:
+ *   post:
+ *     summary: delete expends by id 
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: delete expense by id
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
  expenseRouter.delete("/delete/:id", expenseController.delete);
 
-
+/**
+ * @swagger
+ * /api/expenses/find/:name:
+ *   post:
+ *     summary: Find expend by name 
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: Find expend by name 
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+ expenseRouter.get("/find/:businessId/:name", expenseController.find);
 
  module.exports = expenseRouter;
 
