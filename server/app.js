@@ -53,12 +53,12 @@ app.use("/api/auth", authRouter);
 const indexRouter = require("./routes/index_routes");
 app.use("/", indexRouter);
 
-const incomeRouter = require("./routes/income_routes");
+const incomeRouter = require("./routes/income.routes");
 app.use("/api/income", incomeRouter);
 
 
 
-const { expenseRouter } = require("./routes/expense.routes");
+const expenseRouter = require("./routes/expense.routes");
 app.use("/api/expense", expenseRouter);
 // require("./routes/expense.routes")(app);
 
