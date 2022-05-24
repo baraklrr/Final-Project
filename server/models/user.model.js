@@ -1,10 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
-    userID: {
-      type: Sequelize.INTEGER,
-      //primaryKey: true,
-    },
-    companyUserID: {
+    businessId: {
       type: Sequelize.INTEGER,
     },
     username: {
@@ -12,9 +8,6 @@ module.exports = (sequelize, Sequelize) => {
     },
     email: {
       type: Sequelize.STRING,
-    },
-    phoneNumber: {
-      type: Sequelize.INTEGER,
     },
     password: {
       type: Sequelize.STRING,
@@ -32,10 +25,6 @@ module.exports = (sequelize, Sequelize) => {
     businessId: {
       type: Sequelize.INTEGER,
     },
-    // bankAccount: {
-    //   type: Sequelize.ENUM(...Object.values(BankAccount)),
-    //   defaultValue: "pending",
-    // },
   });
 
   return User;
