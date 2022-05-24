@@ -1,22 +1,15 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  Modal,
-  TouchableOpacity,
-  Image,
-  StyleSheet,
-} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useState } from 'react';
+import { View, Text, Modal, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
     <View>
-      <View style={{ height: "100%", justifyContent: "center", bottom: 90 }}>
+      <View style={{ height: '100%', justifyContent: 'center', bottom: 90 }}>
         <TouchableOpacity
-          style={{ marginHorizontal: 30, alignItems: "center" }}
+          style={{ marginHorizontal: 30, alignItems: 'center' }}
           onPress={() => setOpenModal(true)}
         >
           <Text style={{ fontSize: 25 }}>+ הוספת אמצעי תשלום</Text>
@@ -33,23 +26,22 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <View style={{ alignItems: "flex-end" }}>
+              <View style={{ alignItems: 'flex-end' }}>
                 <TouchableOpacity onPress={() => setOpenModal(!openModal)}>
                   <Ionicons name="close-sharp" size={28} color="black" />
                 </TouchableOpacity>
               </View>
-              <Text style={{ fontSize: 27, textAlign: "center" }}>
-                בחר אמצעי תשלום
-              </Text>
+              <Text style={{ fontSize: 27, textAlign: 'center' }}>בחר אמצעי תשלום</Text>
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: 'row',
                   marginTop: 20,
-                  justifyContent: "space-around",
+                  justifyContent: 'space-around',
                 }}
               >
-                <View style={{ flexDirection: "column" }}>
-                  <TouchableOpacity  onPress={() =>
+                <View style={{ flexDirection: 'column' }}>
+                  <TouchableOpacity
+                    onPress={() =>
                       setPayment({
                         addPayment: false,
                         creditCard: true,
@@ -57,7 +49,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         bank: false,
                         app: false,
                       })
-                    }>
+                    }
+                  >
                     <Text style={styles.text}>כרטיס אשראי</Text>
                     <Image
                       style={{
@@ -67,13 +60,14 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         marginTop: 10,
                       }}
                       source={{
-                        uri: "https://www.pngitem.com/pimgs/m/13-130946_bank-cards-icon-black-credit-card-icon-hd.png",
+                        uri: 'https://www.pngitem.com/pimgs/m/13-130946_bank-cards-icon-black-credit-card-icon-hd.png',
                       }}
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: "column" }}>
-                  <TouchableOpacity  onPress={() =>
+                <View style={{ flexDirection: 'column' }}>
+                  <TouchableOpacity
+                    onPress={() =>
                       setPayment({
                         addPayment: false,
                         creditCard: false,
@@ -81,7 +75,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         bank: true,
                         app: false,
                       })
-                    }>
+                    }
+                  >
                     <Text style={styles.text}>העברה בנקאית</Text>
                     <Image
                       style={{
@@ -91,7 +86,7 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         marginTop: 10,
                       }}
                       source={{
-                        uri: "https://p.kindpng.com/picc/s/207-2077691_bank-bank-icon-finance-symbol-money-dollar-bank.png",
+                        uri: 'https://p.kindpng.com/picc/s/207-2077691_bank-bank-icon-finance-symbol-money-dollar-bank.png',
                       }}
                     />
                   </TouchableOpacity>
@@ -99,13 +94,14 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
               </View>
               <View
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-around",
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
                   marginTop: 20,
                 }}
               >
-                <View style={{ flexDirection: "column" }}>
-                  <TouchableOpacity  onPress={() =>
+                <View style={{ flexDirection: 'column' }}>
+                  <TouchableOpacity
+                    onPress={() =>
                       setPayment({
                         addPayment: false,
                         creditCard: false,
@@ -113,7 +109,8 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         bank: false,
                         app: false,
                       })
-                    }>
+                    }
+                  >
                     <Text style={styles.text}>הפקדת שיק</Text>
                     <Image
                       style={{
@@ -123,12 +120,12 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         marginTop: 7,
                       }}
                       source={{
-                        uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcuW5IEu0szQyPeC-3RtMBuWY2XkMS_VGyVQ&usqp=CAU",
+                        uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcuW5IEu0szQyPeC-3RtMBuWY2XkMS_VGyVQ&usqp=CAU',
                       }}
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: "column" }}>
+                <View style={{ flexDirection: 'column' }}>
                   <TouchableOpacity
                     onPress={() =>
                       setPayment({
@@ -149,7 +146,7 @@ const InvoiceAddPayment = ({ route, navigation, setPayment }) => {
                         marginTop: 10,
                       }}
                       source={{
-                        uri: "https://mirrors.creativecommons.org/presskit/icons/share.xlarge.png",
+                        uri: 'https://mirrors.creativecommons.org/presskit/icons/share.xlarge.png',
                       }}
                     />
                   </TouchableOpacity>
@@ -168,21 +165,21 @@ export default InvoiceAddPayment;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 130,
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -191,10 +188,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    height: "50%",
-    width: "90%",
+    height: '50%',
+    width: '90%',
   },
   text: {
-    textAlign: "left",
+    textAlign: 'left',
   },
 });

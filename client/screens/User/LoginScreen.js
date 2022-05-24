@@ -9,10 +9,11 @@ import TextInput from "../../components/TextInput";
 import { theme } from "../../core/theme";
 import { emailValidator } from "../../helpers/emailValidator";
 import { passwordValidator } from "../../helpers/passwordValidator";
+import { AuthContext } from "../../context/AuthContext";
 
-import AuthService from "../../services/auth.service";
 
 export default function LoginScreen({ navigation }) {
+  const { signIn } = React.useContext(AuthContext);
   // const [email, setEmail] = useState({ value: "", error: "" });
   const [username, setUsername] = useState({ value: "", error: "" });
   const [password, setPassword] = useState({ value: "", error: "" });
@@ -24,15 +25,7 @@ export default function LoginScreen({ navigation }) {
       setPassword({ ...password, error: passwordError })
       return
     }
-    AuthService.login(username.value, password.value).then(
-      () => {
-        console.log('logged in');
-        //navigation.replace("Dashboard");
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    signIn(username.value,password.value);
   };
 
   return (

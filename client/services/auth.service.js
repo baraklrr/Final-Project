@@ -2,7 +2,8 @@ import http from "../http-common";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const register = (username, email, password) => {
-  return http.post("/signup", {
+  return http
+  .post("/auth/signup", {
     username,
     email,
     password,
@@ -11,32 +12,34 @@ const register = (username, email, password) => {
 
 const login = (username, password) => {
   return http
-    .post("/signin", {
+    .post("/auth/signin", {
       username,
       password,
     })
     .then((response) => {
       if (response.data.accessToken) {
-        saveUserToLocalStorage(response.data);
+        saveUserToLocalStorage(response.data.refreshToken);
       }
-      //  else logout();
+      //else logout();
       return response.data;
     });
 };
-const saveUserToLocalStorage = async (value) => {
+const saveUserToLocalStorage = async (element) => {
   try {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem("user", jsonValue);
+    const jsonValueuser = JSON.stringify(element);
+   // const jsonValueToken = JSON.stringify(accessToken);
+    await AsyncStorage.setItem("token", jsonValueuser);
+    //await AsyncStorage.setItem("token", jsonValueuser);
   } catch (e) {
     // save error
   }
 
-  console.log("Done.");
+  console.log("Saved.");
 };
 
 const logout = async () => {
   try {
-    await AsyncStorage.removeItem("user");
+    await AsyncStorage.removeItem("token");
   } catch (e) {
     // remove error
   }

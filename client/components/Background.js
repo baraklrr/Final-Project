@@ -7,9 +7,9 @@ export default function Background({ children }) {
   return (
     <ImageBackground
       resizeMode="repeat"
-      style={styles.background}
-    >
-      <KeyboardAvoidingView style={styles.container} behavior="padding">
+      style={styles.background}>
+      
+      <KeyboardAvoidingView style={styles.container} >
         {children}
       </KeyboardAvoidingView>
     </ImageBackground>
