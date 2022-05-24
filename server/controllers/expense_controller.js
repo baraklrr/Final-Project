@@ -1,5 +1,6 @@
 const { db } = require("../models");
 
+
 const expenses = db.expense;
 const Op = db.Sequelize.Op;
 
@@ -78,6 +79,7 @@ exports.delete = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Could not delete expense with id=" + id
+
       });
     });
 };

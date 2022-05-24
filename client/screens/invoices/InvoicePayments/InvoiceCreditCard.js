@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import DateCalendar from '../../../components/DateCalendar';
 
-const InvoiceCreditCard = ({ handleSubmit }) => {
+const InvoiceCreditCard = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [cardObj, setCardObj] = useState({
     title: 'כ. אשראי',
-    date: '',
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
     lastNumbers: '',
     sumPrice: '',
   });
@@ -31,13 +34,14 @@ const InvoiceCreditCard = ({ handleSubmit }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            <Input
+            {/* <Input
               textAlign="right"
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setCardObj({ ...cardObj, date: e })}
-            />
+            /> */}
+            <DateCalendar title="תאריך החשבונית:" setCardObj={setCardObj} cardObj={cardObj} />
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input
@@ -46,6 +50,7 @@ const InvoiceCreditCard = ({ handleSubmit }) => {
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="4 ספרות אחרונות של כרטיס האשראי"
               onChangeText={(e) => setCardObj({ ...cardObj, lastNumbers: e })}
+              maxLength={4}
             />
           </View>
           <View style={{ marginTop: '10%' }}>
@@ -54,7 +59,18 @@ const InvoiceCreditCard = ({ handleSubmit }) => {
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="סכום"
-              onChangeText={(e) => setCardObj({ ...cardObj, sumPrice: e })}
+              value={cardObj.sumPrice}
+              onChangeText={(e) => {
+                if (e <= (sumPricePayment ? sumPrice - sumPricePayment : sumPrice)) {
+                  setCardObj({ ...cardObj, sumPrice: e });
+                } else {
+                  Alert.alert(
+                    'שגיאה',
+                    `סכום התשלום גדול מסכום היתרה, אנא בחר סכום נמוך מסכום היתרה`,
+                    [{ text: 'אישור', onPress: () => console.log('OK Pressed') }]
+                  );
+                }
+              }}
             />
           </View>
           <View
