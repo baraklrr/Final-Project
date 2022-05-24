@@ -6,7 +6,7 @@ const { db, initial } = require("./models");
 
 const cors = require("cors");
 var corsOptions = {
-  origin: "http://localhost:8080",
+  origin: "http://localhost:8081",
 };
 
 db.sequelize

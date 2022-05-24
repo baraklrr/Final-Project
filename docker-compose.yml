@@ -53,15 +53,15 @@ services:
       - backend
       - frontend
 
-  # swagger-ui:
-  #   depends_on:
-  #     - server
-  #   image: swaggerapi/swagger-ui
-  #   container_name: swagger_ui_container
-  #   ports:
-  #     - $SWAGGER_PORT:$NODE_DOCKER_PORT
-  #   environment:
-  #     API_URL: $SWAGGER_API_URL
+#   swagger-ui:
+#     depends_on:
+#       - server
+#     image: swaggerapi/swagger-ui
+#     container_name: swagger_ui_container
+#     ports:
+#       - $SWAGGER_PORT:$NODE_DOCKER_PORT
+#     environment:
+#       API_URL: $SWAGGER_API_URL
 
 volumes:
   db:

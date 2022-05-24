@@ -48,7 +48,6 @@ Content-Type: application/json
     "email" : "alon@asd.com",
     "password" : "123456",
     "roles" : ["moderator" , "user"], 
-    "businessId":1
 }
 
 ###

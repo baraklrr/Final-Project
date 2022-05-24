@@ -6,8 +6,12 @@ module.exports = (sequelize, Sequelize) => {
     date: {
       type: Sequelize.DATE,
     },
-    type: {
+    name: {
       type: Sequelize.STRING,
+    },
+    expenseItems: {
+      type: Sequelize.JSON,
+      allowNull: false,
     },
     expenseImg: {
       type: Sequelize.STRING,
@@ -19,13 +23,15 @@ module.exports = (sequelize, Sequelize) => {
     currency: {
       type: Sequelize.STRING,
     },
+    VatType: {
+      type: Sequelize.STRING,
+    },
     VatRefund: {
       type: Sequelize.FLOAT,
     },
     IrsRefund: {
       type: Sequelize.FLOAT,
     },
-    //sums refund and vat
     refundSum: {
       type: Sequelize.FLOAT,
     },
