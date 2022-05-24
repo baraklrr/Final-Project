@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,20 +6,62 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Image,
-} from "react-native";
-import { Card, Input, Button } from "@rneui/themed";
-import DateSelect from "../../components/DateSelect";
-import { ToggleButton } from "react-native-paper";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import PhotoLibraryPicker from "../../components/PhotoLibraryPicker";
-import NumberFormat from "react-number-format";
+} from 'react-native';
+import { Card, Input } from '@rneui/themed';
+import DateSelect from '../../components/DateSelect';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import PhotoLibraryPicker from '../../components/PhotoLibraryPicker';
+import NumberFormat from 'react-number-format';
+import SwitchSelector from 'react-native-switch-selector';
+import ExpenseDataService from '../../services/expense.service';
+
+const options = [
+  { label: '€', value: '0', testID: 'switch-zero', accessibilityLabel: 'switch-zero' },
+  { label: '₪', value: '1', testID: 'switch-one', accessibilityLabel: 'switch-one' },
+  { label: '$', value: '2', testID: 'switch-two', accessibilityLabel: 'switch-two' },
+];
 
 const ExpenditureScreen = ({ navigation }) => {
-  const [inputValue, setInputValue] = React.useState();
-  const [value, setValue] = React.useState("nis");
-  const [currency, setCurrency] = React.useState(0);
+  const [value, setValue] = useState();
+  const [currency, setCurrency] = useState(0);
   const [imageBase64, setImageBase64] = useState(null);
   const [image, setImage] = useState(null);
+
+  const saveExpense = () => {
+    var data = {
+      businessId: 3,
+      date: '2017-06-15',
+      name: '1',
+      expenseItems: JSON.stringify([{ key: 'value' }]),
+      expenseImg: '1',
+      expenseSum: 1.1,
+      currency: 1,
+      VatType: 1,
+      VatRefund: 1.1,
+      IrsRefund: 1.1,
+      refundSum: 1.1,
+      confirmed: 1,
+    };
+
+    // ExpenseDataService.getAll()
+    ExpenseDataService.create(data)
+      .then((response) => {
+        // this.setState({
+        //   id: response.data.id,
+        //   title: response.data.title,
+        //   description: response.data.description,
+        //   published: response.data.published,
+
+        //   submitted: true,
+        // });
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data); // => the response payload
+        }
+      });
+  };
 
   const handleChange = (e) => {
     setValue(e);
@@ -30,8 +72,8 @@ const ExpenditureScreen = ({ navigation }) => {
         <DateSelect />
         <Card.Title
           style={{
-            textAlign: "center",
-            color: "grey",
+            textAlign: 'center',
+            color: 'grey',
             marginTop: 10,
             fontSize: 14,
           }}
@@ -44,12 +86,13 @@ const ExpenditureScreen = ({ navigation }) => {
           value={value}
           renderText={(value) => (
             <Input
-              style={{ textAlign: "center", fontSize: 50, fontWeight: "bold" }}
+              editable={!image}
+              style={{ textAlign: 'center', fontSize: 50, fontWeight: 'bold' }}
               maxLength={10}
               onChangeText={handleChange}
               autoCorrect={false}
               inputContainerStyle={{ borderBottomWidth: 0 }}
-              value={value}
+              value={image == null ? value : options[currency].label + value}
               keyboardType="numeric"
             />
           )}
@@ -58,59 +101,37 @@ const ExpenditureScreen = ({ navigation }) => {
           type="text"
           thousandSeparator={true}
         />
-        <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
-          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-          - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-        </Text>
-        <ToggleButton.Row
-          style={{ justifyContent: "space-between" }}
-          onValueChange={(value) => setCurrency(value)}
-          value={currency}
-        >
-          <ToggleButton
-            icon={({ size, color }) => (
-              <FontAwesome5 name="dollar-sign" color={color} size={size} />
-            )}
-            style={{ borderWidth: 0 }}
-            value="usd"
-          />
-          <ToggleButton
-            icon={({ size, color }) => (
-              <FontAwesome5 name="shekel-sign" color={color} size={size} />
-            )}
-            style={{ borderWidth: 0 }}
-            value="nis"
-          />
-          <ToggleButton
-            icon={({ size, color }) => (
-              <FontAwesome5 name="euro-sign" color={color} size={size} />
-            )}
-            style={{ borderWidth: 0 }}
-            value="eur"
-          />
-        </ToggleButton.Row>
+        {!image && (
+            <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
+              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+              - - - - - - - - - - - - - - - - - - - - - - -
+            </Text>
+          ) && (
+            <SwitchSelector
+              initial={1}
+              onPress={(value) => setCurrency(value)}
+              textColor="#274c77"
+              selectedColor="white"
+              buttonColor="#274c77"
+              borderColor="#274c77"
+              fontWeight="bold"
+              fontSize={20}
+              options={options}
+            />
+          )}
         <View>
           {image && (
             <View
               style={{
-                marginTop: 20,
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              <Text
-                style={{ opacity: 0.2 }}
-                ellipsizeMode="clip"
-                numberOfLines={1}
-              >
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-                - -
+              <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
+                - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+                - - - - - - - - - - - - - - - - - - - - - - - -
               </Text>
-              <Image
-                source={{ uri: image }}
-                style={{ width: 200, height: 200 }}
-              />
+              <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
             </View>
           )}
         </View>
@@ -132,16 +153,18 @@ const ExpenditureScreen = ({ navigation }) => {
           {image && (
             <TouchableOpacity
               style={styles.panelButton}
-              onPress={() =>
-                navigation.reset({
-                  index: 0,
-                  routes: [
-                    {
-                      name: 'הוצאות בתהליך קליטה',
-                      params: { someParam: "Param1" },
-                    },
-                  ],
-                })
+              onPress={
+                // () =>
+                // navigation.reset({
+                //   index: 0,
+                //   routes: [
+                //     {
+                //       name: 'הוצאות בתהליך קליטה',
+                //       params: { someParam: 'Param1' },
+                //     },
+                //   ],
+                // })
+                saveExpense
               }
             >
               <Text style={styles.panelButtonTitle}>הוספת הוצאה</Text>
@@ -155,21 +178,21 @@ const ExpenditureScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   bottomContainer: {
-    marginTop: "auto",
-    flexDirection: "row",
+    marginTop: 'auto',
+    flexDirection: 'row',
     padding: 5,
   },
   panelButton: {
     padding: 13,
     borderRadius: 10,
-    backgroundColor: "#90EE90",
-    alignItems: "center",
+    backgroundColor: '#6096ba',
+    alignItems: 'center',
     marginVertical: 7,
   },
   panelButtonTitle: {
     fontSize: 17,
-    fontWeight: "bold",
-    color: "white",
+    fontWeight: 'bold',
+    color: 'black',
   },
 });
 

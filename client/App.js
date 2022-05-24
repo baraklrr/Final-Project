@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Provider } from "react-native-paper";
-import "react-native-gesture-handler";
-import { AuthContext } from "./context/AuthContext";
-import { theme } from "./core/theme";
-import AuthStack from "./navigation/AuthStack";
-import { Alert, I18nManager } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import MainNavigator from "./navigation/MainNavigator";
-import AuthService from "./services/auth.service"
+import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-native-paper';
+import 'react-native-gesture-handler';
+import { AuthContext } from './context/AuthContext';
+import { theme } from './core/theme';
+import AuthStack from './navigation/AuthStack';
+import { Alert, I18nManager } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MainNavigator from './navigation/MainNavigator';
+import AuthService from './services/auth.service';
 
 I18nManager.allowRTL(true);
 I18nManager.forceRTL(true);
 
-
- 
-
 export default function App() {
-
-const [state, dispatch] = React.useReducer(
+  const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
         case 'RESTORE_TOKEN':
@@ -38,12 +34,12 @@ const [state, dispatch] = React.useReducer(
             isSignout: true,
             userToken: null,
           };
-          case 'SIGN_UP':
-            return {
-              ...prevState,
-              isSignout: false,
-              userToken: action.token,
-            };
+        case 'SIGN_UP':
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
       }
     },
     {
@@ -64,7 +60,7 @@ const [state, dispatch] = React.useReducer(
         //console.log("token :"+userToken);
       } catch (e) {
         // Restoring token failed
-        console.log("error "+e);
+        console.log('error ' + e);
       }
       // After restoring token, we may need to validate it in production app
       // This will switch to the App screen or Auth screen and this loading
@@ -76,7 +72,7 @@ const [state, dispatch] = React.useReducer(
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (username,password) => {
+      signIn: async (username, password) => {
         // In a production app, we need to send some data (usually username, password) to server and get a token
         // We will also need to handle errors if sign in failed
         AuthService.login(username, password).then(
@@ -88,16 +84,18 @@ const [state, dispatch] = React.useReducer(
             Alert.alert(error.response.data.message);
           }
         );
-        let userToken = await  AsyncStorage.getItem('token');
+        let userToken = await AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {
         AuthService.logout();
-        dispatch({ type: 'SIGN_OUT' })
+        dispatch({ type: 'SIGN_OUT' });
       },
-      signUp: async (username,email,password) => {
+      signUp: async (username, email, password) => {
         AuthService.register(username, email, password).then(
-          () => {console.log("sign up user")},
+          () => {
+            console.log('sign up user');
+          },
 
           (error) => {
             const resMessage = error.response.data.message;
@@ -112,18 +110,11 @@ const [state, dispatch] = React.useReducer(
     []
   );
 
-   return (
+  return (
     <AuthContext.Provider value={authContext}>
-    <Provider theme={theme}>
-     {
-     state.userToken ==null ?  
-     ( 
-         <MainNavigator/>
-     ): 
-        ( <AuthStack/>) 
-      }
+      <Provider theme={theme}>
+        {state.userToken == null ? <AuthStack /> :  <MainNavigator />}
       </Provider>
-      </AuthContext.Provider>
+    </AuthContext.Provider>
   );
-
 }

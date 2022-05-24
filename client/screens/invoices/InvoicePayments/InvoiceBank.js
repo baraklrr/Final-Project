@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Alert } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import DateCalendar from '../../../components/DateCalendar';
 
-const InvoiceBank = ({ handleSubmit }) => {
+const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [bankObj, setBankObj] = useState({
     title: 'העברה בנקאית',
-    date: '',
+    date: `${new Date().getDate().toString().padStart(2, '0')}/${(new Date().getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}/${new Date().getFullYear()}`,
     sumPrice: '',
   });
   return (
@@ -30,21 +33,34 @@ const InvoiceBank = ({ handleSubmit }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            <Input
+            {/* <Input
               textAlign="right"
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setBankObj({ ...bankObj, date: e })}
-            />
+            /> */}
+            <DateCalendar title="תאריך החשבונית:" setCardObj={setBankObj} cardObj={bankObj} />
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input
               textAlign="right"
               textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
+              disabledInputStyle={{ background: 'r#ddd' }}
+              keyboardType="number-pad"
               placeholder="סכום"
-              onChangeText={(e) => setBankObj({ ...bankObj, sumPrice: e })}
+              value={bankObj.sumPrice}
+              onChangeText={(e) => {
+                if (e <= (sumPricePayment ? sumPrice - sumPricePayment : sumPrice)) {
+                  setBankObj({ ...bankObj, sumPrice: e });
+                } else {
+                  Alert.alert(
+                    'שגיאה',
+                    `סכום התשלום גדול מסכום היתרה, אנא בחר סכום נמוך מסכום היתרה`,
+                    [{ text: 'אישור', onPress: () => console.log('OK Pressed') }]
+                  );
+                }
+              }}
             />
           </View>
           <View
