@@ -49,7 +49,6 @@ app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
 app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
 
-
 if (process.env.NODE_ENV == "development") {
   const swaggerUI = require("swagger-ui-express");
   const swaggerJsDoc = require("swagger-jsdoc");
@@ -61,9 +60,7 @@ if (process.env.NODE_ENV == "development") {
         version: "1.0.0",
         description: "A simple Express Library API",
       },
-      servers: [
-        { url: "http://localhost:" + port },
-      ],
+      servers: [{ url: "http://localhost:" + port }],
     },
     apis: ["./routes/*.js"],
   };
@@ -71,17 +68,14 @@ if (process.env.NODE_ENV == "development") {
   app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 }
 
-
 const { authRouter } = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
-const indexRouter = require("./routes/index_routes");
+const indexRouter = require("./routes/index.routes");
 app.use("/", indexRouter);
 
 const incomeRouter = require("./routes/income.routes");
 app.use("/api/income", incomeRouter);
-
-
 
 const expenseRouter = require("./routes/expense.routes");
 app.use("/api/expense", expenseRouter);

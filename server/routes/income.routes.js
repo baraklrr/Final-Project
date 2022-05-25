@@ -63,8 +63,6 @@ const authJwt = require("../middleware/authJwt");
  
  */
 
-incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
-
 /**
  * @swagger
  * /api/income/create:
@@ -74,17 +72,67 @@ incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
  *     requestBody:
  *       required: true
  *       content:
- *         incomeRouterlication/json:
+ *          application/json:
  *           schema:
  *             $ref: '#/components/schemas/Income'
  *       responses:
  *         200:
- *           description: The new income
+ *           description: return the new income
  *           content:
- *             incomeRouterlication/json:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Income'
+ *         500:
+ *           description: error message
+ *           content:
+ *              "Some error occurred while creating Income."
+ *
+ */
+incomeRouter.post("/create", IncomeController.createIncome);
+
+/**
+ * @swagger
+ * /api/income/all/buissnessid:
+ *   post:
+ *     summary: get all incomes by buissnesid
+ *     tags: [Income]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Income'
+ *       responses:
+ *         200:
+ *           description: get list of all income by buissness id
+ *           content:
+ *             application/json:
  *               schema:
  *                 $ref: '#/components/schemas/Income'
  */
-incomeRouter.post("/create", IncomeController.createIncome);
+
+incomeRouter.get("/all/:businessId", IncomeController.getAllIncomes);
+
+/**
+ * @swagger
+ * /api/income/update/incomeId:
+ *   post:
+ *     summary: update incomes by incomeId
+ *     tags: [Income]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Income'
+ *       responses:
+ *         200:
+ *           description: update income by id
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+incomeRouter.get("/update/:incomeId", IncomeController.updateIncomeById);
 
 module.exports = incomeRouter;

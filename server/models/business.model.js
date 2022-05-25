@@ -2,7 +2,12 @@ module.exports = (sequelize, Sequelize) => {
   const Business = sequelize.define(
     "business",
     {
-      ownerId: {
+      businessId: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+      },
+      userId: {
         type: Sequelize.INTEGER,
       },
       name: {
@@ -20,21 +25,6 @@ module.exports = (sequelize, Sequelize) => {
       },
       businessType: {
         type: Sequelize.ENUM("Exempt dealer", "Authorized dealer"),
-      },
-      bankName: {
-        type: Sequelize.ENUM(
-          "hapoalim",
-          "discount",
-          "leumi",
-          "mizrahi",
-          "yahav"
-        ),
-      },
-      bankBranchNumber: {
-        type: Sequelize.INTEGER,
-      },
-      bankAccountNumber: {
-        type: Sequelize.INTEGER,
       },
     },
     {
