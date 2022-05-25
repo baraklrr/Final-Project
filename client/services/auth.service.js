@@ -29,7 +29,7 @@ const saveUserToLocalStorage = async (data1,data2) => {
    const jsonValueuser = JSON.stringify(data1);
    const jsonValueToken = JSON.stringify(data2);
     await AsyncStorage.setItem("token", jsonValueToken);
-    await AsyncStorage.setItem("username", jsonValueuser);
+    await AsyncStorage.setItem("username", data1);
   } catch (e) {
     // save error
   }
