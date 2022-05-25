@@ -18,18 +18,18 @@ const login = (username, password) => {
     })
     .then((response) => {
       if (response.data.accessToken) {
-        saveUserToLocalStorage(response.data.refreshToken);
+        saveUserToLocalStorage(response.data.username , response.data.accessToken);
       }
       //else logout();
       return response.data;
     });
 };
-const saveUserToLocalStorage = async (element) => {
+const saveUserToLocalStorage = async (data1,data2) => {
   try {
-    const jsonValueuser = JSON.stringify(element);
-   // const jsonValueToken = JSON.stringify(accessToken);
-    await AsyncStorage.setItem("token", jsonValueuser);
-    //await AsyncStorage.setItem("token", jsonValueuser);
+   const jsonValueuser = JSON.stringify(data1);
+   const jsonValueToken = JSON.stringify(data2);
+    await AsyncStorage.setItem("token", jsonValueToken);
+    await AsyncStorage.setItem("username", jsonValueuser);
   } catch (e) {
     // save error
   }

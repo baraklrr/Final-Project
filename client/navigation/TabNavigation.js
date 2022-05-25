@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  { useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -11,6 +11,7 @@ import { useTabMenu } from '../context/TabContext';
 import AddButton from '../components/AddButton';
 import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,8 +19,30 @@ const getIconColor = (focused) => ({
   tintColor: focused ? COLORS.primary : COLORS.dark,
 });
 
-const TabNavigation = () => {
+export default function TabNavigation ()
+{
   const { opened, toggleOpened } = useTabMenu();
+  const [user,setUser]=useState();
+  const [greet,setGreet] = useState('ערב');
+
+  const findGreet=()=>{
+    const hrs=new Date().getHours();
+    if(hrs===0 || hrs<12)
+    setGreet('בוקר טוב')
+    if(hrs>12 || hrs<21)
+    setGreet(' צהריים טובים')
+  }
+  const findUser= async()=>{ 
+  const username = await AsyncStorage.getItem("username");
+  setUser(username)
+  };
+  //console.log(user)
+  useEffect(()=>{
+  findUser();
+  findGreet();
+  },[]);
+  console.log(user)
+
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
@@ -43,7 +66,7 @@ const TabNavigation = () => {
         name="בית"
         component={Dashboard}
         options={{
-          headerTitle: 'דף הבית',
+          headerTitle: user  + ' ,'+ greet ,
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
@@ -166,4 +189,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TabNavigation;
+

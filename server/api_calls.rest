@@ -36,7 +36,7 @@ Content-Type: application/json
     "username" : "alon",
     "email" : "alon@asd.com",
     "password" : "123456",
-    "roles" : ["moderator" , "user"], 
+    "roles" : ["moderator" , "user"]
 }
 ###
 POST http://localhost:8080/api/auth/signup
