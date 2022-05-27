@@ -14,6 +14,7 @@ import PhotoLibraryPicker from '../../components/PhotoLibraryPicker';
 import NumberFormat from 'react-number-format';
 import SwitchSelector from 'react-native-switch-selector';
 import ExpenseDataService from '../../services/expense.service';
+import { generateImageForm, uploadImage } from '../../helpers/imageUtil';
 
 const options = [
   { label: '€', value: '0', testID: 'switch-zero', accessibilityLabel: 'switch-zero' },
@@ -23,17 +24,20 @@ const options = [
 
 const ExpenditureScreen = ({ navigation }) => {
   const [value, setValue] = useState();
-  const [currency, setCurrency] = useState(0);
+  const [currency, setCurrency] = useState(1);
   const [imageBase64, setImageBase64] = useState(null);
   const [image, setImage] = useState(null);
 
-  const saveExpense = () => {
-    var data = {
+  const saveExpense = async () => {
+    const imageform = generateImageForm(image, imageBase64);
+    const uploadedImage = await uploadImage(imageform);
+
+    let data = {
       businessId: 3,
       date: '2017-06-15',
       name: '1',
       expenseItems: JSON.stringify([{ key: 'value' }]),
-      expenseImg: '1',
+      expenseImg: uploadedImage == null ? null : uploadedImage,
       expenseSum: 1.1,
       currency: 1,
       VatType: 1,
@@ -42,8 +46,6 @@ const ExpenditureScreen = ({ navigation }) => {
       refundSum: 1.1,
       confirmed: 1,
     };
-
-    // ExpenseDataService.getAll()
     ExpenseDataService.create(data)
       .then((response) => {
         // this.setState({

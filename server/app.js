@@ -1,9 +1,10 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const { db, initial } = require("./models");
 const cors = require("cors");
+global.__basedir = __dirname;
 var corsOptions = {
   origin: "http://localhost:8080",
 };
@@ -52,7 +53,7 @@ app.use(express.urlencoded({ extended: true })); // parse requests of content-ty
 const { authRouter } = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
-const indexRouter = require("./routes/index_routes");
+const indexRouter = require("./routes/index.routes");
 app.use("/", indexRouter);
 
 const incomeRouter = require("./routes/income.routes");

@@ -77,7 +77,7 @@ const InvoiceFirst = ({ navigation, route }) => {
             placeholder="תיאור ההכנסה"
           ></Input>
           {/* <DateSelect /> */}
-          <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />
+          {/* <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> */}
 
           <CustomDivider />
           <Card.Title style={{ textAlign: 'left' }}>לכבוד</Card.Title>

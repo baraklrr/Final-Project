@@ -16,8 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false,
       },
       expenseImg: {
-        type: Sequelize.STRING,
-        defaultValue: null,
+        type: Sequelize.BLOB("long"),
       },
       expenseSum: {
         type: Sequelize.FLOAT,
