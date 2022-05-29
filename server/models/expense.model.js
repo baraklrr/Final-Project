@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING,
       },
+      category: {
+        type: Sequelize.STRING,
+      },
       expenseItems: {
         type: Sequelize.STRING,
         allowNull: false,

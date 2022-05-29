@@ -30,7 +30,7 @@ const ExpenditureScreen = ({ navigation }) => {
   const [currency, setCurrency] = useState(1);
   const [imageBase64, setImageBase64] = useState(null);
   const [image, setImage] = useState(null);
-  const [selectedCategory, setCategory] = useState();
+  const [selectedCategory, setCategory] = useState('');
   const [selectedDate, setDate] = useState(new Date());
   const [title, setTitle] = useState('');
 
@@ -46,11 +46,11 @@ const ExpenditureScreen = ({ navigation }) => {
     const imageform = generateImageForm(image, imageBase64);
     const uploadedImage = await uploadImage(imageform);
 
-    console.log(title);
     let data = {
       businessId: 3,
       date: selectedDate,
       name: title,
+      category: selectedCategory['title'],
       expenseItems: JSON.stringify([{ key: 'value' }]),
       expenseImg: uploadedImage == null ? null : uploadedImage,
       expenseSum: sum,
@@ -61,6 +61,7 @@ const ExpenditureScreen = ({ navigation }) => {
       refundSum: 1.1,
       confirmed: 1,
     };
+    console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
         // this.setState({

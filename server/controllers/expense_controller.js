@@ -11,6 +11,7 @@ exports.create = async (req, res) => {
       businessId: req.body.businessId,
       date: req.body.date,
       name: req.body.name,
+      category: req.body.category,
       expenseItems: req.body.expenseItems,
       // expenseImg: req.body.expenseImg,
       expenseImg: fs.readFileSync(
