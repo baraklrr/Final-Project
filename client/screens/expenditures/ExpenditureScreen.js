@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -18,7 +18,6 @@ import SwitchSelector from 'react-native-switch-selector';
 import ExpenseDataService from '../../services/expense.service';
 import { generateImageForm, uploadImage } from '../../helpers/imageUtil';
 import { Categories } from '../../components/Categories';
-import { AutocompleteDropdown } from 'react-native-autocomplete-dropdown';
 
 const options = [
   { label: '€', value: '0', testID: 'switch-zero', accessibilityLabel: 'switch-zero' },
@@ -27,28 +26,35 @@ const options = [
 ];
 
 const ExpenditureScreen = ({ navigation }) => {
-  const [value, setValue] = useState();
+  const [sum, setSum] = useState();
   const [currency, setCurrency] = useState(1);
   const [imageBase64, setImageBase64] = useState(null);
   const [image, setImage] = useState(null);
   const [selectedCategory, setCategory] = useState();
+  const [selectedDate, setDate] = useState(new Date());
+  const [title, setTitle] = useState('');
 
   const addCategoryHandler = (category) => {
     setCategory(category);
   };
+  const addDateHandler = (date) => {
+    setDate(date);
+  };
+  const childRef = useRef();
 
   const saveExpense = async () => {
     const imageform = generateImageForm(image, imageBase64);
     const uploadedImage = await uploadImage(imageform);
 
+    console.log(title);
     let data = {
       businessId: 3,
-      date: '2017-06-15',
-      name: '1',
+      date: selectedDate,
+      name: title,
       expenseItems: JSON.stringify([{ key: 'value' }]),
       expenseImg: uploadedImage == null ? null : uploadedImage,
-      expenseSum: 1.1,
-      currency: 1,
+      expenseSum: sum,
+      currency: currency,
       VatType: 1,
       VatRefund: 1.1,
       IrsRefund: 1.1,
@@ -65,6 +71,16 @@ const ExpenditureScreen = ({ navigation }) => {
 
         //   submitted: true,
         // });
+
+        navigation.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'הוצאות בתהליך קליטה',
+              params: { someParam: 'Param1' },
+            },
+          ],
+        });
         console.log(response.data);
       })
       .catch((error) => {
@@ -75,7 +91,8 @@ const ExpenditureScreen = ({ navigation }) => {
   };
 
   const handleChange = (e) => {
-    setValue(e);
+    childRef.current.changeButtonState(e != 0 ? false : true);
+    setSum(e);
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -85,7 +102,15 @@ const ExpenditureScreen = ({ navigation }) => {
         enabled
       >
         <Card>
-          <DateSelect />
+          <Input
+            textAlign="center"
+            textAlignVertical="center"
+            maxLength={24}
+            onChangeText={setTitle}
+            disabledInputStyle={{ background: '#ddd' }}
+            placeholder="תיאור הוצאה"
+          ></Input>
+          <DateSelect onDateSelect={addDateHandler} />
           {!image && (
             <>
               <View style={[styles.container]}>
@@ -99,7 +124,7 @@ const ExpenditureScreen = ({ navigation }) => {
             style={{
               textAlign: 'center',
               color: 'grey',
-              marginTop: 10,
+              marginTop: 15,
               fontSize: 14,
             }}
           >
@@ -107,9 +132,11 @@ const ExpenditureScreen = ({ navigation }) => {
           </Card.Title>
           <NumberFormat
             thousandsGroupStyle="thousand"
-            value={value}
+            value={sum}
             renderText={(value) => (
               <Input
+                placeholder="סכום"
+                placeholderTextColor={'#d3d3d3'}
                 editable={!image}
                 style={{ textAlign: 'center', fontSize: 50, fontWeight: 'bold' }}
                 maxLength={10}
@@ -145,6 +172,7 @@ const ExpenditureScreen = ({ navigation }) => {
                 buttonColor="#274c77"
                 borderColor="#274c77"
                 fontWeight="bold"
+                hasPadding
                 fontSize={20}
                 options={options}
               />
@@ -170,6 +198,7 @@ const ExpenditureScreen = ({ navigation }) => {
           <View style={{ flex: 1 }}>
             {!image && (
               <PhotoLibraryPicker
+                ref={childRef}
                 avatarIcon="person"
                 image={image}
                 setImageBase64={setImageBase64}
@@ -178,25 +207,23 @@ const ExpenditureScreen = ({ navigation }) => {
             )}
           </View>
         </View>
+        {/* 
+        <View style={styles.bottomContainer}>
+          <View style={{ flex: 1 }}>
+            {!image && (
+              <TouchableOpacity
+                style={styles.panelButton}
+                onPress={() => refRBSheet.current.open()}
+              >
+                <Text style={styles.panelButtonTitle}>צירוף חשבונית / קבלה</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View> */}
         <View style={styles.bottomContainer}>
           <View style={{ flex: 1 }}>
             {image && (
-              <TouchableOpacity
-                style={styles.panelButton}
-                onPress={
-                  // () =>
-                  // navigation.reset({
-                  //   index: 0,
-                  //   routes: [
-                  //     {
-                  //       name: 'הוצאות בתהליך קליטה',
-                  //       params: { someParam: 'Param1' },
-                  //     },
-                  //   ],
-                  // })
-                  saveExpense
-                }
-              >
+              <TouchableOpacity style={styles.panelButton} onPress={saveExpense}>
                 <Text style={styles.panelButtonTitle}>הוספת הוצאה</Text>
               </TouchableOpacity>
             )}
@@ -209,7 +236,7 @@ const ExpenditureScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   bottomContainer: {
-    marginTop: 'auto',
+    // marginTop: 'auto',
     flexDirection: 'row',
     padding: 5,
   },
@@ -234,7 +261,7 @@ const styles = StyleSheet.create({
   title: {
     textAlign: 'center',
     fontSize: 25,
-    fontWeight:"bold"
+    fontWeight: 'bold',
   },
 
   sectionTitle: {

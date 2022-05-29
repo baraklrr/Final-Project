@@ -27,7 +27,7 @@ export const Categories = memo((props) => {
         }}
         textInputProps={{
           placeholder: 'בחר קטגוריה',
-          textAlign: 'right',
+          textAlign: 'center',
           style: {
             color: '#383b42',
           },
