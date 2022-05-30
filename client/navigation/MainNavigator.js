@@ -5,8 +5,7 @@ import TabsNavigator from "../navigation/TabNavigation";
 import InvoiceFormNavigator from "./InvoiceFormNavigator";
 import {TabContextProvider} from "../context/TabContext";
 import ExpenditureNavigator from "./ExpenditureNavigator";
-import TransactionsScreen  from "../screens/TransactionsScreen";
-import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
+import TransactionsScreen  from "../screens/transactions/TransactionsScreen";
 import { navigationRef } from './RootNavigation';
 
 const Stack = createStackNavigator();

@@ -6,7 +6,6 @@ import Dashboard from '../screens/Dashboard';
 import NotificationScreen from '../screens/NotificationScreen';
 import SettingNavigation from './SettingNavigation';
 import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
-import MyBuissnessScreen from '../screens/MyBuissnessScreen';
 import { useTabMenu } from '../context/TabContext';
 import AddButton from '../components/AddButton';
 import { COLORS } from '../core/theme';
