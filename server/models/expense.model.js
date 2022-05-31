@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       expenseItems: {
-        type: Sequelize.JSON,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       expenseImg: {

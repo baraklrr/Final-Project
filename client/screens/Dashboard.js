@@ -1,12 +1,13 @@
-import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
-import { Card } from '@rneui/themed';
-import TabContainer from '../components/TabContainer';
-import { COLORS } from '../core/theme';
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet } from "react-native";
+import { Card } from "@rneui/themed";
+import TabContainer from "../components/TabContainer";
+import { COLORS } from "../core/theme";
 import Constants from 'expo-constants';
-import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Dashboard({ navigation }) {
+
   return (
     <TabContainer>
       <View style={styles.screenContainer}>
