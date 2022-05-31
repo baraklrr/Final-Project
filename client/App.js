@@ -92,17 +92,15 @@ export default function App() {
         dispatch({ type: 'SIGN_OUT' });
       },
       signUp: async (username, email, password) => {
-        AuthService.register(username, email, password).then(
-          () => {
+        AuthService.register(username, email, password)
+          .then(() => {
             console.log('sign up user');
-          },
-
-          (error) => {
+          })
+          .catch((error) => {
             const resMessage = error.response.data.message;
-            console.log(resMessage);
+            console.log('this undefined' + resMessage);
             Alert.alert(error.response.data.message);
-          }
-        );
+          });
         let userToken = await AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_UP', token: userToken });
       },
@@ -113,7 +111,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>
-        {state.userToken == null ? <AuthStack /> :  <MainNavigator />}
+        {state.userToken == null ? <AuthStack /> : <MainNavigator />}
       </Provider>
     </AuthContext.Provider>
   );

@@ -1,52 +1,49 @@
-import http from "../http-common";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import http from '../http-common';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const register = (username, email, password) => {
-  return http
-  .post("/auth/signup", {
-    username,
-    email,
-    password,
+  return http.post('/auth/signup', {
+    username: username,
+    email: email,
+    password: password,
   });
 };
 
 const login = (username, password) => {
   return http
-    .post("/auth/signin", {
+    .post('/auth/signin', {
       username,
       password,
     })
     .then((response) => {
       if (response.data.accessToken) {
-        saveUserToLocalStorage(response.data.refreshToken);
+        saveUserToLocalStorage(response.data);
       }
       //else logout();
       return response.data;
     });
 };
-const saveUserToLocalStorage = async (element) => {
+const saveUserToLocalStorage = async (loginResData) => {
   try {
-    const jsonValueuser = JSON.stringify(element);
-   // const jsonValueToken = JSON.stringify(accessToken);
-    await AsyncStorage.setItem("token", jsonValueuser);
+    await AsyncStorage.setItem('token', loginResData.accessToken);
+    await AsyncStorage.setItem('refreshToken', loginResData.refreshToken);
     //await AsyncStorage.setItem("token", jsonValueuser);
   } catch (e) {
     // save error
   }
 
-  console.log("Saved.");
+  console.log('Saved.');
 };
 
 const logout = async () => {
   try {
-    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem('token');
   } catch (e) {
     // remove error
   }
 
-  console.log("Done.");
+  console.log('Done.');
 };
-
 
 const AuthService = {
   register,

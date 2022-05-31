@@ -2,137 +2,291 @@ const express = require("express");
 const incomeRouter = express.Router();
 const IncomeController = require("../controllers/income_controller");
 const authJwt = require("../middleware/authJwt");
-
-/**
+/** 
  * @swagger
  * tags:
- *   name: Income
- *   description: The Income API
- */
+- name: "Income"
+  description: "Everything about your incomes"
+schemes:
+- "https"
+- "http"
+paths:
+  /income/create:
+    post:
+      tags:
+      - "Income"
+      summary: "Add a new income"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "header"
+        name: "businessId"
+        type: "integer"
+        description: "the business's id that the new income needs to be added to."
+        required: true
+      - in: "body"
+        name: "incomeObject"
+        description: "Income object that needs to be added to the account"
+        required: true
+        schema:
+          $ref: "#/definitions/Income"
+      responses:
+        "200":
+          description: "return the new income"
+          schema:
+            $ref: "#/definitions/Income"
+        "405":
+          description: "Invalid input"
+        "500":
+          description: "server error while saving income"
+  /income/{incomeId}:
+    parameters:
+      - in: "header"
+        name: "businessId"
+        type: "integer"
+        description: "the business's id that the income belongs to."
+        required: true
+    put:
+      tags:
+      - "Income"
+      summary: "Update an existing income by id"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "incomeId"
+        description: "income id that needs to be updated"
+        type: "integer"
+        required: true
+      - in: "body"
+        name: "incomeUpdate"
+        description: "income detailes that needs to be updated"
+        required: true
+        schema:
+            $ref: "#/definitions/Income"
+      responses:
+        "200": 
+          description: "return the updated income"
+          schema:
+            $ref: "#/definitions/Income"
+        "400":
+          description: "Invalid ID supplied"
+        "500":
+          description: "Income not found"
+    get:
+      tags:
+      - "Income"
+      summary: "Finds income by id"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "incomeId"
+        description: "income id to get"
+        type: "integer"
+        required: true
+      responses:
+        "200": 
+          description: "return the required income"
+          schema:
+            $ref: "#/definitions/Income"
+        "400":
+          description: "Invalid ID supplied"
+        "500":
+          description: "Income not found"
+    delete:
+      tags:
+      - "Income"
+      summary: "Deletes an income by id"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "incomeId"
+        description: "income id to delete"
+        required: true
+        type: "integer"
+      responses:
+        "200": 
+          description: "income deleted successfuly"
+        "400":
+          description: "Invalid ID supplied"
+        "500":
+          description: "Income not found"     
+  /income/all:
+    parameters:
+      - in: "header"
+        name: "businessId"
+        type: "integer"
+        description: "the business's id that the incomes belongs to."
+        required: true
+    get:
+      tags:
+      - "Income"
+      summary: "Finds all business's incomes by businessId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200": 
+          description: "return the required incomes"
+          schema:
+            type: "array"
+            items: 
+              $ref: "#/definitions/Income"
+        "400":
+          description: "Invalid ID supplied"
+        "500":
+          description: "Income not found"
+    delete:
+      tags:
+      - "Income"
+      summary: "delete all business's incomes by businessId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200": 
+          description: "all incomes deleted successfuly"
+        "400":
+          description: "not authorized"
+        "500":
+          description: "server error"
+  /income/{startDate}&{endDate}:
+    parameters:
+      - in: "header"
+        name: "businessId"
+        type: "integer"
+        description: "the business's id that the incomes belongs to."
+        required: true
+      - in: "path"
+        name: "startDate"
+        type: "string"
+        description: "the start date to search"
+        required: true
+      - in: "path"
+        name: "endDate"
+        type: "string"
+        description: "the end date to search"
+        required: true
+    get:
+      tags:
+      - "Income"
+      summary: "Finds all business's incomes by businessId between startDate and endDate"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200": 
+          description: "return the required incomes"
+          schema:
+            type: "array"
+            items: 
+              $ref: "#/definitions/Income"
+        "400":
+          description: "Invalid ID supplied"
+        "500":
+          description: "Income not found"
+    delete:
+      tags:
+      - "Income"
+      summary: "delete all business's incomes by businessId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200": 
+          description: "all incomes deleted successfuly"
+        "400":
+          description: "not authorized"
+        "500":
+          description: "server error"
+definitions:
+  Income:
+    type: "object"
+    required:
+      - customerId
+      - date
+      - title
+      - incomeSum
+      - currency
+      - incomeType
+      - paymentMethod
+    properties:
+      incomeId:
+        type: integer
+        description: The income id
+        example: 1
+      customerId:
+        type: integer
+        description: The customer id
+        example: 12
+      date:
+        type: string
+        description: The income date
+        example: "2022-01-17"
+      title:
+        type: string
+        description: The income title
+        example: "incomeA"
+      incomeImg:
+        type: string
+        description: The income image url
+      incomeSum:
+        type: integer
+        description: The income sum
+        example: 125
+      currency:
+        type: string
+        enum: 
+          - "shekel"
+          - "dollar"
+          - "euro"
+        description: The income currency
+      incomeType:
+        type: string
+        enum: 
+          - "Tax invoice/Receipt"
+          - "Tax invoice"
+          - "Receipt"
+          - "Transaction invoice"
+          - "Credit invoice"
+        description: The income type
+      paymentMethod:
+        type: string
+        enum:
+          - "Cash"
+          - "Credit"
+          - "Bank transfer"
+          - "Check"
+        description: The income payment Method
+*/
 
-/**
- * @swagger
- * components:
- *   schemas:
- *     Income:
- *      type: object
- *      required:
- *        - customerId
- *        - date
- *        - title
- *        - incomeImg
- *        - incomeSum
- *        - currency
- *        - incomeType
- *        - paymentMethod
- *      properties:
- *        customerId:
- *          type: int
- *          description: The customer id
- *        date:
- *          type: date
- *          description: The income date
- *        title:
- *          type: string
- *          description: The income title
- *        incomeImg:
- *          type: string
- *          defaultValue: null
- *          description: The income image
- *        incomeSum:
- *          type: float
- *          description: The income sum
- *        currency:
- *          type: enum ("shekel", "dollar", "euro")
- *          defaultValue: "shekel"
- *          description: The income currency
- *        incomeType:
- *          type: enum ("Tax invoice/Receipt","Tax invoice","Receipt","Transaction invoice","Credit invoice")
- *          description: The income type
- *        paymentMethod:
- *          type: enum ("Cash", "Credit", "Bank transfer", "Check")
- *          description: The income payment Method
- *      example:
- *          customerId: 1
- *          date: "2022-01-17"
- *          title: "test"
- *          incomSum: 125.78
- *          currency: "shekel"
- *          incomeType: "Tax invoice"
- *          paymentMethod: "Credit"
- 
- */
-
-/**
- * @swagger
- * /api/income/create:
- *   post:
- *     summary: create a new income
- *     tags: [Income]
- *     requestBody:
- *       required: true
- *       content:
- *          application/json:
- *           schema:
- *             $ref: '#/components/schemas/Income'
- *       responses:
- *         200:
- *           description: return the new income
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Income'
- *         500:
- *           description: error message
- *           content:
- *              "Some error occurred while creating Income."
- *
- */
 incomeRouter.post("/create", IncomeController.createIncome);
-
-/**
- * @swagger
- * /api/income/all/buissnessid:
- *   post:
- *     summary: get all incomes by buissnesid
- *     tags: [Income]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Income'
- *       responses:
- *         200:
- *           description: get list of all income by buissness id
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Income'
- */
-
-incomeRouter.get("/all/:businessId", IncomeController.getAllIncomes);
-
-/**
- * @swagger
- * /api/income/update/incomeId:
- *   post:
- *     summary: update incomes by incomeId
- *     tags: [Income]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Income'
- *       responses:
- *         200:
- *           description: update income by id
- *           content:
- *             application/json:
- *               schema:
- *                 $ref: '#/components/schemas/Expense'
- */
-incomeRouter.get("/update/:incomeId", IncomeController.updateIncomeById);
-
+incomeRouter.put("/{incomeId}", IncomeController.updateIncomeById);
+incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);
+incomeRouter.delete("/{incomeId}", IncomeController.deleteIncomeById);
+incomeRouter.get("/all", IncomeController.getAllIncomes);
+incomeRouter.delete("/all", IncomeController.deleteAllIncomes);
+incomeRouter.get("/{startDate}&{endDate}", IncomeController.getIncomesByDate);
+incomeRouter.delete(
+  "/{startDate}&{endDate}",
+  IncomeController.deleteIncomesByDate
+);
+incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
 module.exports = incomeRouter;

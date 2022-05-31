@@ -1,7 +1,8 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 const { db, initial } = require("./models");
 const cors = require("cors");
 var corsOptions = {
@@ -47,6 +48,7 @@ forceSync();
 //middleware
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
+app.use(cookieParser()); // parses cookies to req.cookies
 app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
 
 if (process.env.NODE_ENV == "development") {

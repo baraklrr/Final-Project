@@ -8,13 +8,13 @@ const catchError = (err, res) => {
   if (err instanceof TokenExpiredError) {
     return res
       .status(401)
-      .send({ message: "Unauthorized! Access Token was expired!" });
+      .send({ message: "Access Token was expired!", errorCode: "190" });
   }
   return res.sendStatus(401).send({ message: "Unauthorized!" });
 };
 
 const verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  let token = req.cookies.jwt;
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
@@ -85,7 +85,7 @@ isModeratorOrAdmin = (req, res, next) => {
 };
 
 const authJwt = {
-  verifyToken: verifyToken,
+  verifyToken,
   isAdmin: isAdmin,
   isModerator: isModerator,
   isModeratorOrAdmin: isModeratorOrAdmin,
