@@ -7,17 +7,16 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
-import { Card } from "@rneui/themed";
-import { Caption } from "react-native-paper";
+import { Card } from '@rneui/themed';
+import { Caption } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TransactionsScreen = () => {
-  
-    const [selectedIndex, setselectedIndex] = useState(-1);
-    const handleIndexChange = (index) => {
-      setselectedIndex(index);
-    };
-    return (
+  const [selectedIndex, setselectedIndex] = useState(-1);
+  const handleIndexChange = (index) => {
+    setselectedIndex(index);
+  };
+  return (
     <View>
       <Text style={styles.dates}>ינואר - פברואר</Text>
       <Text style={styles.title}>יתרה דו-חודשית לעסק</Text>
@@ -96,57 +95,61 @@ const TransactionsScreen = () => {
   );
 };
 const styles = StyleSheet.create({
-    parent: {
-      flexDirection: "row",
-      justifyContent: "space-around",
-    },
-    centeritems: {
-      alignItems: "center",
-      justifyContent: "center",
-      flex: 1,
-    },
-    dates: {
-      marginBottom: 8,
-      textAlign: "center",
-    },
-    title: {
-      marginBottom: 8,
-      textAlign: "center",
-      fontWeight: "bold",
-      fontSize: 16,
-    },
-    sum: {
-      marginBottom: 8,
-      textAlign: "center",
-      fontWeight: "bold",
-      fontSize: 30,
-    },
-    sumin: {
-      textAlign: "center",
-      fontWeight: "bold",
-      fontSize: 20,
-    },
-    container: {
-      flexDirection: "row",
-      // justifyContent: "center",
-      height: 10,
-      borderRadius: 4,
-      marginTop: 50,
-      overflow: "hidden",
-      justifyContent: "space-around",
-      alignItems: "stretch",
-    },
-    box1: {
-      flex: 9,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#2196F3",
-    },
-    box2: {
-      flex: 2,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#8BC34A",
-    },
-  });
+  parent: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  bottomparent: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  centeritems: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  dates: {
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  title: {
+    marginBottom: 8,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  sum: {
+    marginBottom: 8,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+  sumin: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  container: {
+    flexDirection: 'row',
+    // justifyContent: "center",
+    height: 10,
+    borderRadius: 4,
+    marginTop: 50,
+    overflow: 'hidden',
+    justifyContent: 'space-around',
+    alignItems: 'stretch',
+  },
+  box1: {
+    flex: 9,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#2196F3',
+  },
+  box2: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#8BC34A',
+  },
+});
 export default TransactionsScreen;

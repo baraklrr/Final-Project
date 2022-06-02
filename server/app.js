@@ -43,7 +43,7 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-forceSync();
+// forceSync();
 
 //middleware
 app.use(cors(corsOptions));
@@ -61,7 +61,7 @@ app.use("/api/income", incomeRouter);
 
 const expenseRouter = require("./routes/expense.routes");
 app.use("/api/expense", expenseRouter);
-// require("./routes/expense.routes")(app);
+require("./routes/transaction.routes")(app);
 
 //server
 app.listen(port, () => {
