@@ -1,10 +1,6 @@
-
 const express = require("express");
 const expenseRouter = express.Router();
 const expenseController = require("../controllers/expense_controller");
-const authJwt = require("../middleware/authJwt");
-
-
 
 /**
  * @swagger
@@ -36,7 +32,7 @@ const authJwt = require("../middleware/authJwt");
  *          description: The user id
  *        date:
  *          type: string
- *          description: enterd date 
+ *          description: enterd date
  *        type:
  *          type: string
  *          description: The user description
@@ -48,12 +44,10 @@ const authJwt = require("../middleware/authJwt");
  *          description: The user description
  *      example:
  *         businessId:'1',
- *         date:'11.02.1997', 
+ *         date:'11.02.1997',
  *         type:'comp',
  *         expenseSum:'200'
  */
-
-
 
 /**
  * @swagger
@@ -99,9 +93,7 @@ expenseRouter.post("/create",expenseController.create);
  *                 $ref: '#/components/schemas/Expense'
  */
 
-
 expenseRouter.get("/all/:businessId", expenseController.getexpenses);
-
 
 /**
  * @swagger
@@ -124,13 +116,13 @@ expenseRouter.get("/all/:businessId", expenseController.getexpenses);
  *                 $ref: '#/components/schemas/Expense'
  */
 
- expenseRouter.put("/update/:id", expenseController.update);
+expenseRouter.put("/update/:id", expenseController.update);
 
 /**
  * @swagger
  * /api/expenses/delete/id:
  *   post:
- *     summary: delete expends by id 
+ *     summary: delete expends by id
  *     tags: [Expenses]
  *     requestBody:
  *       required: true
@@ -146,13 +138,13 @@ expenseRouter.get("/all/:businessId", expenseController.getexpenses);
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
- expenseRouter.delete("/delete/:id", expenseController.delete);
+expenseRouter.delete("/delete/:id", expenseController.delete);
 
 /**
  * @swagger
  * /api/expenses/find/:name:
  *   post:
- *     summary: Find expend by name 
+ *     summary: Find expend by name
  *     tags: [Expenses]
  *     requestBody:
  *       required: true
@@ -162,13 +154,12 @@ expenseRouter.get("/all/:businessId", expenseController.getexpenses);
  *             $ref: '#/components/schemas/Expense'
  *       responses:
  *         200:
- *           description: Find expend by name 
+ *           description: Find expend by name
  *           content:
  *             expenseRouterlication/json:
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
- expenseRouter.get("/find/:businessId/:name", expenseController.find);
+expenseRouter.get("/find/:businessId/:name", expenseController.find);
 
- module.exports = expenseRouter;
-
+module.exports = expenseRouter;

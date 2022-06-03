@@ -1,9 +1,10 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 const { db, initial } = require("./models");
 const cors = require("cors");
+global.__basedir = __dirname;
 var corsOptions = {
   origin: "http://localhost:8080",
 };
@@ -42,7 +43,7 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-forceSync();
+// forceSync();
 
 //middleware
 app.use(cors(corsOptions));
@@ -52,7 +53,7 @@ app.use(express.urlencoded({ extended: true })); // parse requests of content-ty
 const { authRouter } = require("./routes/auth.routes");
 app.use("/api/auth", authRouter);
 
-const indexRouter = require("./routes/index_routes");
+const indexRouter = require("./routes/index.routes");
 app.use("/", indexRouter);
 
 const incomeRouter = require("./routes/income.routes");
@@ -60,7 +61,7 @@ app.use("/api/income", incomeRouter);
 
 const expenseRouter = require("./routes/expense.routes");
 app.use("/api/expense", expenseRouter);
-// require("./routes/expense.routes")(app);
+require("./routes/transaction.routes")(app);
 
 //server
 app.listen(port, () => {
