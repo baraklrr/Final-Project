@@ -1,6 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const Expense = sequelize.define(
     "expense",
+    
     {
       businessId: {
         type: Sequelize.INTEGER,
@@ -44,6 +45,8 @@ module.exports = (sequelize, Sequelize) => {
     },
     {
       timestamps: false,
+      charset: "utf8",
+      collate: "utf8_unicode_ci"
     }
   );
 

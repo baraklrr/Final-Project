@@ -57,7 +57,7 @@ export default function App() {
       try {
         // Restore token stored in `SecureStore` or any other encrypted storage
         userToken = await AsyncStorage.getItem('token');
-        console.log("token :"+userToken);
+        console.log("token : "+userToken);
       } catch (e) {
         // Restoring token failed
         console.log('error ' + e);
@@ -112,7 +112,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>
-        {state.userToken == null ? <AuthStack /> :  <MainNavigator />}
+        {state.userToken != null ? <AuthStack /> :  <MainNavigator />}
       </Provider>
     </AuthContext.Provider>
   );

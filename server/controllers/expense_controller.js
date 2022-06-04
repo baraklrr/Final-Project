@@ -2,10 +2,15 @@ const { db } = require("../models");
 
 
 const expenses = db.expense;
+const expenseType = db.expenseType;
 const Op = db.Sequelize.Op;
 
 //create and save a new expend
 exports.create = (req, res) => {
+let vattype = req.body.VatType
+var condition = vattype ? { vattype: { [Op.like]: `%${vattype}%` } } : null;
+var option =expenseType.findOne({where:condition}).catch();
+console.log(option);
   const expense = {
     businessId: req.body.businessId,
     date: req.body.date,
@@ -15,7 +20,7 @@ exports.create = (req, res) => {
     expenseSum: req.body.expenseSum,
     currency: req.body.currency,
     VatType: req.body.VatType,
-    VatRefund: req.body.VatRefund,
+    VatRefund: option,
     IrsRefund: req.body.IrsRefund,
     refundSum: req.body.refundSum,
     confirmed: req.body.confirmed,
@@ -93,7 +98,7 @@ exports.delete = (req, res) => {
 };
 
 
-//todo: change the function and use user token
+//todo: check again
 exports.find= (req, res) => {
   var name =req.body.name;
   const businessId = req.params.businessId;
@@ -107,3 +112,17 @@ exports.find= (req, res) => {
     });
   })
 };
+
+exports.sum = (req,res)=> {
+   expenses.sum('expenseSum').then(data=>{
+     res.status(200).send({
+       message: data
+     });
+    
+    }).catch(err=>{
+    res.status(500).send({
+      message:
+      err.message || "some error occured while retrieving"
+    });
+  });
+}

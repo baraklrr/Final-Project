@@ -170,5 +170,7 @@ expenseRouter.get("/all/:businessId", expenseController.getexpenses);
  */
  expenseRouter.get("/find/:businessId/:name", expenseController.find);
 
+ expenseRouter.get("/sum", expenseController.sum);
+
  module.exports = expenseRouter;
 
