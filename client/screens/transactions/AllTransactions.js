@@ -80,7 +80,7 @@ const AllTransactions = () => {
   return (
     <View style={{ flex: 1 }}>
       <Agenda
-        scrollToOverflowEnabled ={true}
+        scrollToOverflowEnabled={true}
         renderEmptyData={() => null}
         theme={{
           agendaDayMonthColor: 'black',

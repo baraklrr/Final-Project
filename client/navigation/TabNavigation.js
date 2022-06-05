@@ -1,4 +1,4 @@
-import React,  { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -18,29 +18,26 @@ const getIconColor = (focused) => ({
   tintColor: focused ? COLORS.primary : COLORS.dark,
 });
 
-export default function TabNavigation ()
-{
+export default function TabNavigation() {
   const { opened, toggleOpened } = useTabMenu();
-  const [user,setUser]=useState();
-  const [greet,setGreet] = useState('ערב');
+  const [user, setUser] = useState();
+  const [greet, setGreet] = useState('ערב');
 
-  const findGreet=()=>{
-    const hrs=new Date().getHours();
-    if(hrs===0 || hrs<12)
-    setGreet('בוקר טוב')
-    if(hrs>12 || hrs<21)
-    setGreet(' צהריים טובים')
-  }
-  const findUser= async()=>{ 
-  const username = await AsyncStorage.getItem("username");
-  setUser(username)
+  const findGreet = () => {
+    const hrs = new Date().getHours();
+    if (hrs === 0 || hrs < 12) setGreet('בוקר טוב');
+    if (hrs > 12 || hrs < 21) setGreet(' צהריים טובים');
+  };
+  const findUser = async () => {
+    const username = await AsyncStorage.getItem('username');
+    setUser(username);
   };
   //console.log(user)
-  useEffect(()=>{
-  findUser();
-  findGreet();
-  },[]);
-  console.log(user)
+  useEffect(() => {
+    findUser();
+    findGreet();
+  }, []);
+  console.log(user);
 
   return (
     <Tab.Navigator
@@ -65,7 +62,7 @@ export default function TabNavigation ()
         name="בית"
         component={Dashboard}
         options={{
-          headerTitle: user  + ' ,'+ greet ,
+          headerTitle: user + ' ,' + greet,
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
@@ -151,7 +148,7 @@ export default function TabNavigation ()
       />
     </Tab.Navigator>
   );
-};
+}
 
 const styles = StyleSheet.create({
   tabBar: {
@@ -184,8 +181,6 @@ const styles = StyleSheet.create({
   },
   tabIcon: {
     width: 32,
-    height: 32,
+    height: Platform.OS === 'ios' ? 50 : 32,
   },
 });
-
-

@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Agenda } from 'react-native-calendars';
 import * as RootNavigation from '../../navigation/RootNavigation';
 import TransactionHeader from '../transactions/TransactionHeader';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const TransactionsScreen = () => {
-  
   const timeToString = (time) => {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
