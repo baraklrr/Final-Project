@@ -6,6 +6,8 @@ import TabContainer from '../components/TabContainer';
 import { Card, Paragraph } from 'react-native-paper';
 import { COLORS } from '../core/theme';
 import { AuthContext } from '../context/AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -24,21 +26,35 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default function Settings({ navigation }) {
   const { signOut } = React.useContext(AuthContext);
+  const [user,setUser]=useState();
+  const [email,setemail]=useState();
+  const [phone,setphone]=useState();
 
   const logout = () => {
     signOut();
     console.log('disconnected');
   };
-
+  const findUser= async()=>{ 
+  const username = await AsyncStorage.getItem("username");
+  const phone = await AsyncStorage.getItem("phone");
+  const email = await AsyncStorage.getItem("email");
+  setUser(username)
+  setemail(email)
+  setphone(phone)
+  };
+  useEffect(()=>{
+    findUser();
+  },[]);
   return (
     <TabContainer>
       <View style={styles.container}>
         <Card>
-          <Header>עסק עסק</Header>
-          <Paragraph style={styles.Text}>moti@xcount.com</Paragraph>
-          <Paragraph style={styles.Text}>0504499805</Paragraph>
+          <Header>{user}</Header>
+          <Paragraph style={styles.Text}> {email} </Paragraph>
+          <Paragraph style={styles.Text}> {phone} </Paragraph>
         </Card>
         <TouchableOpacity style={styles.list}>
           <Text>תנאי שימוש</Text>

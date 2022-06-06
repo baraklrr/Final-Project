@@ -28,9 +28,6 @@ export default function Dashboard({ navigation }) {
                 <Text style={styles.name}>יתרה מוערכת</Text>
               </View>
               <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: "right", color: "grey" }}>
-                  מרץ - אפריל
-                </Text>
               </View>
             </View>
           </View>
@@ -47,12 +44,9 @@ export default function Dashboard({ navigation }) {
         </Card>
         <View style={styles.space}>
           <Card>
-            <Text style={styles.borderText}>{"\u20AA"}14,258 - הכנסות</Text>
+            
             <View style={styles.container}>
-              <View style={styles.box1}></View>
-              <View style={styles.box2}></View>
-              <View style={styles.box3}></View>
-              <View style={styles.box4}></View>
+            <Text>space </Text>
             </View>
             <View style={styles.user}>
               <View
@@ -67,7 +61,7 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>מע"מ</Text>
+                  <Text style={styles.name}>כמות הכנסות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ textAlign: "right", fontWeight: "bold" }}>
@@ -90,7 +84,30 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>ביטוח לאומי</Text>
+                  <Text style={styles.name}>כמות הוצאות כללית</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ textAlign: "right", fontWeight: "bold" }}>
+                    {"\u20AA"}500
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <Card.Divider width={1}></Card.Divider>
+            <View style={styles.user}>
+              <View
+                style={{
+                  width: 20,
+                  height: 20,
+                  marginRight: 10,
+                  borderRadius: 6,
+                  backgroundColor: "#6096ba",
+                  resizeMode: "cover",
+                }}
+              ></View>
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.name}>מס הכנסה</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ textAlign: "right", fontWeight: "bold" }}>
@@ -113,7 +130,7 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>מקדמות מס הכנסה</Text>
+                  <Text style={styles.name}>מע"מ </Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ textAlign: "right", fontWeight: "bold" }}>
@@ -144,33 +161,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: Constants.statusBarHeight,
     backgroundColor: COLORS.bg,
-  },
-  box1: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#a3cef1",
-  },
-  box2: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#6096ba",
-  },
-  box3: {
-    flex: 3,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#274c77",
-  },
-  space: {
-    marginTop: 14,
-  },
-  box4: {
-    flex: 2,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#80ffdb",
   },
   user: {
     flexDirection: "row",
