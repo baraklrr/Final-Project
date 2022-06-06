@@ -4,14 +4,23 @@ const { db } = require("../models");
 const expenses = db.expense;
 const expenseType = db.expenseType;
 const Op = db.Sequelize.Op;
+let vat;
+
+const setOutput = (rows) => {
+  vat = rows;
+}
+
 
 //create and save a new expend
 exports.create = (req, res) => {
-let vattype = req.body.VatType
-var condition = vattype ? { vattype: { [Op.like]: `%${vattype}%` } } : null;
-var option =expenseType.findOne({where:condition}).catch();
-console.log(option);
-  const expense = {
+  expenseType.findOne(
+    {attributes:['vatPercentage'], 
+    where:{expensetypeId:req.body.VatType}}).then(vat=>{
+      setOutput(vat.vatPercentage)
+    })
+
+    console.log(vat);
+  expenses.create({
     businessId: req.body.businessId,
     date: req.body.date,
     name: req.body.name,
@@ -20,14 +29,12 @@ console.log(option);
     expenseSum: req.body.expenseSum,
     currency: req.body.currency,
     VatType: req.body.VatType,
-    VatRefund: option,
+    VatRefund: req.body.expenseSum*vat ,
     IrsRefund: req.body.IrsRefund,
     refundSum: req.body.refundSum,
-    confirmed: req.body.confirmed,
-  };
-  expenses.create(expense)
-  .then((data) => {
-    res.send(data);
+  })
+  .then((expense) => {
+      res.send(expense);
   })
   .catch((err) => {
     res.status(500).send({
@@ -49,7 +56,7 @@ exports.getexpenses = async (req, res) => {
     })
   };
 
-
+//edit the update methood 
 exports.update = (req, res) => {
     const id = req.params.id;
     expenses.update(req.body, {

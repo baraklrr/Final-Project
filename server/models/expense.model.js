@@ -12,10 +12,6 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING,
       },
-      expenseItems: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       expenseImg: {
         type: Sequelize.STRING,
         defaultValue: null,
@@ -27,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       VatType: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       VatRefund: {
         type: Sequelize.FLOAT,
@@ -44,7 +40,6 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
     {
-      timestamps: false,
       charset: "utf8",
       collate: "utf8_unicode_ci"
     }

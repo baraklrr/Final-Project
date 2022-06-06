@@ -57,11 +57,10 @@ Content-Type: application/json
     "businessId": 1,
     "date": "2017-06-15",
     "name": "1",
-    "expenseItems": "123",
     "expenseImg": "1",
-    "expenseSum": 1.1,
+    "expenseSum": 300,
     "currency":"1",
-    "VatType": "בגדים",
+    "VatType": "1",
     "IrsRefund": 1.1,
     "refundSum": 1.1,
     "confirmed": "1"
