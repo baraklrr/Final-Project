@@ -37,7 +37,6 @@ export default function TabNavigation() {
     findUser();
     findGreet();
   }, []);
-  console.log(user);
 
   return (
     <Tab.Navigator
