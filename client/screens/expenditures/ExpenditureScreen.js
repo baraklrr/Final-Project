@@ -106,7 +106,11 @@ const ExpenditureScreen = ({ navigation }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור הוצאה"
           ></Input>
-          <DateSelect onDateSelect={addDateHandler} />
+
+      {Platform.OS === 'ios' ?
+     <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />:
+     <DateSelect onDateSelect={addDateHandler} /> 
+      }
           {!image && (
             <>
               <View style={[styles.container]}>
