@@ -41,7 +41,7 @@ const InvoiceApp = ({ handleSubmit, sumPrice, sumPricePayment }) => {
               onChangeText={(e) => setAppObj({ ...appObj, date: e })}
             /> */}
             {Platform.OS === 'ios' ?
-         <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} />:
+         <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} /> :
          <Input
               textAlign="right"
               textAlignVertical="center"

@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import DateCalendar from '../../../components/DateCalendar';
+import DateSelect from '../../../components/DateSelect';
 
 const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [bankObj, setBankObj] = useState({
@@ -44,13 +45,7 @@ const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
 
             {Platform.OS === 'ios' ?
          <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} />:
-         <Input
-              textAlign="right"
-              textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
-              placeholder="תאריך החשבונית"
-              onChangeText={(e) => setAppObj({ ...appObj, date: e })}
-            />  
+         <DateSelect  />  
           }
 
           

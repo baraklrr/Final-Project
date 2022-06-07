@@ -61,7 +61,7 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>כמות הכנסות כללית</Text>
+                  <Text style={styles.name}>סך הכנסות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ textAlign: "right", fontWeight: "bold" }}>
@@ -84,7 +84,7 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>כמות הוצאות כללית</Text>
+                  <Text style={styles.name}>סך הוצאות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
                   <Text style={{ textAlign: "right", fontWeight: "bold" }}>

@@ -108,7 +108,7 @@ const ExpenditureScreen = ({ navigation }) => {
           ></Input>
 
       {Platform.OS === 'ios' ?
-     <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />:
+     <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> :
      <DateSelect onDateSelect={addDateHandler} /> 
       }
           {!image && (
