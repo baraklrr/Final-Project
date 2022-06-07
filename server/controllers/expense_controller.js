@@ -58,6 +58,7 @@ exports.getexpenses = async (req, res) => {
 
 //edit the update methood 
 exports.update = (req, res) => {
+  console.log(req.params)
     const id = req.params.id;
     expenses.update(req.body, {
       where: { id: id }
