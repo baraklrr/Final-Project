@@ -3,14 +3,16 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-const DateSelect = ({ navigation }) => {
+const DateSelect = (props) => {
   const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(false);
     setDate(currentDate);
+    props.onDateSelect(selectedDate);
   };
   const showMode = (currentMode) => {
     setShow(true);

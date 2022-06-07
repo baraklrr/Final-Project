@@ -12,9 +12,16 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING,
       },
-      expenseImg: {
+
+      category: {
         type: Sequelize.STRING,
-        defaultValue: null,
+      },
+      expenseItems: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      expenseImg: {
+        type: Sequelize.BLOB("long"),
       },
       expenseSum: {
         type: Sequelize.FLOAT,
@@ -40,8 +47,9 @@ module.exports = (sequelize, Sequelize) => {
       },
     },
     {
+      timestamps: false,
       charset: "utf8",
-      collate: "utf8_unicode_ci"
+      collate: "utf8_unicode_ci",
     }
   );
 

@@ -3,7 +3,6 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MyBuissnessScreen from '../screens/MyBuissnessScreen';
 import MyDetails from '../screens/MyDetails';
-import TabNavigation from './TabNavigation';
 import Myfiles from '../screens/MyFiles';
 import { COLORS } from '../core/theme';
 import DocViewer from "../screens/files/DocViewer"
