@@ -57,7 +57,7 @@ Content-Type: application/json
     "businessId": 1,
     "date": "2017-06-15",
     "name": "1",
-    "expenseImg": "1",
+    "expenseImg": "1.jpg",
     "expenseSum": 300,
     "currency":"1",
     "VatType": "1",

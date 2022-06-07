@@ -12,18 +12,10 @@ const setOutput = (rows) => {
 
 
 //create and save a new expend
-
-exports.create = (req, res) => {
-  expenseType.findOne(
-    {attributes:['vatPercentage'], 
-    where:{expensetypeId:req.body.VatType}}).then(vat=>{
-      setOutput(vat.vatPercentage)
-    })
-
-    console.log(vat);
-
-
 exports.create = async (req, res) => {
+  expenseType.findOne({attributes:['vatPercentage'], 
+    where:{expensetypeId:req.body.VatType}}).then(vat=>{setOutput(vat.vatPercentage)});
+    console.log(vat);
   try {
     const expense = {
       businessId: req.body.businessId,
@@ -32,9 +24,7 @@ exports.create = async (req, res) => {
       category: req.body.category,
       expenseItems: req.body.expenseItems,
       // expenseImg: req.body.expenseImg,
-      expenseImg: fs.readFileSync(
-        __basedir + "/resources/static/assets/uploads/" + req.body.expenseImg
-      ),
+      expenseImg: fs.readFileSync( __basedir + "/resources/static/assets/uploads/" + req.body.expenseImg),
       expenseSum: req.body.expenseSum,
       currency: req.body.currency,
       VatType: req.body.VatType,
@@ -43,11 +33,7 @@ exports.create = async (req, res) => {
       refundSum: req.body.refundSum,
       confirmed: req.body.confirmed,
     };
-
-
-    expenses
-      .create(expense)
-      .then((image) => {
+    expenses.create(expense).then((image) => {
         fs.writeFileSync(
           __basedir + "/resources/static/assets/tmp/" + req.body.expenseImg,
           image.expenseImg
@@ -65,6 +51,7 @@ exports.create = async (req, res) => {
     return res.send(`Error when trying upload images: ${error}`);
   }
 };
+
 
 exports.getexpenses = async (req, res) => {
   const businessId = req.params.businessId;
@@ -168,4 +155,4 @@ exports.sum = (req,res)=> {
       err.message || "some error occured while retrieving"
     });
   });
-}
+};
