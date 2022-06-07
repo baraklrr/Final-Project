@@ -14,7 +14,11 @@ const catchError = (err, res) => {
 };
 
 const verifyToken = (req, res, next) => {
-  let token = req.cookies.jwt;
+  const authHeader = req.get("Authorization");
+    if (!authHeader) {
+        return res.status(401).json({ message: 'not authenticated' });
+    };
+  let token = authHeader.split(' ')[1];
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }

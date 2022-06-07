@@ -36,7 +36,7 @@ const createIncome = (req, res) => {
 };
 
 const updateIncomeById = (req, res) => {
-  const id = req.params.id;
+  const id = req.params.incomeId;
   Income.update(req.body, {
     where: { id: id },
   })

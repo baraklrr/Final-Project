@@ -23,13 +23,7 @@ Content-Type: application/json
 
 {
     "username" : "alon",
-<<<<<<< HEAD
     "password" : "123456"
-=======
-    "email" : "alon@asd.com",
-    "password" : "123456",
-    "roles" : ["moderator" , "user"]
->>>>>>> dd4a763a9b1ca65dd2096a5bbb3af328f7408dd0
 }
 
 ###
