@@ -89,6 +89,7 @@ export default function App() {
           )
           .catch((e) => console.log(e));
         let userToken = await AsyncStorage.getItem('token');
+        
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {

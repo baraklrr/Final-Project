@@ -32,12 +32,14 @@ export default function TabNavigation() {
     const username = await AsyncStorage.getItem('username');
     setUser(username);
   };
+
   //console.log(user)
   useEffect(() => {
     findUser();
     findGreet();
   }, []);
   console.log(user);
+
 
   return (
     <Tab.Navigator

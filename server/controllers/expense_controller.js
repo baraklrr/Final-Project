@@ -2,9 +2,27 @@ const { db } = require("../models");
 const fs = require("fs");
 
 const expenses = db.expense;
+const expenseType = db.expenseType;
 const Op = db.Sequelize.Op;
+let vat;
+
+const setOutput = (rows) => {
+  vat = rows;
+}
+
 
 //create and save a new expend
+
+exports.create = (req, res) => {
+  expenseType.findOne(
+    {attributes:['vatPercentage'], 
+    where:{expensetypeId:req.body.VatType}}).then(vat=>{
+      setOutput(vat.vatPercentage)
+    })
+
+    console.log(vat);
+
+
 exports.create = async (req, res) => {
   try {
     const expense = {
@@ -20,11 +38,12 @@ exports.create = async (req, res) => {
       expenseSum: req.body.expenseSum,
       currency: req.body.currency,
       VatType: req.body.VatType,
-      VatRefund: req.body.VatRefund,
+      VatRefund: req.body.expenseSum*vat ,
       IrsRefund: req.body.IrsRefund,
       refundSum: req.body.refundSum,
       confirmed: req.body.confirmed,
     };
+
 
     expenses
       .create(expense)
@@ -61,6 +80,7 @@ exports.getexpenses = async (req, res) => {
       res.status(500).send({
         message: err.message || "some error occured while retrieving",
       });
+
     });
 };
 
@@ -112,6 +132,7 @@ exports.delete = (req, res) => {
     });
 };
 
+
 //todo: change the function and use user token
 exports.find = (req, res) => {
   var name = req.body.name;
@@ -120,6 +141,7 @@ exports.find = (req, res) => {
   var condition = businessId
     ? { businessId: { [Op.like]: `%${businessId}%` } }
     : null;
+  
   expenses
     .findAll({
       where: { [Op.and]: [{ name: condition2 }, { businessId: condition }] },
@@ -133,3 +155,17 @@ exports.find = (req, res) => {
       });
     });
 };
+
+exports.sum = (req,res)=> {
+   expenses.sum('expenseSum').then(data=>{
+     res.status(200).send({
+       message: data
+     });
+    
+    }).catch(err=>{
+    res.status(500).send({
+      message:
+      err.message || "some error occured while retrieving"
+    });
+  });
+}
