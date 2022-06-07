@@ -57,7 +57,7 @@ export default function App() {
       try {
         // Restore token stored in `SecureStore` or any other encrypted storage
         userToken = await AsyncStorage.getItem('token');
-        console.log("token :"+userToken);
+        console.log('token :' + userToken);
       } catch (e) {
         // Restoring token failed
         console.log('error ' + e);
@@ -73,17 +73,21 @@ export default function App() {
   const authContext = React.useMemo(
     () => ({
       signIn: async (username, password) => {
+        console.log(username, password);
         // In a production app, we need to send some data (usually username, password) to server and get a token
         // We will also need to handle errors if sign in failed
-        AuthService.login(username, password).then(
-          () => {
-            console.log('logged in');
-          },
-          (error) => {
-            console.log(error.response.data.message);
-            Alert.alert(error.response.data.message);
-          }
-        );
+        AuthService.login(username, password)
+          .then(
+            () => {
+              console.log('logged in');
+            },
+            (error) => {
+              console.log(error);
+              console.log(error.response.data.message);
+              Alert.alert(error.response.data.message);
+            }
+          )
+          .catch((e) => console.log(e));
         let userToken = await AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
@@ -110,7 +114,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>
-        {state.userToken == null ? <AuthStack /> : <MainNavigator />}
+        {state.userToken === null ? <AuthStack /> : <MainNavigator />}
       </Provider>
     </AuthContext.Provider>
   );

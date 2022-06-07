@@ -3,9 +3,10 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const sessions = require('express-session');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const { db, initial } = require("./models");
 const cors = require("cors");
+global.__basedir = __dirname;
 var corsOptions = {
   origin: "http://localhost:8080",
 };
@@ -44,7 +45,7 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-forceSync();
+// forceSync();
 
 //middleware
 app.use((_, res, next) => {
@@ -70,7 +71,7 @@ app.use("/api/income", incomeRouter);
 const expenseRouter = require("./routes/expense.routes");
 const authConfig = require("./config/auth.config");
 app.use("/api/expense", expenseRouter);
-// require("./routes/expense.routes")(app);
+require("./routes/transaction.routes")(app);
 
 //server
 app.listen(port, () => {
