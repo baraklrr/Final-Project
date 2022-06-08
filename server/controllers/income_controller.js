@@ -11,19 +11,24 @@ const createIncome = (req, res) => {
     });
     return;
   }
+  const businessId = req.userId; //from token
+  const saveCustomer = req.body.saveCustomer;
+  const customerId = req.body.customerId;
+  const date = req.body.date;
+  const description = req.body.description;
+  const incomeSum = req.body.incomeSum;
+  const items = JSON.stringify(req.body.items);
+  const paymentMethods = JSON.stringify(req.body.paymentMethods);
+
   Income.create({
-    businessId: req.body.businessId,
-    customerId: req.body.customerId,
-    date: req.body.date,
-    title: req.body.title,
-    incomeImg: req.body.incomeImg,
-    //itemsList: req.body.receipt,
-    incomSum: req.body.incomSum,
-    currency: req.body.currency,
-    //currencyExchangeRate: req.body.currencyExchangeRate,
-    incomeType: req.body.incomeType,
-    paymentMethod: req.body.paymentMethod,
-    //confirmed: req.body.confirmed,
+    businessId,
+    saveCustomer,
+    customerId,
+    date,
+    description,
+    incomeSum,
+    items,
+    paymentMethods,
   })
     .then((data) => {
       res.send(data);

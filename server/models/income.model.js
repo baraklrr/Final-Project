@@ -3,57 +3,54 @@ module.exports = (sequelize, Sequelize) => {
     "income",
     {
       incomeId: {
-        type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
       businessId: {
-        type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER,
+      },
+      saveCustomer: {
+      type: Sequelize.BOOLEAN
       },
       customerId: {
-        type: Sequelize.INTEGER,
+      type: Sequelize.INTEGER,
+      allowNull: true,
       },
       date: {
-        type: Sequelize.DATEONLY,
+      type: Sequelize.DATEONLY,
       },
-      title: {
-        type: Sequelize.STRING,
+      description: {
+      type: Sequelize.STRING,
       },
-      incomeImg: {
-        type: Sequelize.STRING,
-        defaultValue: null,
+      items: {
+      type: Sequelize.STRING
       },
-      /*receiptId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },*/
       incomeSum: {
-        type: Sequelize.FLOAT,
+      type: Sequelize.FLOAT,
       },
-      currency: {
-        type: Sequelize.ENUM("shekel", "dollar", "euro"),
-        defaultValue: "shekel",
-      },
-      currencyExchangeRate: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0.0,
-      },
+      // currency: {
+      //   type: Sequelize.ENUM("shekel", "dollar", "euro"),
+      //   defaultValue: "shekel",
+      // },
+      // currencyExchangeRate: {
+      //   type: Sequelize.FLOAT,
+      //   defaultValue: 0.0,
+      // },
       incomeType: {
-        type: Sequelize.ENUM(
+      type: Sequelize.ENUM(
           "Tax invoice/Receipt",
           "Tax invoice",
           "Receipt",
           "Transaction invoice",
           "Credit invoice"
         ),
+        defaultValue: "Tax invoice/Receipt"
       },
-      paymentMethod: {
-        type: Sequelize.ENUM("Cash", "Credit", "Bank transfer", "Check"),
-      },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
-      },
+      paymentMethods: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      }
     },
     {
       timestamps: false,

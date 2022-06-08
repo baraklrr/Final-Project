@@ -34,9 +34,3 @@ module.exports = (sequelize, Sequelize) => {
 
   return Business;
 };
-
-/*const BankAccount = {
-  HAPOALIM: "hapoalim",
-  DISCOUNT: "discount",
-  LEUMI: "leumi",
-};*/

@@ -9,9 +9,9 @@ incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);
 incomeRouter.delete("/{incomeId}", IncomeController.deleteIncomeById);
 incomeRouter.get("/all", IncomeController.getAllIncomes);
 incomeRouter.delete("/all", IncomeController.deleteAllIncomes);
-incomeRouter.get("/{startDate}&{endDate}", IncomeController.getIncomesByDate);
+incomeRouter.get("/:startDate&endDate", IncomeController.getIncomesByDate);
 incomeRouter.delete(
-  "/{startDate}&{endDate}",
+  "/:startDate&endDate",
   IncomeController.deleteIncomesByDate
 );
 incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
