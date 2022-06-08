@@ -18,6 +18,7 @@ import SwitchSelector from 'react-native-switch-selector';
 import ExpenseDataService from '../../services/expense.service';
 import { generateImageForm, uploadImage } from '../../helpers/imageUtil';
 import { Categories } from '../../components/Categories';
+import * as RootNavigation from '../../navigation/RootNavigation';
 
 const options = [
   { label: '€', value: '0', testID: 'switch-zero', accessibilityLabel: 'switch-zero' },
@@ -49,6 +50,7 @@ const ExpenditureScreen = ({ navigation }) => {
     let data = {
       businessId: 3,
       date: selectedDate,
+      VatType: 1, //TODO: change later
       name: title,
       category: selectedCategory['title'],
       expenseItems: JSON.stringify([{ key: 'value' }]),
@@ -68,15 +70,16 @@ const ExpenditureScreen = ({ navigation }) => {
         //   submitted: true,
         // });
 
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'הוצאות בתהליך קליטה',
-              params: { someParam: 'Param1' },
-            },
-          ],
-        });
+        RootNavigation.navigate('trasactions');
+        // navigation.reset({
+        //   index: 0,
+        //   routes: [
+        //     {
+        //       name: 'הוצאות בתהליך קליטה',
+        //       params: { someParam: 'Param1' },
+        //     },
+        //   ],
+        // });
         console.log(response.data);
       })
       .catch((error) => {
@@ -107,10 +110,11 @@ const ExpenditureScreen = ({ navigation }) => {
             placeholder="תיאור הוצאה"
           ></Input>
 
-      {Platform.OS === 'ios' ?
-     <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> :
-     <DateSelect onDateSelect={addDateHandler} /> 
-      }
+          {Platform.OS === 'ios' ? (
+            <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />
+          ) : (
+            <DateSelect onDateSelect={addDateHandler} />
+          )}
           {!image && (
             <>
               <View style={[styles.container]}>
