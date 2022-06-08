@@ -8,7 +8,7 @@ import InvoicePayment from '../screens/invoices/InvoicePayment';
 import InvoiceFinal from '../screens/invoices/InvoiceFinal';
 import InvoiceView from '../screens/invoices/InvoiceView';
 import InvoiceViewOptions from '../screens/invoices/InvoiceViewOptions';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 
 const ModalStack = createStackNavigator();
 

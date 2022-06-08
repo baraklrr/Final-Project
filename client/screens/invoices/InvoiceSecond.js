@@ -162,19 +162,14 @@ const InvoiceSecond = ({ navigation, route }) => {
         <Button
           title={'הפקת חשבונית מס / קבלה'}
           onPress={() =>
-            // navigation.reset({
-            //   index: 0,
-            //   routes: [
-            //     {
-            //       name: 'חשבונית מס/קבלה',
-            //       params: { someParam: 'Param1' },
-            //     },
-            //   ],
-            // })
-            navigation.navigate('הפקת חשבונית מס/קבלה', {
-              sumPrice: sumPrice,
-              sumPriceWithVAT: sumPriceWithVAT,
-              date: date,
+            navigation.reset({
+              index: 0,
+              routes: [
+                {
+                  name: 'הפקת חשבונית מס/קבלה',
+                  params: { sumPrice: sumPrice, sumPriceWithVAT: sumPriceWithVAT, date: date },
+                },
+              ],
             })
           }
           containerStyle={{
