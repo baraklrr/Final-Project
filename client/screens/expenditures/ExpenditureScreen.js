@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Card, Input } from '@rneui/themed';
 import DateSelect from '../../components/DateSelect';
+import DateCalendar from '../../components/DateCalendar';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PhotoLibraryPicker from '../../components/PhotoLibraryPicker';
 import NumberFormat from 'react-number-format';
@@ -111,7 +112,7 @@ const ExpenditureScreen = ({ navigation }) => {
           ></Input>
 
           {Platform.OS === 'ios' ? (
-            <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />
+            <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={selectedDate} />
           ) : (
             <DateSelect onDateSelect={addDateHandler} />
           )}

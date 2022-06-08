@@ -8,7 +8,7 @@ export function generateImageForm(imagePath) {
   return form;
 }
 export const uploadImage = async (formData) => {
-  let URL_Endpoint = 'http://10.0.2.2:8080/uploadImage';
+  let URL_Endpoint = 'http://localhost:8080/uploadImage';
 
   const fetchResponse = await fetch(URL_Endpoint, {
     headers: {
