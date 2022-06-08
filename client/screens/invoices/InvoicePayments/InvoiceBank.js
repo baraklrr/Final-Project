@@ -45,7 +45,7 @@ const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
 
             {Platform.OS === 'ios' ?
          <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} />:
-         <DateSelect  />  
+         <DateSelect />  
           }
 
           

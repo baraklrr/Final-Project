@@ -23,7 +23,6 @@ exports.create = async (req, res) => {
       name: req.body.name,
       category: req.body.category,
       expenseItems: req.body.expenseItems,
-      // expenseImg: req.body.expenseImg,
       expenseImg: fs.readFileSync( __basedir + "/resources/static/assets/uploads/" + req.body.expenseImg),
       expenseSum: req.body.expenseSum,
       currency: req.body.currency,
@@ -67,7 +66,6 @@ exports.getexpenses = async (req, res) => {
       res.status(500).send({
         message: err.message || "some error occured while retrieving",
       });
-
     });
 };
 
