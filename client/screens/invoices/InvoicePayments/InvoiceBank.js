@@ -42,13 +42,11 @@ const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
               onChangeText={(e) => setBankObj({ ...bankObj, date: e })}
             /> */}
 
-
-            {Platform.OS === 'ios' ?
-         <DateCalendar title="תאריך החשבונית:" setCardObj={setAppObj} cardObj={appObj} />:
-         <DateSelect />  
-          }
-
-          
+            {Platform.OS === 'ios' ? (
+              <DateCalendar title="תאריך החשבונית:" setCardObj={setBankObj} cardObj={bankObj} />
+            ) : (
+              <DateSelect />
+            )}
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input
