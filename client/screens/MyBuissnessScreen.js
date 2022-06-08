@@ -38,7 +38,7 @@ export default function Settings({ navigation }) {
           <View style={styles.container}>
             <Card>
               <Card.Content>
-                <Header>עסק עסק</Header>
+                <Header>העסק שלי</Header>
                 <Paragraph style={styles.Text}>moti@xcount.com</Paragraph>
                 <Paragraph style={styles.Text}>0504499805</Paragraph>
               </Card.Content>

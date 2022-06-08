@@ -6,8 +6,7 @@ import MyDetails from '../screens/MyDetails';
 import Myfiles from '../screens/MyFiles';
 import { COLORS } from '../core/theme';
 import DocViewer from "../screens/files/DocViewer"
-
-import ReportScreen from '../screens/ReportScreen';
+import ReportsNavigation from './ReportsNavigation';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +23,7 @@ const MybuissnessNavigator = () => {
       }}
     >
       <Stack.Screen name="העסק שלי" component={MyBuissnessScreen} />
-      <Stack.Screen name="הדיווחים שלי" component={ReportScreen} />
+      <Stack.Screen name="הדיווחים שלי" component={ReportsNavigation} />
       <Stack.Screen name="ערוך את הפרטים שלי" component={MyDetails} />
       <Stack.Screen name="המסמכים שלי" component={Myfiles} />
       <Stack.Screen name="מסמך" component={DocViewer} />
