@@ -1,6 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
   const Expense = sequelize.define(
     "expense",
+    
     {
       businessId: {
         type: Sequelize.INTEGER,
@@ -28,7 +29,7 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING,
       },
       VatType: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
       },
       VatRefund: {
         type: Sequelize.FLOAT,

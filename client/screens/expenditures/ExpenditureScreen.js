@@ -55,11 +55,6 @@ const ExpenditureScreen = ({ navigation }) => {
       expenseImg: uploadedImage == null ? null : uploadedImage,
       expenseSum: sum,
       currency: currency,
-      VatType: 1,
-      VatRefund: 1.1,
-      IrsRefund: 1.1,
-      refundSum: 1.1,
-      confirmed: 1,
     };
     console.log(data);
     ExpenseDataService.create(data)
@@ -111,7 +106,11 @@ const ExpenditureScreen = ({ navigation }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור הוצאה"
           ></Input>
-          <DateSelect onDateSelect={addDateHandler} />
+
+      {Platform.OS === 'ios' ?
+     <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> :
+     <DateSelect onDateSelect={addDateHandler} /> 
+      }
           {!image && (
             <>
               <View style={[styles.container]}>

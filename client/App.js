@@ -73,7 +73,6 @@ export default function App() {
   const authContext = React.useMemo(
     () => ({
       signIn: async (username, password) => {
-        console.log(username, password);
         // In a production app, we need to send some data (usually username, password) to server and get a token
         // We will also need to handle errors if sign in failed
         AuthService.login(username, password)
@@ -89,6 +88,7 @@ export default function App() {
           )
           .catch((e) => console.log(e));
         let userToken = await AsyncStorage.getItem('token');
+        
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {

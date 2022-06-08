@@ -43,7 +43,6 @@ export default function Settings({ navigation }) {
                 <Paragraph style={styles.Text}>0504499805</Paragraph>
               </Card.Content>
             </Card>
-
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('הדיווחים שלי');
