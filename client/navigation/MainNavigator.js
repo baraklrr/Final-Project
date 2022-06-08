@@ -1,12 +1,12 @@
-import React from "react";
-import {createStackNavigator, TransitionPresets} from "@react-navigation/stack";
-import {NavigationContainer} from "@react-navigation/native";
-import TabsNavigator from "../navigation/TabNavigation";
-import InvoiceFormNavigator from "./InvoiceFormNavigator";
-import {TabContextProvider} from "../context/TabContext";
-import ExpenditureNavigator from "./ExpenditureNavigator";
-import TransactionsScreen  from "../screens/transactions/TransactionsScreen";
-import TabbedTransactions from "../screens/transactions/TabbedTransactions";
+import React from 'react';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import TabsNavigator from '../navigation/TabNavigation';
+import InvoiceFormNavigator from './InvoiceFormNavigator';
+import { TabContextProvider } from '../context/TabContext';
+import ExpenditureNavigator from './ExpenditureNavigator';
+import TransactionsScreen from '../screens/transactions/TransactionsScreen';
+import TransactionsNavigation from './TransactionsNavigation';
 import { navigationRef } from './RootNavigation';
 
 const Stack = createStackNavigator();
@@ -15,40 +15,37 @@ const MainNavigator = () => {
   return (
     <TabContextProvider>
       <NavigationContainer ref={navigationRef}>
-        <Stack.Navigator
-          initialRouteName="Root"
-          screenOptions={{headerShown: false}}>
+        <Stack.Navigator initialRouteName="Root" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Root" component={TabsNavigator} />
-          <Stack.Screen name="trasactions" component={TabbedTransactions} 
-          options={{
-            title:"תנועות",
-            headerShown: true,
-            presentation: 'modal',
-            // ...TransitionPresets.ModalPresentationIOS,
-          }}
+          <Stack.Screen
+            name="trasactions"
+            component={TransactionsNavigation}
+            options={{
+              title: 'תנועות',
+              headerShown: false,
+              presentation: 'modal',
+              // ...TransitionPresets.ModalPresentationIOS,
+            }}
           />
-          
-          <Stack.Screen
-          name="InvoicesStack"
-          component={InvoiceFormNavigator}
-          options={{
-            headerShown: false,
-            presentation: 'modal',
-            // ...TransitionPresets.ModalPresentationIOS,
-          }}
-        /> 
-          <Stack.Screen
-          name="ExpenditureStack"
-          component={ExpenditureNavigator}
-          options={{
-            headerShown: false,
-            presentation: 'modal',
-            // ...TransitionPresets.ModalPresentationIOS,
-          }}
-        /> 
-       
 
-
+          <Stack.Screen
+            name="InvoicesStack"
+            component={InvoiceFormNavigator}
+            options={{
+              headerShown: false,
+              presentation: 'modal',
+              // ...TransitionPresets.ModalPresentationIOS,
+            }}
+          />
+          <Stack.Screen
+            name="ExpenditureStack"
+            component={ExpenditureNavigator}
+            options={{
+              headerShown: false,
+              presentation: 'modal',
+              // ...TransitionPresets.ModalPresentationIOS,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </TabContextProvider>

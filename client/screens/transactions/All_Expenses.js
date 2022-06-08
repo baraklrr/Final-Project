@@ -38,7 +38,7 @@ const All_Expenses = () => {
   return (
     <View style={styles.container}>
       <Searchbar
-        style={{ marginTop: 15 }}
+        style={{ margin: 15 }}
         placeholder="חיפוש..."
         autoCapitalize="none"
         autoCorrect={false}
