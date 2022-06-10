@@ -160,6 +160,11 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
-expenseRouter.get("/find/:businessId/:name", expenseController.find);
+ expenseRouter.get("/find/:businessId/:name", expenseController.find);
+
+ expenseRouter.get("/sum", expenseController.sum);
+
+ module.exports = expenseRouter;
+
 
 module.exports = expenseRouter;

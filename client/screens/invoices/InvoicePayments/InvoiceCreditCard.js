@@ -41,7 +41,11 @@ const InvoiceCreditCard = ({ handleSubmit, sumPrice, sumPricePayment }) => {
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setCardObj({ ...cardObj, date: e })}
             /> */}
-            <DateCalendar title="תאריך החשבונית:" setCardObj={setCardObj} cardObj={cardObj} />
+            {Platform.OS === 'ios' ? (
+              <DateCalendar title="תאריך החשבונית:" setCardObj={setCardObj} cardObj={cardObj} />
+            ) : (
+              <DateSelect />
+            )}
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input

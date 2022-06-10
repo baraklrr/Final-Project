@@ -40,11 +40,15 @@ const InvoiceCheckBook = ({ handleSubmit, sumPrice, sumPricePayment }) => {
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setCheckBookObj({ ...checkBookObj, date: e })}
             /> */}
-            <DateCalendar
-              title="תאריך החשבונית:"
-              setCardObj={setCheckBookObj}
-              cardObj={checkBookObj}
-            />
+            {Platform.OS === 'ios' ? (
+              <DateCalendar
+                title="תאריך החשבונית:"
+                setCardObj={setCheckBookObj}
+                cardObj={checkBookObj}
+              />
+            ) : (
+              <DateSelect />
+            )}
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input

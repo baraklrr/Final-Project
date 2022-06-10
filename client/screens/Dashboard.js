@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
-import { Card } from "@rneui/themed";
-import TabContainer from "../components/TabContainer";
-import { COLORS } from "../core/theme";
+import React, { useEffect, useState } from 'react';
+import { Text, View, StyleSheet } from 'react-native';
+import { Card } from '@rneui/themed';
+import TabContainer from '../components/TabContainer';
+import { COLORS } from '../core/theme';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Dashboard({ navigation }) {
-
   return (
     <TabContainer>
       <View style={styles.screenContainer}>
@@ -27,9 +26,7 @@ export default function Dashboard({ navigation }) {
               <View style={{ flex: 1 }}>
                 <Text style={styles.name}>יתרה מוערכת</Text>
               </View>
-              <View style={{ flex: 1 }}>
-                <Text style={{ textAlign: 'right', color: 'grey' }}>מרץ - אפריל</Text>
-              </View>
+              <View style={{ flex: 1 }}></View>
             </View>
           </View>
           <Text
@@ -40,18 +37,31 @@ export default function Dashboard({ navigation }) {
               fontWeight: 'bold',
             }}
           >
-            {'\u20AA'}14,357
+            {'\u20AA'}15443
           </Text>
         </Card>
+
         <View style={styles.space}>
           <Card>
-            <Text style={styles.borderText}>{'\u20AA'}14,258 - הכנסות</Text>
             <View style={styles.container}>
               <View style={styles.box1}></View>
               <View style={styles.box2}></View>
               <View style={styles.box3}></View>
               <View style={styles.box4}></View>
             </View>
+            <Card.Divider width={1}></Card.Divider>
+            <View style={styles.user}>
+              <View style={{ flex: 1, flexDirection: 'row' }}>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.name}>סך הכנסות כללית</Text>
+                </View>
+                <View style={{ flex: 1 }}>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}17000</Text>
+                </View>
+              </View>
+            </View>
+            <Card.Divider width={1}></Card.Divider>
+
             <View style={styles.user}>
               <View
                 style={{
@@ -65,10 +75,10 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>מע"מ</Text>
+                  <Text style={styles.name}>סך הוצאות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}500</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}1500</Text>
                 </View>
               </View>
             </View>
@@ -86,10 +96,10 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>ביטוח לאומי</Text>
+                  <Text style={styles.name}>מס הכנסה</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}500</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}168.8</Text>
                 </View>
               </View>
             </View>
@@ -107,10 +117,10 @@ export default function Dashboard({ navigation }) {
               ></View>
               <View style={{ flex: 1, flexDirection: 'row' }}>
                 <View style={{ flex: 1 }}>
-                  <Text style={styles.name}>מקדמות מס הכנסה</Text>
+                  <Text style={styles.name}>מע"מ </Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}1550</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}255</Text>
                 </View>
               </View>
             </View>
@@ -138,19 +148,19 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.bg,
   },
   box1: {
-    flex: 1,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#a3cef1',
   },
   box2: {
-    flex: 1,
+    flex: 0.5,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#6096ba',
   },
   box3: {
-    flex: 3,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#274c77',
@@ -159,7 +169,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   box4: {
-    flex: 2,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#80ffdb',

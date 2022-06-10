@@ -58,12 +58,10 @@ Content-Type: application/json
     "businessId": 1,
     "date": "2017-06-15",
     "name": "1",
-    "expenseItems": "123",
-    "expenseImg": "1",
-    "expenseSum": 1.1,
+    "expenseImg": "1.jpg",
+    "expenseSum": 300,
     "currency":"1",
     "VatType": "1",
-    "VatRefund": 1.1,
     "IrsRefund": 1.1,
     "refundSum": 1.1,
     "confirmed": "1"
@@ -74,13 +72,13 @@ Content-Type: application/json
 GET http://localhost:8080/api/expense/all/1
 
 ###
-GET http://localhost:8080/api/expense/find/1/comp
+GET http://localhost:8080/api/expense/sum
 ###
 
 DELETE  http://localhost:8080/api/expense/delete/1
 
 ###
-PUT  http://localhost:8080/api/expense/update/3
+PUT  http://localhost:8080/api/expense/update/1
 Content-Type: application/json
 
 {

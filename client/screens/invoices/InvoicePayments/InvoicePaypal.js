@@ -40,7 +40,11 @@ const InvoicePaypal = ({ handleSubmit, sumPrice, sumPricePayment }) => {
               placeholder="תאריך החשבונית"
               onChangeText={(e) => setBankObj({ ...bankObj, date: e })}
             /> */}
-            <DateCalendar title="תאריך החשבונית:" setCardObj={setPaypalObj} cardObj={paypalObj} />
+            {Platform.OS === 'ios' ? (
+              <DateCalendar title="תאריך החשבונית:" setCardObj={setPaypalObj} cardObj={paypalObj} />
+            ) : (
+              <DateSelect />
+            )}
           </View>
           <View style={{ marginTop: '10%' }}>
             <Input

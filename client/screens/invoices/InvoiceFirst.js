@@ -9,6 +9,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import InvoiceTextInput from '../../components/InvoiceTextInput';
 import CustomDivider from '../../components/CustomDivider';
 import DateCalendar from '../../components/DateCalendar';
+import DateSelect from '../../components/DateSelect';
 
 const InvoiceFirst = ({ navigation, route }) => {
   const [checked, setChecked] = React.useState(false);
@@ -76,8 +77,11 @@ const InvoiceFirst = ({ navigation, route }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור ההכנסה"
           ></Input>
-          {/* <DateSelect /> */}
-          {/* <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> */}
+
+    {Platform.OS === 'ios' ?
+    <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> :
+    <DateSelect />}
+   
 
           <CustomDivider />
           <Card.Title style={{ textAlign: 'left' }}>לכבוד</Card.Title>

@@ -11,6 +11,7 @@ import AddButton from '../components/AddButton';
 import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import TransactionsNavigation from './TransactionsNavigation';
 
 const Tab = createBottomTabNavigator();
 
@@ -32,12 +33,12 @@ export default function TabNavigation() {
     const username = await AsyncStorage.getItem('username');
     setUser(username);
   };
+
   //console.log(user)
   useEffect(() => {
     findUser();
     findGreet();
   }, []);
-  console.log(user);
 
   return (
     <Tab.Navigator
@@ -108,14 +109,14 @@ export default function TabNavigation() {
       />
 
       <Tab.Screen
-        name="התראות"
-        component={NotificationScreen}
+        name="תנועות"
+        component={TransactionsNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
-                source={require('../assets/images/notification.png')}
+                source={require('../assets/images/Transactions.png')}
                 resizeMode="contain"
                 style={[styles.tabIcon, getIconColor(focused)]}
               />

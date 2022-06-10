@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Card, Input } from '@rneui/themed';
 import DateSelect from '../../components/DateSelect';
+import DateCalendar from '../../components/DateCalendar';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import PhotoLibraryPicker from '../../components/PhotoLibraryPicker';
 import NumberFormat from 'react-number-format';
@@ -18,6 +19,7 @@ import SwitchSelector from 'react-native-switch-selector';
 import ExpenseDataService from '../../services/expense.service';
 import { generateImageForm, uploadImage } from '../../helpers/imageUtil';
 import { Categories } from '../../components/Categories';
+import * as RootNavigation from '../../navigation/RootNavigation';
 
 const options = [
   { label: '€', value: '0', testID: 'switch-zero', accessibilityLabel: 'switch-zero' },
@@ -49,39 +51,18 @@ const ExpenditureScreen = ({ navigation }) => {
     let data = {
       businessId: 3,
       date: selectedDate,
+      VatType: selectedCategory['id'],
       name: title,
       category: selectedCategory['title'],
-      expenseItems: JSON.stringify([{ key: 'value' }]),
+      // expenseItems: JSON.stringify([{ key: 'value' }]),
       expenseImg: uploadedImage == null ? null : uploadedImage,
       expenseSum: sum,
       currency: currency,
-      VatType: 1,
-      VatRefund: 1.1,
-      IrsRefund: 1.1,
-      refundSum: 1.1,
-      confirmed: 1,
     };
     console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
-        // this.setState({
-        //   id: response.data.id,
-        //   title: response.data.title,
-        //   description: response.data.description,
-        //   published: response.data.published,
-
-        //   submitted: true,
-        // });
-
-        navigation.reset({
-          index: 0,
-          routes: [
-            {
-              name: 'הוצאות בתהליך קליטה',
-              params: { someParam: 'Param1' },
-            },
-          ],
-        });
+        RootNavigation.navigate('alltrasactions');
         console.log(response.data);
       })
       .catch((error) => {
@@ -111,7 +92,12 @@ const ExpenditureScreen = ({ navigation }) => {
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור הוצאה"
           ></Input>
-          <DateSelect onDateSelect={addDateHandler} />
+
+          {Platform.OS === 'ios' ? (
+            <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={selectedDate} />
+          ) : (
+            <DateSelect onDateSelect={addDateHandler} />
+          )}
           {!image && (
             <>
               <View style={[styles.container]}>
