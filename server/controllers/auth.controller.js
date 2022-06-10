@@ -8,12 +8,28 @@ var bcrypt = require("bcryptjs");
 const { devNull } = require("os");
 
 exports.signup = (req, res) => {
-  const { username, email, password, roles } = req.body;
+  const {
+    username = req.body,
+    email,
+    password,
+    phoneNumber,
+    businessName,
+    businesslogoImg,
+    businessAddress,
+    businessPhoneNumber,
+    roles,
+  } = req.body;
+
   // Save User to Database
   User.create({
     username,
     email,
     password: bcrypt.hashSync(password, 8),
+    phoneNumber,
+    businessName,
+    businesslogoImg,
+    businessAddress,
+    businessPhoneNumber,
   })
     .then((user) => {
       if (roles) {
@@ -25,13 +41,13 @@ exports.signup = (req, res) => {
           },
         }).then((roles) => {
           user.setRoles(roles).then(() => {
-            res.send({ message: "User registered successfully!" });
+            res.send({ user, message: "User registered successfully!" });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.send({ message: "User registered successfully!" });
+          res.send({ user, message: "User registered successfully!" });
         });
       }
     })
@@ -58,7 +74,7 @@ exports.signin = (req, res) => {
           message: "Invalid Password!",
         });
       }
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: user.userId }, config.secret, {
         expiresIn: config.jwtExpiration,
       });
       let refreshToken = await RefreshToken.createToken(user);
@@ -68,7 +84,7 @@ exports.signin = (req, res) => {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
-          id: user.id,
+          id: user.userId,
           username: user.username,
           email: user.email,
           roles: authorities,
@@ -115,7 +131,7 @@ exports.refreshToken = async (req, res) => {
       return;
     }
     const user = await refreshToken.getUser();
-    let newAccessToken = jwt.sign({ id: user.id }, config.secret, {
+    let newAccessToken = jwt.sign({ id: user.UserId }, config.secret, {
       expiresIn: config.jwtExpiration,
     });
     return res.status(200).json({
