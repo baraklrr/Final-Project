@@ -5,6 +5,8 @@ import { Button } from '@rneui/base';
 import { DataTable } from 'react-native-paper';
 import CustomDivider from '../../components/CustomDivider';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
 const InvoiceSecond = ({ navigation, route }) => {
   const {
@@ -17,6 +19,43 @@ const InvoiceSecond = ({ navigation, route }) => {
     clientObj,
     date,
   } = route?.params;
+
+  const html = `  
+    <html>
+        <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        </head>
+        <body style="text-align: right; margin: 5%; ">
+          <div style="border: 1px solid; padding: 2%; ">
+            <p style="font-size: 30px; font-family: Helvetica Neue; font-weight: normal;">
+              פרטי לקוח
+              <div style="font-weight: bold; margin-bottom: 1.5%; ">${clientObj?.name} :שם</div>
+              <div style="font-weight: bold; margin-bottom: 1.5%;">${clientObj?.phone} :טלפון</div>
+              <div style="font-weight: bold; margin-bottom: 1.5%;">:מספר עוסק או חפ</div>
+              <div style="font-weight: bold; margin-bottom: 1.5%;">:שם</div>
+              <div style="font-weight: bold; margin-bottom: 1.5%;">:שם</div>
+            </p>
+            <p style="font-size: 30px; font-family: Helvetica Neue; font-weight: normal;">
+              פרטי המסמך
+            <div style="font-weight: bold; margin-bottom: 1.5%; ">:סוג מסמך</div>
+            </p>
+            <p style="font-size: 30px; font-family: Helvetica Neue; font-weight: normal;">
+              חשבונית מס קבלה
+          <div style="font-weight: bold; margin-bottom: 1.5%; ">:סוג מסמך</div>
+        </p>
+    </div>
+  </body>
+</html>`;
+
+  const printToFile = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    const { uri } = await Print.printToFileAsync({
+      html,
+    });
+    console.log('File has been saved to:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+  };
+
   return (
     <ScrollView>
       <View>
@@ -172,6 +211,14 @@ const InvoiceSecond = ({ navigation, route }) => {
               ],
             })
           }
+          containerStyle={{
+            padding: 15,
+            marginVertical: 10,
+          }}
+        />
+        <Button
+          title={'קבלה'}
+          onPress={printToFile}
           containerStyle={{
             padding: 15,
             marginVertical: 10,

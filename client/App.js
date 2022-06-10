@@ -4,7 +4,7 @@ import 'react-native-gesture-handler';
 import { AuthContext } from './context/AuthContext';
 import { theme } from './core/theme';
 import AuthStack from './navigation/AuthStack';
-import { Alert, I18nManager } from 'react-native';
+import { Alert, I18nManager, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainNavigator from './navigation/MainNavigator';
 import AuthService from './services/auth.service';
@@ -51,24 +51,24 @@ export default function App() {
 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
-    const bootstrapAsync = async () => {
-      let userToken;
-
-      try {
-        // Restore token stored in `SecureStore` or any other encrypted storage
-        userToken = await AsyncStorage.getItem('token');
-        console.log('token :' + userToken);
-      } catch (e) {
-        // Restoring token failed
-        console.log('error ' + e);
-      }
-      // After restoring token, we may need to validate it in production app
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
-    };
     bootstrapAsync();
   }, []);
+
+  const bootstrapAsync = async () => {
+    let userToken;
+    try {
+      // Restore token stored in `SecureStore` or any other encrypted storage
+      userToken = await AsyncStorage.getItem('token');
+      console.log('token :' + userToken);
+    } catch (e) {
+      // Restoring token failed
+      console.log('error ' + e);
+    }
+    // After restoring token, we may need to validate it in production app
+    // This will switch to the App screen or Auth screen and this loading
+    // screen will be unmounted and thrown away.
+    dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+  };
 
   const authContext = React.useMemo(
     () => ({
@@ -88,7 +88,6 @@ export default function App() {
           )
           .catch((e) => console.log(e));
         let userToken = await AsyncStorage.getItem('token');
-        
         dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {
@@ -107,6 +106,7 @@ export default function App() {
             Alert.alert(error.response.data.message);
           }
         );
+        כ;
         let userToken = await AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_UP', token: userToken });
       },
@@ -116,7 +116,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>
-        {state.userToken === null ? <AuthStack /> : <MainNavigator />}
+        {state.userToken !== null ? <AuthStack /> : <MainNavigator />}
       </Provider>
     </AuthContext.Provider>
   );
