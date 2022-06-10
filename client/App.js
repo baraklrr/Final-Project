@@ -97,11 +97,9 @@ export default function App() {
       },
       signUp: async (username, email, password) => {
         AuthService.register(username, email, password).then(
-          () => {
+       () => {
             console.log('sign up user');
-          },
-
-          (error) => {
+          }).catch((error) => {
             const resMessage = error.response.data.message;
             console.log(resMessage);
             Alert.alert(error.response.data.message);

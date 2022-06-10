@@ -212,19 +212,7 @@ const ExpenditureScreen = ({ navigation }) => {
             )}
           </View>
         </View>
-        {/* 
-        <View style={styles.bottomContainer}>
-          <View style={{ flex: 1 }}>
-            {!image && (
-              <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => refRBSheet.current.open()}
-              >
-                <Text style={styles.panelButtonTitle}>צירוף חשבונית / קבלה</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View> */}
+        
         <View style={styles.bottomContainer}>
           <View style={{ flex: 1 }}>
             {image && (
