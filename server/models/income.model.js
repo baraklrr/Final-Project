@@ -11,7 +11,8 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       },
       saveCustomer: {
-      type: Sequelize.BOOLEAN
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
       },
       customerId: {
       type: Sequelize.INTEGER,

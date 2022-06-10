@@ -1,37 +1,44 @@
 module.exports = (sequelize, Sequelize) => {
   const User = sequelize.define("users", {
-    businessId: {
+    userId: {
       type: Sequelize.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
     username: {
-      type: Sequelize.STRING,
+    type: Sequelize.STRING,
     },
     email: {
-      type: Sequelize.STRING,
+    type: Sequelize.STRING,
     },
     password: {
-      type: Sequelize.STRING,
+    type: Sequelize.STRING,
     },
     phoneNumber: {
+    type: Sequelize.STRING,
+    },
+    businessName: {
       type: Sequelize.STRING,
     },
-    status: {
-      type: Sequelize.ENUM("Bachelor", "Married", "divorcee"),
+    businesslogoImg: {
+      type: Sequelize.BLOB("long"),
+      defaultValue: null,
     },
-    numberOfChildren: {
-      type: Sequelize.INTEGER,
-      defaultValue: 0,
+    businessAddress: {
+      type: Sequelize.STRING,
     },
-    businessId: {
-      type: Sequelize.INTEGER,
+    businessPhoneNumber: {
+      type: Sequelize.STRING,
     },
-  });
+    businessType: {
+      type: Sequelize.ENUM("Exempt dealer", "Authorized dealer"),
+      defaultValue: "Exempt dealer",
+    },
+  },
+  {
+    timestamps: false,
+  }
+  );
 
   return User;
-};
-
-const BankAccount = {
-  HAPOALIM: "hapoalim",
-  DISCOUNT: "discount",
-  LEUMI: "leumi",
 };

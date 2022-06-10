@@ -5,8 +5,12 @@ import { Button } from '@rneui/base';
 import { DataTable } from 'react-native-paper';
 import CustomDivider from '../../components/CustomDivider';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import invoiceDataService from '../../services/invoice.service'
 
 const InvoiceSecond = ({ navigation, route }) => {
+  console.log("****************InvoiceSecond*******************")
+  console.log(route.params)
+  console.log("**************************************")
   const {
     dataTableValues,
     sumPrice,
@@ -161,7 +165,31 @@ const InvoiceSecond = ({ navigation, route }) => {
         </Card>
         <Button
           title={'הפקת חשבונית מס / קבלה'}
-          onPress={() =>
+          onPress={async () => {
+            try {
+              console.log("****************onPressTry*******************")
+              console.log(date,
+                sumPrice,
+                dataTableValues,
+                paymentTableValues)
+              console.log("**************************************")
+              const result = await onPressCreateInvoice(
+              false,
+              "",
+              date.date,
+              "description",
+              sumPrice,
+              dataTableValues,
+              paymentTableValues,
+            );
+            console.log("*******************onPressResult*******************")
+            console.log(result);
+            console.log("**************************************")
+          } catch (error) {
+              console.log("*******************onPressError*******************")
+              console.log(error)
+              console.log("**************************************")
+          }
             // navigation.reset({
             //   index: 0,
             //   routes: [
@@ -176,7 +204,7 @@ const InvoiceSecond = ({ navigation, route }) => {
               sumPriceWithVAT: sumPriceWithVAT,
               date: date,
             })
-          }
+          }}
           containerStyle={{
             padding: 15,
             marginVertical: 10,
@@ -185,6 +213,25 @@ const InvoiceSecond = ({ navigation, route }) => {
       </View>
     </ScrollView>
   );
+  function onPressCreateInvoice(
+    saveCustomer,
+    customerId,
+    date,
+    description,
+    incomeSum,
+    items,
+    paymentMethods,
+  ) {
+    return invoiceDataService.create({
+      saveCustomer,
+      customerId,
+      date,
+      description,
+      incomeSum,
+      items,
+      paymentMethods,
+    })
+  }
 };
 
 const styles = StyleSheet.create({

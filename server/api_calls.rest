@@ -2,7 +2,7 @@ const http = require('http')
 http.request({
         method: 'GET',
         agent: http.Agent({keepAlive:true}),
-        host: http://193.106.55.113:8080',
+        host: http://localhost:8080',
     })
 
 ###
@@ -36,10 +36,15 @@ POST http:///localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-    "username" : "sdee",
-    "email" : "aafdsfhlon@asd.com",
-    "password" : "123456",
-    "roles" : ["moderator" , "user"]
+    "username": "a",
+    "email": "a@gmail.com",
+    "password": "123456",
+    "phoneNumber": "0324567890",
+    "businessName": "my Business",
+    "businesslogoImg": "",
+    "businessAddress": "abc tlv",
+    "businessPhoneNumber": "046578954",
+    "roles" : ["moderator" , "user"],
 }
 ###
 GET http://193.106.55.113:8080/api/income/total

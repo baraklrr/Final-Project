@@ -4,8 +4,8 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ax = axios.create({
-  //baseURL: "http://localhost:8080/api", // for web expo
-  baseURL: Platform.OS === 'ios' ? 'http://localhost:8080/api' : 'http://10.0.2.2:8080/api', // for web expo / ios
+  baseURL: "http://localhost:8080/api", // for web expo
+  //baseURL: 'http://192.168.100.249:8080/api',
   headers: {
     'Content-type': 'application/json',
   },

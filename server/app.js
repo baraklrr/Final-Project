@@ -45,7 +45,7 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-// forceSync();
+forceSync();
 
 //middleware
 app.use((_, res, next) => {

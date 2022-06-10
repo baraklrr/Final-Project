@@ -10,7 +10,7 @@ class InvoiceDataService {
   }
 
   create(data) {
-    return http.post("/invoices", data);
+    return http.post("/income/create", data);
   }
 
   update(id, data) {

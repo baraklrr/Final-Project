@@ -5,20 +5,22 @@ const Op = db.Sequelize.Op;
 
 const createIncome = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  console.log("***************createIncome******************")
+  if (!req.body.description || !req.body.incomeSum) {
     res.status(405).send({
       message: "Content can not be empty!",
     });
     return;
   }
-  const businessId = req.userId; //from token
-  const saveCustomer = req.body.saveCustomer;
+  const businessId =  1 //req.userId; //from token
+  const saveCustomer =  false //req.body.saveCustomer;
   const customerId = req.body.customerId;
-  const date = req.body.date;
+  const date = new Date().toISOString(); //req.body.date;
   const description = req.body.description;
-  const incomeSum = req.body.incomeSum;
-  const items = JSON.stringify(req.body.items);
-  const paymentMethods = JSON.stringify(req.body.paymentMethods);
+  const incomeSum = parseFloat(req.body.incomeSum);
+  const incomeType = "Tax invoice/Receipt";
+  const items = JSON.stringify(req.body.items || []);
+  const paymentMethods = JSON.stringify(req.body.paymentMethods || []);
 
   Income.create({
     businessId,
@@ -26,8 +28,9 @@ const createIncome = (req, res) => {
     customerId,
     date,
     description,
-    incomeSum,
     items,
+    incomeSum,
+    incomeType,
     paymentMethods,
   })
     .then((data) => {

@@ -38,7 +38,7 @@ db.customer = require("./customer.model.js")(sequelize, Sequelize);
 db.expense = require("./expense.model.js")(sequelize, Sequelize);
 db.income = require("./income.model.js")(sequelize, Sequelize);
 //db.receipt = require("./receipt.model.js")(sequelize, Sequelize);
-db.business = require("./business.model.js")(sequelize, Sequelize);
+//db.business = require("./business.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -52,11 +52,11 @@ db.user.belongsToMany(db.role, {
 });
 db.refreshToken.belongsTo(db.user, {
   foreignKey: "userId",
-  targetKey: "id",
+  targetKey: "userId",
 });
 db.user.hasOne(db.refreshToken, {
   foreignKey: "userId",
-  targetKey: "id",
+  targetKey: "userId",
 });
 //db.income.belongsTo(db.receipt);
 /*db.item.belongsToMany(db.receipt, {
@@ -80,19 +80,7 @@ const initial = async () => {
   await db.role.create({
     name: "admin",
   });
-  await db.item.create({
-    itemName: "a",
-    price: 12,
-  });
-  await db.item.create({
-    itemName: "b",
-    price: 13,
-  });
-  await db.item.create({
-    itemName: "c",
-    price: 14,
-  });
-};
+}
 
 db.ROLES = ["user", "admin", "moderator"];
 
