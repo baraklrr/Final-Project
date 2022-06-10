@@ -53,12 +53,10 @@ const Transaction = ({ route, navigation }) => {
   }, [navigation]);
 
   const deleteTransaction = () => {
-    navigation.navigate('alltrasactions', { paramPropKey: 'paramPropValue' });
-    return;
     TransactionService.delete(data.id)
       .then((response) => {
         console.log('transaction deleted');
-        navigation.goback();
+        navigation.pop();
       })
       .catch((error) => {
         if (error.response) {
