@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
       },
       expenseItems: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       expenseImg: {
         type: Sequelize.BLOB("long"),
