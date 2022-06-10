@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Text, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  Text,
+  Alert,
+  Image,
+} from 'react-native';
 import TransactionService from '../../services/transaction.service';
 import { useIsFocused } from '@react-navigation/native';
 import { base64ArrayBuffer } from '../../helpers/bufferToBase64';
@@ -35,14 +44,39 @@ const Transaction = ({ route, navigation }) => {
   const timeToString = (time) => {
     const date = new Date(time);
     const splitDate = date.toISOString().split('T')[0].split('-');
-    const month = monthsShort[parseInt(splitDate[1], 10)];
+    const month = monthsShort[parseInt(splitDate[1], 10) - 1];
     return splitDate[2] + ' ' + month + ', ' + splitDate[0];
   };
   useEffect(() => {
     let imageBuffer = base64ArrayBuffer(data.expenseImg.data);
     setBase64Image(imageBuffer);
-  }, []);
+  }, [navigation]);
 
+  const deleteTransaction = () => {
+    TransactionService.delete(data.id)
+      .then((response) => {
+        console.log('transaction deleted');
+        navigation.pop();
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data); // => the response payload
+        }
+      });
+  };
+
+  const deleteAlert = () =>
+    Alert.alert('מחיקת הוצאה', 'האם אתה בטוח שברצונך למחוק הוצאה זו?', [
+      {
+        text: 'ביטול',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'מחק',
+        onPress: () => deleteTransaction(),
+      },
+    ]);
   return (
     <ScrollView>
       <View>
@@ -62,7 +96,8 @@ const Transaction = ({ route, navigation }) => {
               {data.name}
             </Chip>
             <TouchableOpacity
-              onPress={() => navigation.navigate('אפשרויות')}
+              // onPress={() => navigation.navigate('אפשרויות')}
+              onPress={deleteAlert}
               style={{
                 alignSelf: 'center',
               }}
@@ -70,7 +105,8 @@ const Transaction = ({ route, navigation }) => {
               <Icon name="delete-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
-          <Header style={{ textAlign: 'center', marginTop: 15, color: 'black' }}>
+          <Header style={{ color: 'black', fontSize: 18 }}>{data.category}</Header>
+          <Header style={{ textAlign: 'center', color: 'black' }}>
             {/* 24 יולי, 2022 */}
             {timeToString(data.date)}
           </Header>
@@ -125,6 +161,9 @@ const Transaction = ({ route, navigation }) => {
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             - - - - - - - - - - - - - - - - - - - - - -
           </Text>
+          {!base64Image && (
+            <ActivityIndicator style={[styles.container]} size="large" color="#00ff00" />
+          )}
           <Image
             style={styles.stretch}
             source={{
@@ -141,6 +180,15 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     resizeMode: 'stretch',
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });
 export default Transaction;

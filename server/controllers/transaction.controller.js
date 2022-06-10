@@ -27,3 +27,28 @@ exports.findAll = (req, res) => {
       });
     });
 };
+
+// Delete Expense with the specified id in the request
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Expense.destroy({
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "Expense was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete Expense with id=${id}. Maybe Expense was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete Expense with id=" + id,
+      });
+    });
+};

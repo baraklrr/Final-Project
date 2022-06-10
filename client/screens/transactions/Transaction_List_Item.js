@@ -4,7 +4,6 @@ import { Card } from 'react-native-paper';
 import { ListItem } from '@rneui/themed';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as RootNavigation from '../../navigation/RootNavigation';
-// import { useNavigation } from '@react-navigation/native';
 
 const currency = [
   { label: '€', value: '0' },
@@ -13,7 +12,6 @@ const currency = [
 ];
 
 const Transaction_List_Item = (props) => {
-  //   const navigation = useNavigation();
   const timeToString = (time) => {
     const date = new Date(time);
     return date.toISOString().split('T')[0];
@@ -29,9 +27,9 @@ const Transaction_List_Item = (props) => {
   };
   return (
     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-      <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, alignItems:"center" }}>
+      <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, alignItems: 'center' }}>
         <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 25, fontWeight:"bold" }}>{dateToDay(props.data.date)}</Text>
+          <Text style={{ fontSize: 25, fontWeight: 'bold' }}>{dateToDay(props.data.date)}</Text>
         </View>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 15 }}>{monthConvert(props.data.date)}</Text>

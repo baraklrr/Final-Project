@@ -51,10 +51,10 @@ const ExpenditureScreen = ({ navigation }) => {
     let data = {
       businessId: 3,
       date: selectedDate,
-      VatType: 1, //TODO: change later
+      VatType: selectedCategory['id'],
       name: title,
       category: selectedCategory['title'],
-      expenseItems: JSON.stringify([{ key: 'value' }]),
+      // expenseItems: JSON.stringify([{ key: 'value' }]),
       expenseImg: uploadedImage == null ? null : uploadedImage,
       expenseSum: sum,
       currency: currency,
@@ -62,25 +62,7 @@ const ExpenditureScreen = ({ navigation }) => {
     console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
-        // this.setState({
-        //   id: response.data.id,
-        //   title: response.data.title,
-        //   description: response.data.description,
-        //   published: response.data.published,
-
-        //   submitted: true,
-        // });
-
-        RootNavigation.navigate('trasactions');
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [
-        //     {
-        //       name: 'הוצאות בתהליך קליטה',
-        //       params: { someParam: 'Param1' },
-        //     },
-        //   ],
-        // });
+        RootNavigation.navigate('alltrasactions');
         console.log(response.data);
       })
       .catch((error) => {
