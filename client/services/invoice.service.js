@@ -19,8 +19,9 @@ class InvoiceDataService {
     return http.put(`/invoices/${id}`, data);
   }
 
-  delete(id) {
-    return http.delete(`/invoices/${id}`);
+  async delete(id) {
+    const auth = await authHeader();
+    return http.delete(`/income/${id}`, { headers: auth });
   }
 
   deleteAll() {

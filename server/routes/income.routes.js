@@ -17,8 +17,16 @@ incomeRouter.get("/all", [authJwt.verifyToken], IncomeController.getAllIncomes);
 
 incomeRouter.put("/:incomeId", IncomeController.updateIncomeById);
 incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);
-incomeRouter.delete("/{incomeId}", IncomeController.deleteIncomeById);
-incomeRouter.delete("/all", IncomeController.deleteAllIncomes);
+incomeRouter.delete(
+  "/all",
+  [authJwt.verifyToken],
+  IncomeController.deleteAllIncomes
+);
+incomeRouter.delete(
+  "/:incomeId",
+  [authJwt.verifyToken],
+  IncomeController.deleteIncomeById
+);
 incomeRouter.get("/:startDate&endDate", IncomeController.getIncomesByDate);
 incomeRouter.delete(
   "/:startDate&endDate",

@@ -9,7 +9,7 @@ import {
   Alert,
   Image,
 } from 'react-native';
-import TransactionService from '../../services/transaction.service';
+import InvoiceService from '../../services/invoice.service';
 import { useIsFocused } from '@react-navigation/native';
 import { base64ArrayBuffer } from '../../helpers/bufferToBase64';
 import { Card } from '@rneui/themed';
@@ -36,24 +36,17 @@ const monthsShort = [
   'נובמבר',
   'דצמבר',
 ];
-const Transaction = ({ route, navigation }) => {
-  const [base64Image, setBase64Image] = useState(null);
+const InvoiceTransaction = ({ route, navigation }) => {
   const { data, onDelete } = route.params;
-  // console.log(data.name);
-  // const isFocused = useIsFocused();
   const timeToString = (time) => {
     const date = new Date(time);
     const splitDate = date.toISOString().split('T')[0].split('-');
     const month = monthsShort[parseInt(splitDate[1], 10) - 1];
     return splitDate[2] + ' ' + month + ', ' + splitDate[0];
   };
-  useEffect(() => {
-    let imageBuffer = base64ArrayBuffer(data.expenseImg.data);
-    setBase64Image(imageBuffer);
-  }, [navigation]);
 
   const deleteTransaction = () => {
-    TransactionService.delete(data.id)
+    InvoiceService.delete(data.incomeId)
       .then((response) => {
         console.log('transaction deleted');
         navigation.pop();
@@ -69,7 +62,7 @@ const Transaction = ({ route, navigation }) => {
   };
 
   const deleteAlert = () =>
-    Alert.alert('מחיקת הוצאה', 'האם אתה בטוח שברצונך למחוק הוצאה זו?', [
+    Alert.alert('מחיקת הכנסה', 'האם אתה בטוח שברצונך למחוק הכנסה זו?', [
       {
         text: 'ביטול',
         onPress: () => console.log('Cancel Pressed'),
@@ -96,7 +89,7 @@ const Transaction = ({ route, navigation }) => {
               }}
               icon="check-circle"
             >
-              {data.name}
+              {data.description}
             </Chip>
             <TouchableOpacity
               // onPress={() => navigation.navigate('אפשרויות')}
@@ -108,7 +101,7 @@ const Transaction = ({ route, navigation }) => {
               <Icon name="delete-outline" size={24} color="black" />
             </TouchableOpacity>
           </View>
-          <Header style={{ color: 'black', fontSize: 18 }}>{data.category}</Header>
+          {/* <Header style={{ color: 'black', fontSize: 18 }}>{data.category}</Header> */}
           <Header style={{ textAlign: 'center', color: 'black' }}>
             {/* 24 יולי, 2022 */}
             {timeToString(data.date)}
@@ -125,7 +118,7 @@ const Transaction = ({ route, navigation }) => {
               fontSize: 14,
             }}
           >
-            סכום ההוצאה (כולל מע"מ)
+            סכום ההכנסה (כולל מע"מ)
           </Card.Title>
           <Header
             style={{
@@ -136,8 +129,8 @@ const Transaction = ({ route, navigation }) => {
               color: 'black',
             }}
           >
-            {currency[data.currency].label}
-            {data.expenseSum}
+            {currency[1].label}
+            {data.incomeSum}
           </Header>
           <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -155,24 +148,15 @@ const Transaction = ({ route, navigation }) => {
                   fontWeight: 'bold',
                 }}
               >
-                {currency[data.currency].label}
-                {(data.expenseSum * 0.17).toFixed()}
+                {currency[1].label}
+                {(data.incomeSum * 0.17).toFixed()}
               </Text>
             </View>
           </View>
           <Text style={{ opacity: 0.2 }} ellipsizeMode="clip" numberOfLines={1}>
             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-            - - - - - - - - - - - - - - - - - - - - - -
+            - - - - - - - - - - - - - - - - - - - - - -{/* insert itemlist */}
           </Text>
-          {!base64Image && (
-            <ActivityIndicator style={[styles.container]} size="large" color="#00ff00" />
-          )}
-          <Image
-            style={styles.stretch}
-            source={{
-              uri: `data:image/jpeg;base64,${base64Image}`,
-            }}
-          />
         </Card>
       </View>
     </ScrollView>
@@ -194,4 +178,4 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
-export default Transaction;
+export default InvoiceTransaction;

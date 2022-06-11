@@ -97,25 +97,27 @@ const getIncomeById = (req, res) => {
 };
 
 const deleteIncomeById = (req, res) => {
-  const id = req.params.id;
+  const businessId = res.locals.userId;
+  const incomeId = req.params.incomeId;
   Income.destroy({
-    where: { id: id },
+    where: {
+      [Op.and]: [{ incomeId }, { businessId }],
+    },
   })
     .then((num) => {
       if (num == 1) {
-        r;
-        es.send({
+        res.send({
           message: "income was deleted successfully!",
         });
       } else {
         res.send({
-          message: `Cannot delete income with id=${id}`,
+          message: `Cannot delete income with id=${incomeId}`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
-        message: "Could not delete income with id=" + id,
+        message: "Could not delete income with id=" + incomeId,
       });
     });
 };

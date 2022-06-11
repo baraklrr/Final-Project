@@ -24,27 +24,13 @@ const catchError = (err, res) => {
  * @returns
  */
 const verifyToken = (req, res, next) => {
-  console.log("*******************  verifyToken *****************");
   const token = req.headers["x-access-token"];
-  console.log(
-    '===================req.headers["x-access-token"]================='
-  );
-  console.log(req.headers["x-access-token"]);
-  console.log(token.startsWith('"'));
 
-  console.log("====================================");
-  // const authHeader = accToken; //req.get("x-access-token"); //("Authorization");
-  // if (!authHeader) {
-  //   return res.status(401).json({ message: "not authenticated" });
-  // }
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
   try {
     const decoded = jwt.verify(token, config.secret);
-    console.log("==================decoded==================");
-    console.log(decoded);
-    console.log("====================================");
     res.locals.userId = decoded.id;
     next();
   } catch (error) {
