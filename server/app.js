@@ -1,5 +1,7 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
+const cookieParser = require("cookie-parser");
+const sessions = require("express-session");
 const app = express();
 const port = process.env.PORT || 8080;
 const { db, initial } = require("./models");
@@ -43,11 +45,21 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-forceSync();
+//forceSync();
 
 //middleware
+app.use((_, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
+app.use(cookieParser()); // parses cookies to req.cookies
 app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
 
 const { authRouter } = require("./routes/auth.routes");
@@ -60,6 +72,7 @@ const incomeRouter = require("./routes/income.routes");
 app.use("/api/income", incomeRouter);
 
 const expenseRouter = require("./routes/expense.routes");
+const authConfig = require("./config/auth.config");
 app.use("/api/expense", expenseRouter);
 require("./routes/transaction.routes")(app);
 

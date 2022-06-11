@@ -75,36 +75,35 @@ export default function App() {
       signIn: async (username, password) => {
         // In a production app, we need to send some data (usually username, password) to server and get a token
         // We will also need to handle errors if sign in failed
-        AuthService.login(username, password)
+        await AuthService.login(username, password)
           .then(
-            () => {
+            async () => {
               console.log('logged in');
+              let userToken = await AsyncStorage.getItem('token');
+              dispatch({ type: 'SIGN_IN', token: userToken });
             },
             (error) => {
               console.log(error);
-              console.log(error.response.data.message);
-              Alert.alert(error.response.data.message);
+              // console.log(error.response?.data?.message);
+              // Alert.alert(error.response?.data?.message);
             }
           )
           .catch((e) => console.log(e));
-        let userToken = await AsyncStorage.getItem('token');
-        
-        dispatch({ type: 'SIGN_IN', token: userToken });
       },
       signOut: () => {
         AuthService.logout();
         dispatch({ type: 'SIGN_OUT' });
       },
       signUp: async (username, email, password) => {
-        AuthService.register(username, email, password).then(
-       () => {
+        AuthService.register(username, email, password)
+          .then(() => {
             console.log('sign up user');
-          }).catch((error) => {
-            const resMessage = error.response.data.message;
-            console.log(resMessage);
-            Alert.alert(error.response.data.message);
-          }
-        );
+          })
+          .catch((error) => {
+            const resMessage = error.response?.data?.message;
+            console.log('this undefined' + resMessage);
+            Alert.alert(error.response?.data?.message);
+          });
         let userToken = await AsyncStorage.getItem('token');
         dispatch({ type: 'SIGN_UP', token: userToken });
       },

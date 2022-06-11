@@ -10,33 +10,37 @@ module.exports = (sequelize, Sequelize) => {
       businessId: {
         type: Sequelize.INTEGER,
       },
+      saveCustomer: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
+      },
       customerId: {
         type: Sequelize.INTEGER,
+        allowNull: true,
       },
       date: {
         type: Sequelize.DATEONLY,
       },
-      title: {
+      description: {
         type: Sequelize.STRING,
       },
-      incomeImg: {
+      items: {
         type: Sequelize.STRING,
-        defaultValue: null,
       },
-      /*receiptId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },*/
       incomeSum: {
         type: Sequelize.FLOAT,
       },
-      currency: {
-        type: Sequelize.ENUM("shekel", "dollar", "euro"),
-        defaultValue: "shekel",
-      },
-      currencyExchangeRate: {
-        type: Sequelize.FLOAT,
-        defaultValue: 0.0,
+      // currency: {
+      //   type: Sequelize.ENUM("shekel", "dollar", "euro"),
+      //   defaultValue: "shekel",
+      // },
+      // currencyExchangeRate: {
+      //   type: Sequelize.FLOAT,
+      //   defaultValue: 0.0,
+      // },
+      paymentMethods: {
+        type: Sequelize.STRING,
+        allowNull: true,
       },
       incomeType: {
         type: Sequelize.ENUM(
@@ -46,17 +50,13 @@ module.exports = (sequelize, Sequelize) => {
           "Transaction invoice",
           "Credit invoice"
         ),
-      },
-      paymentMethod: {
-        type: Sequelize.ENUM("Cash", "Credit", "Bank transfer", "Check"),
-      },
-      confirmed: {
-        type: Sequelize.BOOLEAN,
-        defaultValue: false,
+        defaultValue: "Tax invoice/Receipt",
       },
     },
     {
       timestamps: false,
+      charset: "utf8",
+      collate: "utf8_unicode_ci",
     }
   );
 

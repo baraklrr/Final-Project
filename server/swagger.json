@@ -1,0 +1,401 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "xCount API",
+        "version": "1.0.0",
+        "description": "A simple Express Library API"
+    },
+    "components": {
+        "Income": {
+          "type": "object",
+          "required": [
+            "customerId",
+            "date",
+            "title",
+            "incomeSum",
+            "currency",
+            "incomeType",
+            "paymentMethod"
+          ],
+          "properties": {
+            "incomeId": {
+              "type": "integer",
+              "description": "The income id",
+              "example": 1
+            },
+            "customerId": {
+              "type": "integer",
+              "description": "The customer id",
+              "example": 12
+            },
+            "date": {
+              "type": "string",
+              "description": "The income date",
+              "example": "2022-01-17"
+            },
+            "title": {
+              "type": "string",
+              "description": "The income title",
+              "example": "incomeA"
+            },
+            "incomeImg": {
+              "type": "string",
+              "description": "The income image url"
+            },
+            "incomeSum": {
+              "type": "integer",
+              "description": "The income sum",
+              "example": 125
+            },
+            "currency": {
+              "type": "string",
+              "enum": [
+                "shekel",
+                "dollar",
+                "euro"
+              ],
+              "description": "The income currency"
+            },
+            "incomeType": {
+              "type": "string",
+              "enum": [
+                "Tax invoice/Receipt",
+                "Tax invoice",
+                "Receipt",
+                "Transaction invoice",
+                "Credit invoice"
+              ],
+              "description": "The income type"
+            },
+            "paymentMethod": {
+              "type": "string",
+              "enum": [
+                "Cash",
+                "Credit",
+                "Bank transfer",
+                "Check"
+              ],
+              "description": "The income payment Method"
+            }
+          }
+        }
+    },
+    "tags": [
+        {  "name": "Income",
+            "description": "Everything about your incomes"
+        }
+    ],
+    "paths": {
+        "/income/create": {
+            "post": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Add a new income",
+              "description": "",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "header",
+                  "name": "businessId",
+                  "type": "integer",
+                  "description": "the business's id that the new income needs to be added to.",
+                  "required": true
+                },
+                {
+                  "in": "body",
+                  "name": "incomeObject",
+                  "description": "Income object that needs to be added to the account",
+                  "required": true,
+                  "schema": {
+                    "$ref": "#/components/Income"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "return the new income",
+                  "schema": {
+                    "$ref": "#/components/Income"
+                  }
+                },
+                "405": {
+                  "description": "Invalid input"
+                },
+                "500": {
+                  "description": "server error while saving income"
+                }
+              }
+            }
+        },
+        "/income/{incomeId}": {
+            "parameters": [
+              {
+                "in": "header",
+                "name": "businessId",
+                "type": "integer",
+                "description": "the business's id that the income belongs to.",
+                "required": true
+              }
+            ],
+            "put": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Update an existing income by id",
+              "consumes": [
+                "application/x-www-form-urlencoded",
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "incomeId",
+                  "description": "income id that needs to be updated",
+                  "type": "integer",
+                  "required": true
+                },
+                {
+                  "in": "body",
+                  "name": "incomeUpdate",
+                  "description": "income detailes that needs to be updated",
+                  "required": true,
+                  "schema": {
+                    "$ref": "#/components/Income"
+                  }
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "return the updated income",
+                  "schema": {
+                    "$ref": "#/components/Income"
+                  }
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "500": {
+                  "description": "Income not found"
+                }
+              }
+            },
+            "get": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Finds income by id",
+              "consumes": [
+                "application/x-www-form-urlencoded"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "incomeId",
+                  "description": "income id to get",
+                  "type": "integer",
+                  "required": true
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "return the required income",
+                  "schema": {
+                    "$ref": "#/components/Income"
+                  }
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "500": {
+                  "description": "Income not found"
+                }
+              }
+            },
+            "delete": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Deletes an income by id",
+              "consumes": [
+                "application/x-www-form-urlencoded"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "incomeId",
+                  "description": "income id to delete",
+                  "required": true,
+                  "type": "integer"
+                }
+              ],
+              "responses": {
+                "200": {
+                  "description": "income deleted successfuly"
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "500": {
+                  "description": "Income not found"
+                }
+              }
+            }
+        },
+        "/income/all": {
+            "parameters": [
+              {
+                "in": "header",
+                "name": "businessId",
+                "type": "integer",
+                "description": "the business's id that the incomes belongs to.",
+                "required": true
+              }
+            ],
+            "get": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Finds all business's incomes by businessId",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "return the required incomes",
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/Income"
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "500": {
+                  "description": "Income not found"
+                }
+              }
+            },
+            "delete": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "delete all business's incomes by businessId",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "all incomes deleted successfuly"
+                },
+                "400": {
+                  "description": "not authorized"
+                },
+                "500": {
+                  "description": "server error"
+                }
+              }
+            }
+        },
+        "/income/{startDate}&{endDate}": {
+            "parameters": [
+              {
+                "in": "header",
+                "name": "businessId",
+                "type": "integer",
+                "description": "the business's id that the incomes belongs to.",
+                "required": true
+              },
+              {
+                "in": "path",
+                "name": "startDate",
+                "type": "string",
+                "description": "the start date to search",
+                "required": true
+              },
+              {
+                "in": "path",
+                "name": "endDate",
+                "type": "string",
+                "description": "the end date to search",
+                "required": true
+              }
+            ],
+            "get": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "Finds all business's incomes by businessId between startDate and endDate",
+              "consumes": [
+                "application/x-www-form-urlencoded",
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "return the required incomes",
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/Income"
+                    }
+                  }
+                },
+                "400": {
+                  "description": "Invalid ID supplied"
+                },
+                "500": {
+                  "description": "Income not found"
+                }
+              }
+            },
+            "delete": {
+              "tags": [
+                "Income"
+              ],
+              "summary": "delete all business's incomes by businessId",
+              "consumes": [
+                "application/json"
+              ],
+              "produces": [
+                "application/json"
+              ],
+              "responses": {
+                "200": {
+                  "description": "all incomes deleted successfuly"
+                },
+                "400": {
+                  "description": "not authorized"
+                },
+                "500": {
+                  "description": "server error"
+                }
+              }
+            }
+        }
+    }
+}

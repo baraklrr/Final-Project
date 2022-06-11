@@ -20,6 +20,7 @@ const InvoiceFirst = ({ navigation, route }) => {
   const [sumPrice, setSumPrice] = useState(0);
   const [sumPricePayment, setSumPricePayment] = useState(0);
   const [isSum, setIsSum] = useState(false);
+  const [description, setDescription] = useState('');
   const [isSumPayment, setIsSumPayment] = useState(false);
   const [clientObj, setClientObj] = useState({
     name: '',
@@ -76,12 +77,14 @@ const InvoiceFirst = ({ navigation, route }) => {
             maxLength={24}
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="תיאור ההכנסה"
+            onChangeText={(e) => setDescription(e)}
           ></Input>
 
-    {Platform.OS === 'ios' ?
-    <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} /> :
-    <DateSelect />}
-   
+          {Platform.OS === 'ios' ? (
+            <DateCalendar title="תאריך: " setCardObj={setDate} cardObj={date} />
+          ) : (
+            <DateSelect />
+          )}
 
           <CustomDivider />
           <Card.Title style={{ textAlign: 'left' }}>לכבוד</Card.Title>
@@ -371,6 +374,7 @@ const InvoiceFirst = ({ navigation, route }) => {
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('סיכום', {
+              description: description,
               paymentTableValues: paymentTableValues,
               dataTableValues: dataTableValues,
               sumPricePayment: sumPricePayment,

@@ -5,9 +5,14 @@ import { Button } from '@rneui/base';
 import { DataTable } from 'react-native-paper';
 import CustomDivider from '../../components/CustomDivider';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import invoiceDataService from '../../services/invoice.service';
 
 const InvoiceSecond = ({ navigation, route }) => {
+  console.log('****************InvoiceSecond*******************');
+  console.log(route.params);
+  console.log('**************************************');
   const {
+    description,
     dataTableValues,
     sumPrice,
     sumPriceVAT,
@@ -161,17 +166,43 @@ const InvoiceSecond = ({ navigation, route }) => {
         </Card>
         <Button
           title={'הפקת חשבונית מס / קבלה'}
-          onPress={() =>
-            navigation.reset({
-              index: 0,
-              routes: [
-                {
-                  name: 'הפקת חשבונית מס/קבלה',
-                  params: { sumPrice: sumPrice, sumPriceWithVAT: sumPriceWithVAT, date: date },
-                },
-              ],
-            })
-          }
+          onPress={async () => {
+            try {
+              console.log('****************onPressTry*******************');
+              console.log(date, sumPrice, dataTableValues, paymentTableValues);
+              console.log('**************************************');
+              const result = await onPressCreateInvoice(
+                false,
+                1,
+                date.date,
+                description,
+                sumPrice,
+                dataTableValues,
+                paymentTableValues
+              );
+              console.log('*******************onPressResult*******************');
+              console.log(result);
+              console.log('**************************************');
+            } catch (error) {
+              console.log('*******************onPressError*******************');
+              console.log(error);
+              console.log('**************************************');
+            }
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [
+            //     {
+            //       name: 'חשבונית מס/קבלה',
+            //       params: { someParam: 'Param1' },
+            //     },
+            //   ],
+            // })
+            navigation.navigate('הפקת חשבונית מס/קבלה', {
+              sumPrice: sumPrice,
+              sumPriceWithVAT: sumPriceWithVAT,
+              date: date,
+            });
+          }}
           containerStyle={{
             padding: 15,
             marginVertical: 10,
@@ -180,6 +211,25 @@ const InvoiceSecond = ({ navigation, route }) => {
       </View>
     </ScrollView>
   );
+  function onPressCreateInvoice(
+    saveCustomer,
+    customerId,
+    date,
+    description,
+    incomeSum,
+    items,
+    paymentMethods
+  ) {
+    return invoiceDataService.create({
+      saveCustomer,
+      customerId,
+      date,
+      description,
+      items,
+      incomeSum,
+      paymentMethods,
+    });
+  }
 };
 
 const styles = StyleSheet.create({
