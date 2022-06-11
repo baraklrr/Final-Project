@@ -23,8 +23,11 @@ const Transaction_List_Item = (props) => {
   const monthConvert = (time) => {
     const date = new Date(time);
     const splitDate = date.toISOString().split('T')[0].split('-');
-    return monthsShort[parseInt(splitDate[1], 10)];
+    return monthsShort[parseInt(splitDate[1], 10) - 1];
   };
+
+  const isExpense = props.isExpense;
+
   return (
     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
       <View style={{ flex: 1, flexDirection: 'column', marginTop: 20, alignItems: 'center' }}>
@@ -40,7 +43,9 @@ const Transaction_List_Item = (props) => {
         <TouchableOpacity
           style={{ marginRight: 10, marginTop: 20 }}
           onPress={() => {
-            RootNavigation.navigate('פרטי הוצאה', { data: props.data });
+            isExpense
+              ? RootNavigation.navigate('פרטי הוצאה', { data: props.data })
+              : RootNavigation.navigate('פרטי הכנסה', { data: props.data });
           }}
         >
           <Card>
@@ -55,10 +60,12 @@ const Transaction_List_Item = (props) => {
               >
                 {props.isExpense === false && <Icon name="menu-down" size={30} color="green" />}
                 {props.isExpense === true && <Icon name="menu-up" size={30} color="red" />}
-                <Text style={{ fontSize: 15 }}>{props.data.name}</Text>
+                <Text style={{ fontSize: 15 }}>
+                  {isExpense ? props.data.name : props.data.description}
+                </Text>
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                  {currency[props.data.currency].label}
-                  {props.data.expenseSum}
+                  {isExpense ? currency[props.data.currency].label : currency[1].label}
+                  {isExpense ? props.data.expenseSum : props.data.incomeSum}
                 </Text>
                 <ListItem.Chevron
                   size={30}

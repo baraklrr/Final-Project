@@ -1,8 +1,9 @@
 import http from '../http-common';
 import authHeader from './auth-header';
 class InvoiceDataService {
-  getAll() {
-    return http.get('/invoices');
+  async getAll() {
+    const auth = await authHeader();
+    return http.get('/income/all', { headers: auth });
   }
 
   get(id) {

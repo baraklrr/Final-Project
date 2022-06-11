@@ -13,16 +13,16 @@ incomeRouter.get(
   [authJwt.verifyToken],
   IncomeController.getIncomesGroupedByMonths
 );
+incomeRouter.get("/all", [authJwt.verifyToken], IncomeController.getAllIncomes);
 
 incomeRouter.put("/:incomeId", IncomeController.updateIncomeById);
 incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);
 incomeRouter.delete("/{incomeId}", IncomeController.deleteIncomeById);
-incomeRouter.get("/all", IncomeController.getAllIncomes);
 incomeRouter.delete("/all", IncomeController.deleteAllIncomes);
 incomeRouter.get("/:startDate&endDate", IncomeController.getIncomesByDate);
 incomeRouter.delete(
   "/:startDate&endDate",
   IncomeController.deleteIncomesByDate
 );
-incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
+//incomeRouter.get("/total", [authJwt.verifyToken], IncomeController.getIncomes);
 module.exports = incomeRouter;

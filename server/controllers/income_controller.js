@@ -2,9 +2,6 @@ const { db } = require("../models");
 const receiptController = require("../controllers/receipt.controller");
 const { ModelCtor, Sequelize } = require("sequelize");
 
-/**
- * @type {ModelCtor<Model<any, any>>}
- */
 const Income = db.income;
 const Op = db.Sequelize.Op;
 
@@ -123,10 +120,30 @@ const deleteIncomeById = (req, res) => {
     });
 };
 
-const getAllIncomes = async (req, res) => {
-  const businessId = req.params.businessId;
+const getAllIncomes = (req, res) => {
+  const businessId = res.locals.userId;
   Income.findAll({
     where: { businessId: businessId },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
+
+const getIncomesSum = async (req, res) => {
+  const businessId = req.locals.userId;
+  Income.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("incomeSum")), "incomeSum"],
+    ],
+    where: {
+      [Op.and]: [{ businessId: businessId }],
+    },
   })
     .then((data) => {
       res.send(data);
@@ -210,16 +227,11 @@ const deleteIncomesByDate = (req, res) => {
     });
 };
 
-const getIncomes = (req, res) => {
-  console.log("total income");
-  res.send("total income");
-};
-
 module.exports = {
+  getIncomesSum,
   getIncomesGroupedByMonths,
   getIncomesByDate,
   deleteIncomesByDate,
-  getIncomes,
   createIncome,
   getAllIncomes,
   getIncomeById,
