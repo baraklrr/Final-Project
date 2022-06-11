@@ -47,6 +47,11 @@ Content-Type: application/json
     "roles" : ["moderator" , "user"]
 }
 ###
+GET http://localhost:8080/api/income/all
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0OTcxOTIzLCJleHAiOjE2NTQ5NzU1MjN9.ARlwcCVsnNkIw48I1Bl7uCs1rQI-Wsl05l0xuDE-KdA
+
+###
+
 GET http://193.106.55.113:8080/api/income/total
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA1Mjg3LCJleHAiOjE2NTM0MDg4ODd9.s03B07mJBVBhzKnthHo2X1_ORCb9PjGtMZDhzJydvoY
 

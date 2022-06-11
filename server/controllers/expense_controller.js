@@ -1,8 +1,18 @@
 const { db } = require("../models");
 const fs = require("fs");
+const { ModelCtor } = require("sequelize");
 
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const expenses = db.expense;
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const expenseType = db.expenseType;
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const Op = db.Sequelize.Op;
 
 //create and save a new expend
