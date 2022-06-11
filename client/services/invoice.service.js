@@ -1,16 +1,17 @@
-import http from "../http-common";
-
+import http from '../http-common';
+import authHeader from './auth-header';
 class InvoiceDataService {
   getAll() {
-    return http.get("/invoices");
+    return http.get('/invoices');
   }
 
   get(id) {
     return http.get(`/invoices/${id}`);
   }
 
-  create(data) {
-    return http.post("/income/create", data);
+  async create(data) {
+    const auth = await authHeader();
+    return http.post('/income/create', data, { headers: auth });
   }
 
   update(id, data) {

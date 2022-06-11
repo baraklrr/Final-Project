@@ -2,33 +2,57 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.user;
+const e = require("express");
 
 const { TokenExpiredError } = jwt;
 const catchError = (err, res) => {
   if (err instanceof TokenExpiredError) {
+    console.log("Token was expired!");
     return res
       .status(401)
       .send({ message: "Access Token was expired!", errorCode: "190" });
   }
-  return res.sendStatus(401).send({ message: "Unauthorized!" });
+  console.log("User Unauthorized!");
+  console.log(err);
+  return res.status(401).send({ message: "Unauthorized!" });
 };
-
+/**
+ *
+ * @param {e.Request} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 const verifyToken = (req, res, next) => {
-  const authHeader = req.get("Authorization");
-    if (!authHeader) {
-        return res.status(401).json({ message: 'not authenticated' });
-    };
-  let token = authHeader.split(' ')[1];
+  console.log("*******************  verifyToken *****************");
+  const token = req.headers["x-access-token"];
+  console.log(
+    '===================req.headers["x-access-token"]================='
+  );
+  console.log(req.headers["x-access-token"]);
+  console.log(token.startsWith('"'));
+
+  console.log("====================================");
+  // const authHeader = accToken; //req.get("x-access-token"); //("Authorization");
+  // if (!authHeader) {
+  //   return res.status(401).json({ message: "not authenticated" });
+  // }
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      return catchError(err, res);
-    }
-    req.userId = decoded.id;
+  try {
+    const decoded = jwt.verify(token, config.secret);
+    console.log("==================decoded==================");
+    console.log(decoded);
+    console.log("====================================");
+    res.locals.userId = decoded.id;
     next();
-  });
+  } catch (error) {
+    console.log("==================error==================");
+    console.log(error);
+    console.log("====================================");
+    return catchError(error, res);
+  }
 };
 
 isAdmin = (req, res, next) => {

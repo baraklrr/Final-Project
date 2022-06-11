@@ -1,7 +1,7 @@
 const dotenv = require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
-const sessions = require('express-session');
+const sessions = require("express-session");
 const app = express();
 const port = process.env.PORT || 8080;
 const { db, initial } = require("./models");
@@ -45,13 +45,16 @@ const forceSync = async () => {
   await db.sequelize.query("SET FOREIGN_KEY_CHECKS = 1"); // setting the flag back for security
 };
 
-forceSync();
+//forceSync();
 
 //middleware
 app.use((_, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
 app.use(cors(corsOptions));

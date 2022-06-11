@@ -51,6 +51,11 @@ GET http://193.106.55.113:8080/api/income/total
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA1Mjg3LCJleHAiOjE2NTM0MDg4ODd9.s03B07mJBVBhzKnthHo2X1_ORCb9PjGtMZDhzJydvoY
 
 ###
+GET http://localhost:8080/api/income/grouped-by-months
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0OTA2NTUzLCJleHAiOjE2NTQ5MTAxNTN9.3ewZYYJ5PzR3NczI0dE_qeixPsYsYFyp39RCF4aI_kA
+
+
+###
 POST http://localhost:8080/api/expense/create
 Content-Type: application/json
 

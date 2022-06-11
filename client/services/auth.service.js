@@ -16,8 +16,8 @@ const login = (username, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.accessToken) {
-        saveUserToLocalStorage(
+      if (response?.data?.accessToken) {
+        return saveUserToLocalStorage(
           response.data.username,
           response.data.accessToken,
           response.data.email,
@@ -25,12 +25,15 @@ const login = (username, password) => {
         );
       }
       //else logout();
-      return response.data;
+      console.log('=================response.data===================');
+      console.log(response?.data);
+      console.log('====================================');
+      return response?.data;
     });
 };
 const saveUserToLocalStorage = async (data1, data2, data3, data4) => {
   try {
-    const jsonValueToken = JSON.stringify(data2);
+    const jsonValueToken = data2; //JSON.stringify(data2);
     await AsyncStorage.setItem('token', jsonValueToken);
     await AsyncStorage.setItem('username', data1);
   } catch (e) {

@@ -12,6 +12,7 @@ const InvoiceSecond = ({ navigation, route }) => {
   console.log(route.params);
   console.log('**************************************');
   const {
+    description,
     dataTableValues,
     sumPrice,
     sumPriceVAT,
@@ -172,9 +173,9 @@ const InvoiceSecond = ({ navigation, route }) => {
               console.log('**************************************');
               const result = await onPressCreateInvoice(
                 false,
-                '',
+                1,
                 date.date,
-                'description',
+                description,
                 sumPrice,
                 dataTableValues,
                 paymentTableValues
@@ -224,8 +225,8 @@ const InvoiceSecond = ({ navigation, route }) => {
       customerId,
       date,
       description,
-      incomeSum,
       items,
+      incomeSum,
       paymentMethods,
     });
   }

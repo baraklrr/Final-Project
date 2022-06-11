@@ -1,28 +1,34 @@
 const { db } = require("../models");
 const receiptController = require("../controllers/receipt.controller");
+const { ModelCtor, Sequelize } = require("sequelize");
+
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const Income = db.income;
 const Op = db.Sequelize.Op;
 
 const createIncome = (req, res) => {
   // Validate request
-  console.log("***************createIncome******************")
+  console.log("***************createIncome******************");
   if (!req.body.description || !req.body.incomeSum) {
     res.status(405).send({
       message: "Content can not be empty!",
     });
     return;
   }
-  const businessId =  1 //req.userId; //from token
-  const saveCustomer =  false //req.body.saveCustomer;
-  const customerId = req.body.customerId;
+  const businessId = res.locals.userId; //from token
+  const saveCustomer = false; //req.body.saveCustomer;
+  const customerId = req.body.customerId || null;
   const date = new Date().toISOString(); //req.body.date;
   const description = req.body.description;
   const incomeSum = parseFloat(req.body.incomeSum);
-  const incomeType = "Tax invoice/Receipt";
+  const incomeType = req.body.incomeType || "";
   const items = JSON.stringify(req.body.items || []);
   const paymentMethods = JSON.stringify(req.body.paymentMethods || []);
 
-  Income.create({
+  console.log("**********incomeToCreate**********");
+  console.log({
     businessId,
     saveCustomer,
     customerId,
@@ -30,13 +36,25 @@ const createIncome = (req, res) => {
     description,
     items,
     incomeSum,
+    paymentMethods,
     incomeType,
+  });
+
+  Income.create({
+    saveCustomer,
+    businessId,
+    customerId,
+    date,
+    description,
+    items,
+    incomeSum,
     paymentMethods,
   })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
+      console.log("error: " + err);
       res.status(500).send({
         message: err.message || "Some error occurred while creating Income.",
       });
@@ -137,6 +155,29 @@ const deleteAllIncomes = (req, res) => {
     });
 };
 
+const getIncomesGroupedByMonths = (req, res) => {
+  const userId = res.locals.userId;
+  Income.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("incomeSum")), "incomeSum"],
+      [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
+    ],
+    where: {
+      [Op.and]: [{ businessId: userId }],
+    },
+    order: [[Sequelize.literal('"month"'), "ASC"]],
+    group: "month",
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
+
 const getIncomesByDate = (req, res) => {
   const { startDate, endDate } = req.body;
   Income.findAll({
@@ -175,6 +216,7 @@ const getIncomes = (req, res) => {
 };
 
 module.exports = {
+  getIncomesGroupedByMonths,
   getIncomesByDate,
   deleteIncomesByDate,
   getIncomes,

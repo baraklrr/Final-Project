@@ -3,7 +3,17 @@ const incomeRouter = express.Router();
 const IncomeController = require("../controllers/income_controller");
 const authJwt = require("../middleware/authJwt");
 
-incomeRouter.post("/create", IncomeController.createIncome);
+incomeRouter.post(
+  "/create",
+  [authJwt.verifyToken],
+  IncomeController.createIncome
+);
+incomeRouter.get(
+  "/grouped-by-months",
+  [authJwt.verifyToken],
+  IncomeController.getIncomesGroupedByMonths
+);
+
 incomeRouter.put("/:incomeId", IncomeController.updateIncomeById);
 incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);
 incomeRouter.delete("/{incomeId}", IncomeController.deleteIncomeById);
