@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState }from 'react';
 
 import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Header from '../components/Header';
@@ -30,19 +30,16 @@ const styles = StyleSheet.create({
   },
 });
 
+
 export default function Settings({ navigation }) {
+
+
   return (
     <TabContainer>
       <View style={styles.screenContainer}>
         <ScrollView>
           <View style={styles.container}>
-            <Card>
-              <Card.Content>
-                <Header>העסק שלי</Header>
-                <Paragraph style={styles.Text}>moti@xcount.com</Paragraph>
-                <Paragraph style={styles.Text}>0504499805</Paragraph>
-              </Card.Content>
-            </Card>
+
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('הדיווחים שלי');
@@ -85,7 +82,11 @@ export default function Settings({ navigation }) {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => {
+              navigation.navigate('נהלים');
+            }}
+            >
               <Card.Title
                 style={styles.list}
                 titleStyle={{ fontSize: 16 }}
@@ -95,12 +96,6 @@ export default function Settings({ navigation }) {
               />
             </TouchableOpacity>
 
-            {/* <Card style={styles.list} >
-    <Text> עמלת ביטוח </Text>
-    <Text>ריבית ושוק ההון </Text>
-    <Text> סוגי שכר מסוימים </Text>
-
-    </Card> */}
           </View>
         </ScrollView>
       </View>
