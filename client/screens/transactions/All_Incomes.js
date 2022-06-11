@@ -69,7 +69,9 @@ const All_Incomes = ({ navigation, route }) => {
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
           data={filteredData && filteredData.length > 0 ? filteredData : []}
           keyExtractor={(item) => `item-${item.id}`}
-          renderItem={({ item }) => <Transaction_List_Item isExpense={false} data={item} />}
+          renderItem={({ item }) => (
+            <Transaction_List_Item isExpense={false} data={item} onDelete={onRefresh} />
+          )}
           ItemSeparatorComponent={() => <View />}
         />
       </View>

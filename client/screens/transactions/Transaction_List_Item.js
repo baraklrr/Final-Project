@@ -25,6 +25,7 @@ const Transaction_List_Item = (props) => {
     const splitDate = date.toISOString().split('T')[0].split('-');
     return monthsShort[parseInt(splitDate[1], 10) - 1];
   };
+  const onDelete = props.onDelete;
 
   const isExpense = props.isExpense;
 
@@ -44,8 +45,8 @@ const Transaction_List_Item = (props) => {
           style={{ marginRight: 10, marginTop: 20 }}
           onPress={() => {
             isExpense
-              ? RootNavigation.navigate('פרטי הוצאה', { data: props.data })
-              : RootNavigation.navigate('פרטי הכנסה', { data: props.data });
+              ? RootNavigation.navigate('פרטי הוצאה', { data: props.data, onDelete })
+              : RootNavigation.navigate('פרטי הכנסה', { data: props.data, onDelete });
           }}
         >
           <Card>
