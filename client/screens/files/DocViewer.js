@@ -8,7 +8,7 @@ export default function DocViewer({ route }) {
       source={{
         uri: 'http://docs.google.com/gview?embedded=true&url=https://www.gov.il/BlobFolder/service/refund-for-representatives-class-action/he/Service_Pages_Income_tax_representative-refund_single.pdf',
         // url can be a web link or path to your file local ('file:///...')
-    }}
+      }}
     />
   );
 }
