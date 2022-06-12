@@ -50,47 +50,43 @@ export default function InstructionScreen({ navigation }) {
           titleStyle={{ fontSize: 16 }}
           title="דיווח דו חודשי למס הכנסה"
         />
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('מסמך', { url: Base_Url + pdf3, name: 'הגשת דוח שנתי למס הכנסה' });
-          }}
-        >
-          <Card.Title
-            style={styles.list}
-            titleStyle={{ fontSize: 16 }}
-            title="הגשת דוח שנתי למס הכנסה"
-          />
-        </TouchableOpacity>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('מסמך', { url: Base_Url + pdf3, name: 'הגשת דוח שנתי למס הכנסה' });
+        }}
+      >
+        <Card.Title
+          style={styles.list}
+          titleStyle={{ fontSize: 16 }}
+          title="הגשת דוח שנתי למס הכנסה"
+        />
+      </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('מסמך', { url: Base_Url + pdf4, name: 'החזרי מס עבור תרומות' });
-          }}
-        >
-          <Card.Title
-            style={styles.list}
-            titleStyle={{ fontSize: 16 }}
-            title="החזרי מס עבור תרומות"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('מסמך', { url: Base_Url + pdf5, name: 'פתיחת תיק במס הכנסה' });
-          }}
-        >
-          <Card.Title
-            style={styles.list}
-            titleStyle={{ fontSize: 16 }}
-            title="פתיחת תיק במס הכנסה"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('מסמך', { url: Base_Url + pdf6, name: 'פתיחת תיק במעמ' });
-          }}
-        >
-          <Card.Title style={styles.list} titleStyle={{ fontSize: 16 }} title="פתיחת תיק במעמ" />
-        </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('מסמך', { url: Base_Url + pdf4, name: 'החזרי מס עבור תרומות' });
+        }}
+      >
+        <Card.Title
+          style={styles.list}
+          titleStyle={{ fontSize: 16 }}
+          title="החזרי מס עבור תרומות"
+        />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('מסמך', { url: Base_Url + pdf5, name: 'פתיחת תיק במס הכנסה' });
+        }}
+      >
+        <Card.Title style={styles.list} titleStyle={{ fontSize: 16 }} title="פתיחת תיק במס הכנסה" />
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate('מסמך', { url: Base_Url + pdf6, name: 'פתיחת תיק במעמ' });
+        }}
+      >
+        <Card.Title style={styles.list} titleStyle={{ fontSize: 16 }} title="פתיחת תיק במעמ" />
       </TouchableOpacity>
     </ScrollView>
   );
