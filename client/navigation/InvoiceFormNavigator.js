@@ -9,6 +9,7 @@ import InvoiceFinal from '../screens/invoices/InvoiceFinal';
 import InvoiceView from '../screens/invoices/InvoiceView';
 import InvoiceViewOptions from '../screens/invoices/InvoiceViewOptions';
 import { TouchableOpacity } from 'react-native';
+import * as RootNavigation from '../navigation/RootNavigation';
 
 const ModalStack = createStackNavigator();
 
@@ -75,9 +76,10 @@ const InvoiceFormNavigator = () => {
           component={InvoiceFinal}
           options={({ navigation, route }) => ({
             headerShown: true,
+            
             headerTitleAlign: 'center',
             headerLeft: () => (
-              <TouchableOpacity onPress={() => navigation.goBack()}>
+              <TouchableOpacity onPress={() =>  {RootNavigation.navigate('בית');}}>
                 <Ionicons name="close-sharp" size={28} color="black" />
               </TouchableOpacity>
             ),
