@@ -19,7 +19,7 @@ const Op = db.Sequelize.Op;
 exports.create = async (req, res) => {
   expenseType
     .findOne({
-      attributes: ["vatPercentage"],
+      attributes: ["vatPercentage","IrsPercentage"],
       where: { expensetypeId: req.body.VatType },
     })
     .then((vat) => {
@@ -39,7 +39,7 @@ exports.create = async (req, res) => {
           currency: req.body.currency,
           VatType: req.body.VatType,
           VatRefund: req.body.expenseSum * vat.vatPercentage,
-          IrsRefund: req.body.IrsRefund,
+          IrsRefund: req.body.expenseSum * data.IrsPercentage ,
           refundSum: req.body.refundSum,
           confirmed: req.body.confirmed,
         };
