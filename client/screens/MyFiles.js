@@ -25,7 +25,11 @@ export default function ReportScreen({ navigation }) {
   return (
     <TabContainer>
       <ScrollView>
-        <TouchableOpacity onPress={()=>{navigation.navigate("מסמך")}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('מסמך');
+          }}
+        >
           <Card.Title
             style={styles.list}
             titleStyle={{ fontSize: 16 }}

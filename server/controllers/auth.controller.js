@@ -83,6 +83,10 @@ exports.signin = (req, res) => {
         for (let i = 0; i < roles.length; i++) {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
+        res.cookie("jwt", token, {
+          httpOnly: true,
+          maxAge: config.jwtExpiration * 1000,
+        });
         res.status(200).send({
           id: user.userId,
           username: user.username,

@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExpenseDataService from '../services/expense.service';
 
 
+
 export default function Dashboard({ navigation }) {
 
   const [sum, setSum] = useState();
@@ -47,6 +48,7 @@ export default function Dashboard({ navigation }) {
     getExpenseSumVat();
     getExpenseSumIrs();
   }, []);
+
 console.log(sumVat)
 
   return (
