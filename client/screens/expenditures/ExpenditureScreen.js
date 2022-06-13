@@ -62,7 +62,7 @@ const ExpenditureScreen = ({ navigation }) => {
     console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
-        RootNavigation.navigate('alltrasactions');
+        RootNavigation.navigate('תנועות');
         console.log(response.data);
       })
       .catch((error) => {

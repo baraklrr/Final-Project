@@ -73,89 +73,164 @@ db.user.hasOne(db.refreshToken, {
 const initial = async () => {
   let dataSet = [
     {
-      name: "דלק",
-      vatPercentage: 0.17 * 0.67,
+      name: "פנגו - כחול לבן",
+      vatPercentage: 0,
+      IrsPercentage: 1,
     },
     {
-      name: "חשבון טלפון",
-      vatPercentage: 0.17 * 0.67,
+      name: "ארנונה",
+      vatPercentage: 0,
+      IrsPercentage: 1,
     },
     {
-      name: "אוזניות",
-      vatPercentage: 0.17 * 0.67,
+      name: "ביטוח לעסק",
+      vatPercentage: 0,
+      IrsPercentage: 1,
     },
     {
-      name: "טלפון",
-      vatPercentage: 0.17 * 0.67,
+      name: "ביגוד רגיל (ללא לוגו של העסק)",
+      vatPercentage: 0,
+      IrsPercentage: 0,
     },
     {
-      name: "אינטרנט",
-      vatPercentage: 0.17 * 0.25,
+      name: "משכורות לעובדים",
+      vatPercentage: 0,
+      IrsPercentage: 1,
     },
     {
-      name: "חשבון חשמל",
-      vatPercentage: 0.17 * 0.25,
+      name: "כיבוד קל",
+      vatPercentage: 0,
+      IrsPercentage: 1,
     },
     {
-      name: "אפליקציה לניהול חשבונית ",
+      name: "קנסות תעבורה",
+      vatPercentage: 0,
+      IrsPercentage: 0,
+    },
+    {
+      name: "השכרת רכב",
+      vatPercentage: 0,
+      IrsPercentage: 0,
+    },
+    {
+      name: "הוצאות עסקיות - חומרי עבודה (לא רכוש קבוע)",
       vatPercentage: 0.17,
+      IrsPercentage: 1,
     },
     {
-      name: "נסיעות במונית",
+      name: "הוצאות עסקיות - כלי עבודה (רכוש קבוע)",
       vatPercentage: 0.17,
+      IrsPercentage: 0.33,
     },
     {
-      name: "פרסום",
+      name: "מחשב נייד",
       vatPercentage: 0.17,
+      IrsPercentage: 0.33,
     },
     {
-      name: "נסיעות במוניתציוד משרדי",
+      name: "חניונים",
       vatPercentage: 0.17,
-    },
-    {
-      name: "הובלות ומשלוחים",
-      vatPercentage: 0.17,
-    },
-    {
-      name: "ביגו מקצועי",
-      vatPercentage: 0.17,
-    },
-    {
-      name: "השתלמות מקצועית",
-      vatPercentage: 0.17,
-    },
-
-    {
-      name: "אינטרנט למשרד",
-      vatPercentage: 0.17,
-    },
-    {
-      name: "אחזקת משרד",
-      vatPercentage: 0.17,
-    },
-    {
-      name: "חשבון חשמל למשרד",
-      vatPercentage: 0.17,
+      IrsPercentage: 1,
     },
     {
       name: "כבישי אגרה",
       vatPercentage: 0.17,
+      IrsPercentage: 1,
     },
     {
-      name: "חניונים ",
-      vatPercentage: 0.17,
+      name: "חשבון חשמל - למשרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
     },
     {
-      name: " מחשב נייד ",
-      vatPercentage: 0.17,
+      name: "אחזקת משרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
     },
     {
-      name: " כלי עבודה (לא רכוש קבוע)",
-      vatPercentage: 0.17,
+      name: "אינטרנט - למשרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
     },
     {
-      name: "חומרי עבודה (לא רכוש קבוע)",
+      name: "השתלמות מקצועית",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ביגוד מקצועי - עם לוגו של העסק",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "הנהלת חשבונות",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "הובלות ומשלוחים",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ציוד משרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"פרסום"      ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"נסיעות במונית" ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"אפליקציה לניהול חשבונית / הוצאת חשבונית ירוקה      " ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"חשבון חשמל - בבית (כאשר העסק עובד מהבית)" ,
+      vatPercentage: 0.17 *0.25 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"אינטרנט - לבית (כאשר העסק עובד מהבית)  "    ,
+      vatPercentage: 0.17 *0.25 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "דלק פרטי",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 0.45,
+    },
+    {
+      name: "חשבון טלפון",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 1,
+    },
+    {
+      name: "אוזניות",
+      vatPercentage: 0.17 * 0.67, 
+      IrsPercentage: 1,
+    },
+    {
+      name: "טלפון",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 1,
+    },
+    {
+      name: "תיקוני רכב / טסט - אופנוע / משאית ",
+      vatPercentage: 0.17 * 0.66,
+      IrsPercentage: 1,
+    },
+    {
+      name: "דלק - אופנוע / משאית",
       vatPercentage: 0.17,
+      IrsPercentage: 1,
     },
   ];
   const loop = async () => {
@@ -163,6 +238,7 @@ const initial = async () => {
       await db.expenseType.create({
         name: dataSet[i].name,
         vatPercentage: dataSet[i].vatPercentage,
+        IrsPercentage: dataSet[i].IrsPercentage,
       });
     }
   };

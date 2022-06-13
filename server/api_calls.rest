@@ -59,19 +59,35 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA
 GET http://localhost:8080/api/income/grouped-by-months
 x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0OTA2NTUzLCJleHAiOjE2NTQ5MTAxNTN9.3ewZYYJ5PzR3NczI0dE_qeixPsYsYFyp39RCF4aI_kA
 
+ ###
 
+###
+GET http://localhost:8080/api/expense/grouped-by-months
+
+ ###
+
+###
+GET http://localhost:8080/api/expense/irsSum
+
+ ###
+ 
+###
+GET http://localhost:8080/api/expense/vatSum
+
+ ###
+ 
 ###
 POST http://localhost:8080/api/expense/create
 Content-Type: application/json
 
 {
     "businessId": 1,
-    "date": "2017-06-15",
+    "date": "2022-08-10",
     "name": "1",
-    "expenseImg": "1.jpg",
+    "expenseImg": "1655059404832-xcount-SomeImageName.jpg",
     "expenseSum": 300,
     "currency":"1",
-    "VatType": "1",
+    "VatType": "15",
     "IrsRefund": 1.1,
     "refundSum": 1.1,
     "confirmed": "1"

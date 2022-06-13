@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
       vatPercentage: {
         type: Sequelize.FLOAT,
       },
+      IrsPercentage: {
+        type: Sequelize.FLOAT,
+      },
     },
     {
       timestamps: false,

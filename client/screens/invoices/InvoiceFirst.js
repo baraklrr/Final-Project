@@ -10,6 +10,7 @@ import InvoiceTextInput from '../../components/InvoiceTextInput';
 import CustomDivider from '../../components/CustomDivider';
 import DateCalendar from '../../components/DateCalendar';
 import DateSelect from '../../components/DateSelect';
+import { Platform } from 'react-native';
 
 const InvoiceFirst = ({ navigation, route }) => {
   const [checked, setChecked] = React.useState(false);

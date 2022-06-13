@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 export function generateImageForm(imagePath) {
   const form = new FormData();
   form.append('image', {

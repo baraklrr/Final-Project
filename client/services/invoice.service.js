@@ -11,7 +11,9 @@ class InvoiceDataService {
   }
 
   async create(data) {
+    console.log('chec');
     const auth = await authHeader();
+
     return http.post('/income/create', data, { headers: auth });
   }
 
@@ -31,6 +33,11 @@ class InvoiceDataService {
   findByTitle(title) {
     return http.get(`/invoices?title=${title}`);
   }
+
+  
+  exppenseSum(){
+    return http.get(`/invoices/sum`);
+    }
 }
 
 export default new InvoiceDataService();

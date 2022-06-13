@@ -1,6 +1,7 @@
 const express = require("express");
 const expenseRouter = express.Router();
 const expenseController = require("../controllers/expense_controller");
+const authJwt = require("../middleware/authJwt");
 
 /**
  * @swagger
@@ -163,6 +164,22 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
  expenseRouter.get("/find/:businessId/:name", expenseController.find);
 
  expenseRouter.get("/sum", expenseController.sum);
+
+ expenseRouter.get(
+    "/grouped-by-months",
+    expenseController.getexpenseGroupedByMonths
+  );
+
+  expenseRouter.get(
+    "/vatSum",
+    expenseController.sumVat
+  );
+
+  expenseRouter.get(
+    "/irsSum",
+    expenseController.sumIrs
+  );
+
 
  module.exports = expenseRouter;
 

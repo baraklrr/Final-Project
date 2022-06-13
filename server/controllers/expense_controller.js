@@ -1,6 +1,6 @@
 const { db } = require("../models");
 const fs = require("fs");
-const { ModelCtor } = require("sequelize");
+const { ModelCtor ,  Sequelize } = require("sequelize");
 
 /**
  * @type {ModelCtor<Model<any, any>>}
@@ -19,10 +19,10 @@ const Op = db.Sequelize.Op;
 exports.create = async (req, res) => {
   expenseType
     .findOne({
-      attributes: ["vatPercentage"],
-      where: { expensetypeId: req.body.VatType },
+      attributes: ["vatPercentage","IrsPercentage"],
+      where: { expensetypeId: req.body.VatType},
     })
-    .then((vat) => {
+    .then((data) => {
       try {
         const expense = {
           businessId: req.body.businessId,
@@ -38,18 +38,15 @@ exports.create = async (req, res) => {
           expenseSum: req.body.expenseSum,
           currency: req.body.currency,
           VatType: req.body.VatType,
-          VatRefund: req.body.expenseSum * vat.vatPercentage,
-          IrsRefund: req.body.IrsRefund,
+          VatRefund: req.body.expenseSum * data.vatPercentage,
+          IrsRefund: req.body.expenseSum * data.IrsPercentage,
           refundSum: req.body.refundSum,
           confirmed: req.body.confirmed,
         };
         expenses
           .create(expense)
           .then((image) => {
-            fs.writeFileSync(
-              __basedir + "/resources/static/assets/tmp/" + req.body.expenseImg,
-              image.expenseImg
-            );
+
             return res.send(`File has been uploaded.`);
           })
           .catch((err) => {
@@ -140,8 +137,7 @@ exports.find = (req, res) => {
     ? { businessId: { [Op.like]: `%${businessId}%` } }
     : null;
 
-  expenses
-    .findAll({
+  exports.findAll({
       where: { [Op.and]: [{ name: condition2 }, { businessId: condition }] },
     })
     .then((data) => {
@@ -167,4 +163,55 @@ exports.sum = (req, res) => {
         message: err.message || "some error occured while retrieving",
       });
     });
+};
+
+exports.getexpenseGroupedByMonths = (req, res) => {
+  //const userId = res.locals.userId;
+  expenses.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
+      [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
+    ],
+    order: [[Sequelize.literal('"month"'), "ASC"]],
+    group: "month",
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
+
+
+exports.sumVat = (req, res) => {
+  expenses
+  .sum("VatRefund")
+  .then((data) => {
+    res.status(200).send({
+      message: data,
+    });
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message: err.message || "some error occured while retrieving",
+    });
+  });
+};
+
+exports.sumIrs= (req, res) => {
+  expenses
+  .sum("IrsRefund")
+  .then((data) => {
+    res.status(200).send({
+      message: data,
+    });
+  })
+  .catch((err) => {
+    res.status(500).send({
+      message: err.message || "some error occured while retrieving",
+    });
+  });
 };
