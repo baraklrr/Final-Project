@@ -76,19 +76,23 @@ export default function App() {
         // In a production app, we need to send some data (usually username, password) to server and get a token
         // We will also need to handle errors if sign in failed
         await AuthService.login(username, password)
-          .then(
-            async () => {
-              console.log('logged in');
-            },
-            (error) => {
-              console.log(error);
-              // console.log(error.response?.data?.message);
-              // Alert.alert(error.response?.data?.message);
-            }
-          )
-          .catch((e) => console.log(e));
-        let userToken = await AsyncStorage.getItem('token');
-        dispatch({ type: 'SIGN_IN', token: userToken });
+          .then(async (response) => {
+            console.log('logged in');
+            AuthService.saveUserToLocalStorage(
+              response.data.username,
+              response.data.accessToken,
+              response.data.email,
+              response.data.phoneNumber
+            );
+            let userToken = await AsyncStorage.getItem('token');
+            dispatch({ type: 'SIGN_IN', token: userToken });
+          })
+          .catch((error) => {
+            console.log('error ' + error);
+            Alert.alert('שגיאה', 'הוזנו פרטים שגויים, יש לנסות שוב. משתמש חדש? לחץ על "הירשם" .', [
+              { text: 'אישור', onPress: () => console.log('OK Pressed') },
+            ]);
+          });
       },
       signOut: () => {
         AuthService.logout();

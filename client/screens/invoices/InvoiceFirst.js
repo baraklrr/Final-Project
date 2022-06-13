@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Input, Divider } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -373,19 +373,25 @@ const InvoiceFirst = ({ navigation, route }) => {
           </View>
         </Card>
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('סיכום', {
-              description: description,
-              paymentTableValues: paymentTableValues,
-              dataTableValues: dataTableValues,
-              sumPricePayment: sumPricePayment,
-              sumPriceWithVAT: (Number(sumPrice) * 1.17).toFixed(2),
-              sumPriceVAT: (Number(sumPrice) * 0.17).toFixed(2),
-              sumPrice: sumPrice,
-              clientObj: clientObj,
-              date: date,
-            })
-          }
+          onPress={() => {
+            if (!description) {
+              Alert.alert('שגיאה', 'הכנס תיאור', [
+                { text: 'אישור', onPress: () => console.log('OK Pressed') },
+              ]);
+            } else {
+              navigation.navigate('סיכום', {
+                description: description,
+                paymentTableValues: paymentTableValues,
+                dataTableValues: dataTableValues,
+                sumPricePayment: sumPricePayment,
+                sumPriceWithVAT: (Number(sumPrice) * 1.17).toFixed(2),
+                sumPriceVAT: (Number(sumPrice) * 0.17).toFixed(2),
+                sumPrice: sumPrice,
+                clientObj: clientObj,
+                date: date,
+              });
+            }
+          }}
         >
           <View style={styles.button}>
             <Text style={styles.buttonText}>הבא</Text>
