@@ -5,6 +5,7 @@ import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import DateCalendar from '../../../components/DateCalendar';
 import DateSelect from '../../../components/DateSelect';
+import { Platform } from 'react-native';
 
 const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [bankObj, setBankObj] = useState({
