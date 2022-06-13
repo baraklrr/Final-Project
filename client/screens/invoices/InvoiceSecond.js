@@ -389,6 +389,7 @@ const InvoiceSecond = ({ navigation, route }) => {
               sumPrice: sumPrice,
               sumPriceWithVAT: sumPriceWithVAT,
               date: date,
+              html,
             });
           }}
           containerStyle={{
