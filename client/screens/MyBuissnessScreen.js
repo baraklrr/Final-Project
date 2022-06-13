@@ -54,7 +54,7 @@ export default function Settings({ navigation }) {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               onPress={() => {
                 navigation.navigate('המסמכים שלי');
               }}
@@ -66,7 +66,7 @@ export default function Settings({ navigation }) {
                 left={() => <Icon name="file-tray-outline" color="#212121" size={27} />}
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             <TouchableOpacity
               onPress={() => {
