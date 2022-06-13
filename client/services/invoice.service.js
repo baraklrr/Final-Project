@@ -31,6 +31,11 @@ class InvoiceDataService {
   findByTitle(title) {
     return http.get(`/invoices?title=${title}`);
   }
+
+  
+  exppenseSum(){
+    return http.get(`/invoices/sum`);
+    }
 }
 
 export default new InvoiceDataService();

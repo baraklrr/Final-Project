@@ -28,6 +28,21 @@ class ExpenseDataService {
   findByTitle(title) {
     return http.get(`/expense?title=${title}`);
   }
+
+  exppenseSum(){
+  return http.get(`/expense/sum`);
+  }
+
+  exppenseVatSum(){
+    return http.get(`/expense/vatSum`);
+ }
+
+ exppenseIrsSum(){
+  return http.get(`/expense/irsSum`);
+}
+
+
+
 }
 
 export default new ExpenseDataService();

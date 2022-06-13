@@ -8,6 +8,14 @@ incomeRouter.post(
   [authJwt.verifyToken],
   IncomeController.createIncome
 );
+
+incomeRouter.get(
+  "/sum",
+  [authJwt.verifyToken],
+  IncomeController.getIncomesSum
+);
+
+
 incomeRouter.get(
   "/grouped-by-months",
   [authJwt.verifyToken],
