@@ -67,13 +67,13 @@ GET http://localhost:8080/api/expense/grouped-by-months
  ###
 
 ###
-GET http://localhost:8080/api/expense/sum
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTQ0OTY4LCJleHAiOjE2NTUxNDg1Njh9.OIEMxXOb0MstVoAnVOtKCoegLILo_A9Xo6qgGmROwJ8
+GET http://localhost:8080/api/income/sum
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTU1MDU2LCJleHAiOjE2NTUxNTg2NTZ9.OpjJHIdX9fXSI49HeBdupibkjaqu_8fQM6euVVQ6mhE
  ###
  
 ###
-GET http://localhost:8080/api/expense/vatSum
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTQ0OTY4LCJleHAiOjE2NTUxNDg1Njh9.OIEMxXOb0MstVoAnVOtKCoegLILo_A9Xo6qgGmROwJ8
+GET http://localhost:8080/api/expense/VatSum
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTUxNDI1LCJleHAiOjE2NTUxNTUwMjV9.1cRI5vcyt9Ew2Aci1-NVpPrp3qAO8rZ7Xpb1KVhDkmE
  ###
  
 ###
@@ -98,7 +98,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/expense/all/1
 
 ###
-GET http://localhost:8080/api/expense/sum
+GET http://localhost:8080/api/127.0.0.1:8080/api/income/sum
 ###
 
 DELETE  http://localhost:8080/api/expense/delete/1

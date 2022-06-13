@@ -152,8 +152,8 @@ exports.find = (req, res) => {
 };
 
 exports.sum = (req, res) => {
- const businessId = req.locals.userId;
-  Income.findAll({
+ const businessId = res.locals.userId;
+ expenses.findAll({
     attributes: [
       [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
     ],
@@ -193,31 +193,41 @@ exports.getexpenseGroupedByMonths = (req, res) => {
 
 
 exports.sumVat = (req, res) => {
-  expenses
-  .sum("VatRefund")
-  .then((data) => {
-    res.status(200).send({
-      message: data,
-    });
-  })
-  .catch((err) => {
-    res.status(500).send({
-      message: err.message || "some error occured while retrieving",
-    });
-  });
+  const businessId = res.locals.userId;
+  expenses.findAll({
+     attributes: [
+       [Sequelize.fn("SUM", Sequelize.col("VatRefund")), "VatRefund"],
+     ],
+     where: {
+       [Op.and]: [{ businessId: businessId }],
+     },
+   })
+     .then((data) => {
+       res.send(data);
+     })
+     .catch((err) => {
+       res.status(500).send({
+         message: err.message || "some error occured while retrieving",
+       });
+     });
 };
 
 exports.sumIrs= (req, res) => {
-  expenses
-  .sum("IrsRefund")
-  .then((data) => {
-    res.status(200).send({
-      message: data,
-    });
-  })
-  .catch((err) => {
-    res.status(500).send({
-      message: err.message || "some error occured while retrieving",
-    });
-  });
+  const businessId = res.locals.userId;
+  expenses.findAll({
+     attributes: [
+       [Sequelize.fn("SUM", Sequelize.col("IrsRefund")), "IrsRefund"],
+     ],
+     where: {
+       [Op.and]: [{ businessId: businessId }],
+     },
+   })
+     .then((data) => {
+       res.send(data);
+     })
+     .catch((err) => {
+       res.status(500).send({
+         message: err.message || "some error occured while retrieving",
+       });
+     });
 };

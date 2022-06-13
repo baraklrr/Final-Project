@@ -138,7 +138,7 @@ const getAllIncomes = (req, res) => {
 };
 
 const getIncomesSum = async (req, res) => {
-  const businessId = req.locals.userId;
+  const businessId = res.locals.userId;
   Income.findAll({
     attributes: [
       [Sequelize.fn("SUM", Sequelize.col("incomeSum")), "incomeSum"],

@@ -167,9 +167,11 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
  */
  expenseRouter.get("/find/:name",[authJwt.verifyToken] ,expenseController.find);
 
- expenseRouter.get("/sum", 
-  [authJwt.verifyToken],
- expenseController.sum);
+ expenseRouter.get(
+  "/sum", 
+   [authJwt.verifyToken],
+   expenseController.sum
+ );
 
  expenseRouter.get(
     "/grouped-by-months",
@@ -178,16 +180,14 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
 
   expenseRouter.get(
     "/vatSum",
+    [authJwt.verifyToken],
     expenseController.sumVat
   );
 
   expenseRouter.get(
     "/irsSum",
+    [authJwt.verifyToken],
     expenseController.sumIrs
   );
-
-
- module.exports = expenseRouter;
-
 
 module.exports = expenseRouter;

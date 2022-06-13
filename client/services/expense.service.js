@@ -31,16 +31,19 @@ class ExpenseDataService {
     return http.get(`/expense?title=${title}`);
   }
 
-  exppenseSum(){
-  return http.get(`/expense/sum`);
+  async exppenseSum(){
+  const auth = await authHeader();
+  return http.get(`/expense/sum`,{ headers: auth });
   }
 
-  exppenseVatSum(){
-    return http.get(`/expense/vatSum`);
+  async exppenseVatSum(){
+    const auth = await authHeader();
+    return http.get(`/expense/vatSum`,{ headers: auth });
  }
 
- exppenseIrsSum(){
-  return http.get(`/expense/irsSum`);
+ async exppenseIrsSum(){
+  const auth = await authHeader();
+  return http.get(`/expense/irsSum`,{ headers: auth });
 }
 
 

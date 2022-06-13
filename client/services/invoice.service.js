@@ -31,11 +31,12 @@ class InvoiceDataService {
   findByTitle(title) {
     return http.get(`/invoices?title=${title}`);
   }
-
-  
-  exppenseSum(){
-    return http.get(`/invoices/sum`);
+  async invoiceSum(){
+    const auth = await authHeader();
+    return http.get(`/income/sum`,{ headers: auth });
     }
+  
+ 
 }
 
 export default new InvoiceDataService();
