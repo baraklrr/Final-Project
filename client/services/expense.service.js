@@ -1,4 +1,5 @@
 import http from '../http-common';
+import authHeader from './auth-header';
 
 class ExpenseDataService {
   getAll() {
@@ -9,8 +10,9 @@ class ExpenseDataService {
     return http.get(`/expense/${id}`);
   }
 
-  create(data) {
-    return http.post('/expense/create', data);
+ async create(data) {
+    const auth = await authHeader();
+    return http.post('/expense/create', data,{ headers: auth });
   }
 
   update(id, data) {

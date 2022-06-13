@@ -41,13 +41,9 @@ export default function Dashboard({ navigation }) {
       }
     });
   }
-  useEffect(() => {
-    console.log('loading Data');
-    getExpenseSum();
-    getExpenseSumVat();
-    getExpenseSumIrs();
-  }, []);
-console.log(sumVat)
+
+
+//console.log(sumVat)
 
   return (
     <TabContainer>

@@ -61,7 +61,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               },
             ]}
           >
-            <TouchableOpacity onPress={()=>GoToButton("InvoicesStack")}>
+            <TouchableOpacity onPress={()=> GoToButton("InvoicesStack")}>
               <View style={styles.IconContainer}>
                 <Image
                   source={require("../assets/images/Arrow_Down.png")}

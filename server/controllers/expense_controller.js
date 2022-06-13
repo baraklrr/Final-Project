@@ -6,26 +6,23 @@ const { ModelCtor ,  Sequelize } = require("sequelize");
  * @type {ModelCtor<Model<any, any>>}
  */
 const expenses = db.expense;
-/**
- * @type {ModelCtor<Model<any, any>>}
- */
+
 const expenseType = db.expenseType;
-/**
- * @type {ModelCtor<Model<any, any>>}
- */
+
 const Op = db.Sequelize.Op;
 
 //create and save a new expend
 exports.create = async (req, res) => {
+
   expenseType
     .findOne({
       attributes: ["vatPercentage","IrsPercentage"],
-      where: { expensetypeId: req.body.VatType},
+      where: { expensetypeId: req.body.VatType-1},
     })
     .then((data) => {
       try {
         const expense = {
-          businessId: req.body.businessId,
+          businessId: res.locals.userId,
           date: req.body.date,
           name: req.body.name,
           category: req.body.category,
@@ -50,6 +47,7 @@ exports.create = async (req, res) => {
               __basedir + "/resources/static/assets/tmp/" + req.body.expenseImg,
               image.expenseImg
             );
+            console.log(image)
             return res.send(`File has been uploaded.`);
           })
           .catch((err) => {
@@ -67,7 +65,7 @@ exports.create = async (req, res) => {
 };
 
 exports.getexpenses = async (req, res) => {
-  const businessId = req.params.businessId;
+  const businessId = res.locals.userId;
   var condition = businessId
     ? { businessId: { [Op.like]: `%${businessId}%` } }
     : null;
@@ -134,7 +132,7 @@ exports.delete = (req, res) => {
 //todo: change the function and use user token
 exports.find = (req, res) => {
   var name = req.body.name;
-  const businessId = req.params.businessId;
+  const businessId = res.locals.userId;
   var condition2 = name ? { name: { [Op.ilike]: `%${name}%` } } : null;
   var condition = businessId
     ? { businessId: { [Op.like]: `%${businessId}%` } }
@@ -154,12 +152,17 @@ exports.find = (req, res) => {
 };
 
 exports.sum = (req, res) => {
-  expenses
-    .sum("expenseSum")
+ const businessId = req.locals.userId;
+  Income.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
+    ],
+    where: {
+      [Op.and]: [{ businessId: businessId }],
+    },
+  })
     .then((data) => {
-      res.status(200).send({
-        message: data,
-      });
+      res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
