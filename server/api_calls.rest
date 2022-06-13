@@ -2,32 +2,11 @@ const http = require('http')
 http.request({
         method: 'GET',
         agent: http.Agent({keepAlive:true}),
-        host: 'http://localhost:8081',
+        host: http://localhost:8080,
     })
 
 ###
 GET http://localhost:8080
-Content-Type: application/json
-
-{
- "itemsList": 
-    [{
-        "itemID": 1,
-        "itemName": "a",	
-        "price": 12.0,
-        "amount": 3,
-        "sumPrice": 36.0
-    },{
-        "itemID": 2,
-        "itemName": "b",	
-        "price": 13.0,
-        "amount": 3,
-        "sumPrice": 39.0
-    }]
-}
-
-###
-POST http://localhost:8080/api/auth/signout
 ###
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
@@ -39,17 +18,49 @@ Content-Type: application/json
     "roles" : ["moderator" , "user"]
 }
 ###
+POST http://localhost:8080/api/auth/signin
+Content-Type: application/json
+
+{
+    "username" : "alon",
+    "password" : "123456"
+}
+
+###
+
+###
+POST http://localhost:8080/api/auth/signout
+
+###
 POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-    "username" : "sdee",
-    "email" : "aafdsfhlon@asd.com",
-    "password" : "123456",
+    "username": "a",
+    "email": "a@gmail.com",
+    "password": "123456",
+    "phoneNumber": "0324567890",
+    "businessName": "my Business",
+    "businesslogoImg": "",
+    "businessAddress": "abc tlv",
+    "businessPhoneNumber": "046578954",
     "roles" : ["moderator" , "user"]
 }
 ###
+GET http://localhost:8080/api/income/all
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0OTcxOTIzLCJleHAiOjE2NTQ5NzU1MjN9.ARlwcCVsnNkIw48I1Bl7uCs1rQI-Wsl05l0xuDE-KdA
 
+###
+
+GET http://193.106.55.113:8080/api/income/total
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA1Mjg3LCJleHAiOjE2NTM0MDg4ODd9.s03B07mJBVBhzKnthHo2X1_ORCb9PjGtMZDhzJydvoY
+
+###
+GET http://localhost:8080/api/income/grouped-by-months
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0OTA2NTUzLCJleHAiOjE2NTQ5MTAxNTN9.3ewZYYJ5PzR3NczI0dE_qeixPsYsYFyp39RCF4aI_kA
+
+
+###
 POST http://localhost:8080/api/expense/create
 Content-Type: application/json
 
@@ -85,32 +96,9 @@ Content-Type: application/json
     "type":"clothes"
 }
 ###
-POST http://localhost:8080/api/auth/signup
-Content-Type: application/json
 
-{
-    "username" : "sdee",
-    "email" : "aafdsfhlon@asd.com",
-    "password" : "123456",
-    "roles" : ["moderator" , "user"]
-}
-
-
-###
-
-POST http://127.0.0.1:8080/api/auth/signin
-Content-Type: application/json
-
-{
-    "username" : "alon",
-    "password" : "123456"
-}
-
-###
-GET http://127.0.0.1:8080/api/income/total
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA1Mjg3LCJleHAiOjE2NTM0MDg4ODd9.s03B07mJBVBhzKnthHo2X1_ORCb9PjGtMZDhzJydvoY
-
-###
+GET http://xcount.cs.colman.ac.il
+####
 POST  http://127.0.0.1:8080/api/income/create
 Content-Type: application/json
 
@@ -130,7 +118,7 @@ POST http://127.0.0.1:8080/api/auth/signin
 Content-Type: application/json
 
 {
-    "username" : "sdee",
+    "username" : "a",
     "password" : "123456"
 }
 

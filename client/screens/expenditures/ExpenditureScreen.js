@@ -62,7 +62,7 @@ const ExpenditureScreen = ({ navigation }) => {
     console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
-        RootNavigation.navigate('alltrasactions');
+        RootNavigation.navigate('תנועות');
         console.log(response.data);
       })
       .catch((error) => {
@@ -194,19 +194,7 @@ const ExpenditureScreen = ({ navigation }) => {
             )}
           </View>
         </View>
-        {/* 
-        <View style={styles.bottomContainer}>
-          <View style={{ flex: 1 }}>
-            {!image && (
-              <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => refRBSheet.current.open()}
-              >
-                <Text style={styles.panelButtonTitle}>צירוף חשבונית / קבלה</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </View> */}
+        
         <View style={styles.bottomContainer}>
           <View style={{ flex: 1 }}>
             {image && (

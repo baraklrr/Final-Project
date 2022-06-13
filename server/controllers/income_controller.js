@@ -1,154 +1,243 @@
 const { db } = require("../models");
 const receiptController = require("../controllers/receipt.controller");
+const { ModelCtor, Sequelize } = require("sequelize");
+
 const Income = db.income;
 const Op = db.Sequelize.Op;
 
-const getIncomes = (req, res) => {
-  res.send("total income");
-};
-
-// Create and Save a new income
 const createIncome = (req, res) => {
   // Validate request
-  if (!req.body.title) {
-    res.status(400).send({
+  console.log("***************createIncome******************");
+  if (!req.body.description || !req.body.incomeSum) {
+    res.status(405).send({
       message: "Content can not be empty!",
     });
     return;
   }
+  const businessId = res.locals.userId; //from token
+  const saveCustomer = false; //req.body.saveCustomer;
+  const customerId = req.body.customerId || null;
+  const date = new Date().toISOString(); //req.body.date;
+  const description = req.body.description;
+  const incomeSum = parseFloat(req.body.incomeSum);
+  const incomeType = req.body.incomeType || "";
+  const items = JSON.stringify(req.body.items || []);
+  const paymentMethods = JSON.stringify(req.body.paymentMethods || []);
+
+  console.log("**********incomeToCreate**********");
+  console.log({
+    businessId,
+    saveCustomer,
+    customerId,
+    date,
+    description,
+    items,
+    incomeSum,
+    paymentMethods,
+    incomeType,
+  });
+
   Income.create({
-    businessId: req.body.businessId,
-    customerId: req.body.customerId,
-    date: req.body.date,
-    title: req.body.title,
-    incomeImg: req.body.incomeImg,
-    //itemsList: req.body.receipt,
-    incomSum: req.body.incomSum,
-    currency: req.body.currency,
-    //currencyExchangeRate: req.body.currencyExchangeRate,
-    incomeType: req.body.incomeType,
-    paymentMethod: req.body.paymentMethod,
-    //confirmed: req.body.confirmed,
+    saveCustomer,
+    businessId,
+    customerId,
+    date,
+    description,
+    items,
+    incomeSum,
+    paymentMethods,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log("error: " + err);
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating Income.",
+      });
+    });
+};
+
+const updateIncomeById = (req, res) => {
+  const id = req.params.incomeId;
+  Income.update(req.body, {
+    where: { id: id },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "income was updated successfully.",
+        });
+      } else {
+        res.status(400).send({
+          message: "Cannot update income with id=${id}",
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating income with id=" + id,
+      });
+    });
+};
+
+// Find a single income with an id
+const getIncomeById = (req, res) => {
+  const id = req.params.id;
+
+  Income.findByPk(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving income with id=" + id,
+      });
+    });
+};
+
+const deleteIncomeById = (req, res) => {
+  const businessId = res.locals.userId;
+  const incomeId = req.params.incomeId;
+  Income.destroy({
+    where: {
+      [Op.and]: [{ incomeId }, { businessId }],
+    },
+  })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "income was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete income with id=${incomeId}`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete income with id=" + incomeId,
+      });
+    });
+};
+
+const getAllIncomes = (req, res) => {
+  const businessId = res.locals.userId;
+  Income.findAll({
+    where: { businessId: businessId },
   })
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating Income.",
+        message: err.message || "some error occured while retrieving",
       });
     });
 };
-// // Retrieve all Invoices from the database.
-// exports.findAll = (req, res) => {
-//   const title = req.query.title;
-//   var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
 
-//   Invoice.findAll({ where: condition })
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving invoices.",
-//       });
-//     });
-// };
+const getIncomesSum = async (req, res) => {
+  const businessId = req.locals.userId;
+  Income.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("incomeSum")), "incomeSum"],
+    ],
+    where: {
+      [Op.and]: [{ businessId: businessId }],
+    },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 
-// // Find a single Invoice with an id
-// exports.findOne = (req, res) => {
-//   const id = req.params.id;
+// Delete all Invoices from the database.
+const deleteAllIncomes = (req, res) => {
+  const businessId = req.params.businessId;
+  Income.destroy({
+    where: { businessId: businessId },
+  })
+    .then((nums) => {
+      res.send({ message: `${nums} incomes were deleted successfully!` });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all invoices.",
+      });
+    });
+};
 
-//   Invoice.findByPk(id)
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Error retrieving Invoice with id=" + id,
-//       });
-//     });
-// };
+const getIncomesGroupedByMonths = (req, res) => {
+  const userId = res.locals.userId;
+  Income.findAll({
+    attributes: [
+      [Sequelize.fn("SUM", Sequelize.col("incomeSum")), "incomeSum"],
+      [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
+    ],
+    where: {
+      [Op.and]: [{ businessId: userId }],
+    },
+    order: [[Sequelize.literal('"month"'), "ASC"]],
+    group: "month",
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 
-// // Update a Invoice by the id in the request
-// exports.update = (req, res) => {
-//   const id = req.params.id;
+const getIncomesByDate = (req, res) => {
+  const { startDate, endDate } = req.body;
+  Income.findAll({
+    where: { date: { [Op.between]: [startDate, endDate] } },
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 
-//   Invoice.update(req.body, {
-//     where: { id: id },
-//   })
-//     .then((num) => {
-//       if (num == 1) {
-//         res.send({
-//           message: "Invoice was updated successfully.",
-//         });
-//       } else {
-//         res.send({
-//           message: `Cannot update Invoice with id=${id}. Maybe Invoice was not found or req.body is empty!`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Error updating Invoice with id=" + id,
-//       });
-//     });
-// };
+// Delete Invoices by date from the database.
+const deleteIncomesByDate = (req, res) => {
+  const { startDate, endDate } = req.body;
+  Income.destroy({
+    where: { date: { [Op.between]: [startDate, endDate] } },
+  })
+    .then((nums) => {
+      res.send({ message: `${nums} incomes were deleted successfully!` });
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while removing all invoices.",
+      });
+    });
+};
 
-// // Delete a Invoice with the specified id in the request
-// exports.delete = (req, res) => {
-//   const id = req.params.id;
-
-//   Invoice.destroy({
-//     where: { id: id },
-//   })
-//     .then((num) => {
-//       if (num == 1) {
-//         res.send({
-//           message: "Invoice was deleted successfully!",
-//         });
-//       } else {
-//         res.send({
-//           message: `Cannot delete Invoice with id=${id}. Maybe Invoice was not found!`,
-//         });
-//       }
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: "Could not delete Invoice with id=" + id,
-//       });
-//     });
-// };
-
-// // Delete all Invoices from the database.
-// exports.deleteAll = (req, res) => {
-//   Invoice.destroy({
-//     where: {},
-//     truncate: false,
-//   })
-//     .then((nums) => {
-//       res.send({ message: `${nums} Invoices were deleted successfully!` });
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while removing all invoices.",
-//       });
-//     });
-// };
-
-// // find all published Invoice
-// exports.findAllPublished = (req, res) => {
-//   Invoice.findAll({ where: { published: true } })
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message:
-//           err.message || "Some error occurred while retrieving invoices.",
-//       });
-//     });
-// };
-module.exports = { createIncome, getIncomes };
+module.exports = {
+  getIncomesSum,
+  getIncomesGroupedByMonths,
+  getIncomesByDate,
+  deleteIncomesByDate,
+  createIncome,
+  getAllIncomes,
+  getIncomeById,
+  updateIncomeById,
+  deleteIncomeById,
+  deleteAllIncomes,
+};

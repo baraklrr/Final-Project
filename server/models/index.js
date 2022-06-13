@@ -13,7 +13,6 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
     idle: dbConfig.pool.idle,
   },
 });
-
 const dbConnect = async () => {
   try {
     await sequelize.authenticate();
@@ -39,7 +38,7 @@ db.expense = require("./expense.model.js")(sequelize, Sequelize);
 db.income = require("./income.model.js")(sequelize, Sequelize);
 db.expenseType = require("./expenseType.model.js")(sequelize, Sequelize);
 //db.receipt = require("./receipt.model.js")(sequelize, Sequelize);
-db.business = require("./business.model.js")(sequelize, Sequelize);
+//db.business = require("./business.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -53,11 +52,11 @@ db.user.belongsToMany(db.role, {
 });
 db.refreshToken.belongsTo(db.user, {
   foreignKey: "userId",
-  targetKey: "id",
+  targetKey: "userId",
 });
 db.user.hasOne(db.refreshToken, {
   foreignKey: "userId",
-  targetKey: "id",
+  targetKey: "userId",
 });
 //db.income.belongsTo(db.receipt);
 /*db.item.belongsToMany(db.receipt, {
@@ -73,101 +72,178 @@ db.user.hasOne(db.refreshToken, {
 
 const initial = async () => {
   let dataSet = [
-{
-  "name": "דלק",
-  "vatPercentage":0.17*0.67,
-},
-{
-  "name": "חשבון טלפון",
-  "vatPercentage":0.17*0.67,
-},
-{
-  "name": "אוזניות",
-  "vatPercentage":0.17*0.67,
-},
-{
-  "name": "טלפון",
-  "vatPercentage":0.17*0.67,
-},
-{
-  "name": "אינטרנט",
-  "vatPercentage":0.17*0.25,
-},
-{
-  "name": "חשבון חשמל",
-  "vatPercentage":0.17*0.25,
-},
-{
-  "name": "אפליקציה לניהול חשבונית ",
-  "vatPercentage":0.17,
-},
-{
-  "name": "נסיעות במונית",
-  "vatPercentage":0.17,
-},
-{
-  "name": "פרסום",
-  "vatPercentage":0.17,
-},
-{
-  "name": "נסיעות במוניתציוד משרדי",
-  "vatPercentage":0.17,
-},
-{
-  "name": "הובלות ומשלוחים",
-  "vatPercentage":0.17,
-},
-{
-  "name": "ביגו מקצועי",
-  "vatPercentage":0.17,
-},
-{
-  "name": "השתלמות מקצועית",
-  "vatPercentage":0.17,
-},
+    {
+      name: "פנגו - כחול לבן",
+      vatPercentage: 0,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ארנונה",
+      vatPercentage: 0,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ביטוח לעסק",
+      vatPercentage: 0,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ביגוד רגיל (ללא לוגו של העסק)",
+      vatPercentage: 0,
+      IrsPercentage: 0,
+    },
+    {
+      name: "משכורות לעובדים",
+      vatPercentage: 0,
+      IrsPercentage: 1,
+    },
+    {
+      name: "כיבוד קל",
+      vatPercentage: 0,
+      IrsPercentage: 1,
+    },
+    {
+      name: "קנסות תעבורה",
+      vatPercentage: 0,
+      IrsPercentage: 0,
+    },
+    {
+      name: "השכרת רכב",
+      vatPercentage: 0,
+      IrsPercentage: 0,
+    },
+    {
+      name: "הוצאות עסקיות - חומרי עבודה (לא רכוש קבוע)",
+      vatPercentage: 0.17,
+      IrsPercentage: 1,
+    },
+    {
+      name: "הוצאות עסקיות - כלי עבודה (רכוש קבוע)",
+      vatPercentage: 0.17,
+      IrsPercentage: 0.33,
+    },
+    {
+      name: "מחשב נייד",
+      vatPercentage: 0.17,
+      IrsPercentage: 0.33,
+    },
+    {
+      name: "חניונים",
+      vatPercentage: 0.17,
+      IrsPercentage: 1,
+    },
+    {
+      name: "כבישי אגרה",
+      vatPercentage: 0.17,
+      IrsPercentage: 1,
+    },
+    {
+      name: "חשבון חשמל - למשרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "אחזקת משרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "אינטרנט - למשרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "השתלמות מקצועית",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ביגוד מקצועי - עם לוגו של העסק",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "הנהלת חשבונות",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "הובלות ומשלוחים",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "ציוד משרד",
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"פרסום"      ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"נסיעות במונית" ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"אפליקציה לניהול חשבונית / הוצאת חשבונית ירוקה      " ,
+      vatPercentage: 0.17 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"חשבון חשמל - בבית (כאשר העסק עובד מהבית)" ,
+      vatPercentage: 0.17 *0.25 ,
+      IrsPercentage: 1,
+    },
+    {
+      name:"אינטרנט - לבית (כאשר העסק עובד מהבית)  "    ,
+      vatPercentage: 0.17 *0.25 ,
+      IrsPercentage: 1,
+    },
+    {
+      name: "דלק פרטי",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 0.45,
+    },
+    {
+      name: "חשבון טלפון",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 1,
+    },
+    {
+      name: "אוזניות",
+      vatPercentage: 0.17 * 0.67, 
+      IrsPercentage: 1,
+    },
+    {
+      name: "טלפון",
+      vatPercentage: 0.17 * 0.67,
+      IrsPercentage: 1,
+    },
+    {
+      name: "תיקוני רכב / טסט - אופנוע / משאית ",
+      vatPercentage: 0.17 * 0.66,
+      IrsPercentage: 1,
+    },
+    {
+      name: "דלק - אופנוע / משאית",
+      vatPercentage: 0.17,
+      IrsPercentage: 1,
+    },
+  ];
+  const loop = async () => {
+    for (let i = 0; i < dataSet.length; i++) {
+      await db.expenseType.create({
+        name: dataSet[i].name,
+        vatPercentage: dataSet[i].vatPercentage,
+        IrsPercentage: dataSet[i].IrsPercentage,
+      });
+    }
+  };
+  loop();
 
-{
-  "name": "אינטרנט למשרד",
-  "vatPercentage":0.17,
-},
-{
-  "name": "אחזקת משרד",
-  "vatPercentage":0.17,
-},
-{
-  "name": "חשבון חשמל למשרד",
-  "vatPercentage":0.17,
-},{
-  "name": "כבישי אגרה",
-  "vatPercentage":0.17,
-},
-{
-  "name": "חניונים ",
-  "vatPercentage":0.17,
-},
-{
-  "name": " מחשב נייד ",
-  "vatPercentage":0.17,
-},
-{
-  "name": " כלי עבודה (לא רכוש קבוע)",
-  "vatPercentage":0.17,
-},
-{
-  "name": "חומרי עבודה (לא רכוש קבוע)",
-  "vatPercentage":0.17,
-},
-]
-const loop= async ()=>{
-  for(let i=0; i<dataSet.length; i++) {
-    await db.expenseType.create({
-      name: dataSet[i].name,
-      vatPercentage:dataSet[i].vatPercentage
-    });
-  }
-}
-loop();
-  
   await db.role.create({
     name: "user",
   });
@@ -177,22 +253,8 @@ loop();
   await db.role.create({
     name: "admin",
   });
-  await db.item.create({
-    itemName: "a",
-    price: 12,
-  });
-  await db.item.create({
-    itemName: "b",
-    price: 13,
-  });
-  await db.item.create({
-    itemName: "c",
-    price: 14,
-  });
 };
 
 db.ROLES = ["user", "admin", "moderator"];
-
-
 
 module.exports = { db, initial };

@@ -1,15 +1,25 @@
 const { db } = require("../models");
 const fs = require("fs");
+const { ModelCtor } = require("sequelize");
 
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const expenses = db.expense;
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const expenseType = db.expenseType;
+/**
+ * @type {ModelCtor<Model<any, any>>}
+ */
 const Op = db.Sequelize.Op;
 
 //create and save a new expend
 exports.create = async (req, res) => {
   expenseType
     .findOne({
-      attributes: ["vatPercentage"],
+      attributes: ["vatPercentage","IrsPercentage"],
       where: { expensetypeId: req.body.VatType },
     })
     .then((vat) => {
@@ -29,7 +39,7 @@ exports.create = async (req, res) => {
           currency: req.body.currency,
           VatType: req.body.VatType,
           VatRefund: req.body.expenseSum * vat.vatPercentage,
-          IrsRefund: req.body.IrsRefund,
+          IrsRefund: req.body.expenseSum * data.IrsPercentage ,
           refundSum: req.body.refundSum,
           confirmed: req.body.confirmed,
         };

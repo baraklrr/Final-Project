@@ -15,7 +15,6 @@ const SettingStack=()=>{
       headerShown: false,
     }}>
     <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
-    <Stack.Screen name="StartScreen" component={StartScreen} />
   </Stack.Navigator>)
 }
 

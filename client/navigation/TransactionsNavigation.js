@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Transaction from '../screens/transactions/Transaction';
+import InvoiceTransaction from '../screens/transactions/InvoiceTransaction';
 import TabbedTransactions from '../screens/transactions/TabbedTransactions';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
@@ -29,6 +30,14 @@ const TransactionsNavigation = ({ navigation, route }) => {
           headerShown: true,
           presentation: 'modal',
           // ...TransitionPresets.ModalPresentationIOS,
+        }}
+      />
+      <Stack.Screen
+        name="פרטי הכנסה"
+        component={InvoiceTransaction}
+        options={{
+          headerShown: true,
+          presentation: 'modal',
         }}
       />
       <Stack.Screen

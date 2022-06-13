@@ -8,29 +8,46 @@ var bcrypt = require("bcryptjs");
 const { devNull } = require("os");
 
 exports.signup = (req, res) => {
+  const {
+    username = req.body,
+    email,
+    password,
+    phoneNumber,
+    businessName,
+    businesslogoImg,
+    businessAddress,
+    businessPhoneNumber,
+    roles,
+  } = req.body;
+
   // Save User to Database
   User.create({
-    username: req.body.username,
-    email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
+    username,
+    email,
+    password: bcrypt.hashSync(password, 8),
+    phoneNumber,
+    businessName,
+    businesslogoImg,
+    businessAddress,
+    businessPhoneNumber,
   })
     .then((user) => {
-      if (req.body.roles) {
+      if (roles) {
         Role.findAll({
           where: {
             name: {
-              [Op.or]: req.body.roles,
+              [Op.or]: roles,
             },
           },
         }).then((roles) => {
           user.setRoles(roles).then(() => {
-            res.send({ message: "User registered successfully!" });
+            res.send({ user, message: "User registered successfully!" });
           });
         });
       } else {
         // user role = 1
         user.setRoles([1]).then(() => {
-          res.send({ message: "User registered successfully!" });
+          res.send({ user, message: "User registered successfully!" });
         });
       }
     })
@@ -40,26 +57,24 @@ exports.signup = (req, res) => {
 };
 
 exports.signin = (req, res) => {
+  const { username, password } = req.body;
   User.findOne({
     where: {
-      username: req.body.username,
+      username,
     },
   })
     .then(async (user) => {
       if (!user) {
         return res.status(404).send({ message: "User Not found." });
       }
-      const passwordIsValid = bcrypt.compareSync(
-        req.body.password,
-        user.password
-      );
+      const passwordIsValid = bcrypt.compareSync(password, user.password);
       if (!passwordIsValid) {
         return res.status(401).send({
           accessToken: null,
           message: "Invalid Password!",
         });
       }
-      const token = jwt.sign({ id: user.id }, config.secret, {
+      const token = jwt.sign({ id: user.userId }, config.secret, {
         expiresIn: config.jwtExpiration,
       });
       let refreshToken = await RefreshToken.createToken(user);
@@ -69,7 +84,7 @@ exports.signin = (req, res) => {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
         res.status(200).send({
-          id: user.id,
+          id: user.userId,
           username: user.username,
           email: user.email,
           roles: authorities,
@@ -116,7 +131,7 @@ exports.refreshToken = async (req, res) => {
       return;
     }
     const user = await refreshToken.getUser();
-    let newAccessToken = jwt.sign({ id: user.id }, config.secret, {
+    let newAccessToken = jwt.sign({ id: user.UserId }, config.secret, {
       expiresIn: config.jwtExpiration,
     });
     return res.status(200).json({

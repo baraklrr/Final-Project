@@ -1,15 +1,16 @@
-export default function authHeader() {
-  const user = async () => {
-    try {
-      return await AsyncStorage.getItem('key');
-    } catch (e) {
-      // read error
-    }
-    console.log("Done.");
-    if (user && user.accessToken) {
-      return { "x-access-token": user.accessToken }; // for Node.js Express back-end
-    } else {
-      return {};
-    }
-  };
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export default async function authHeader() {
+  let token;
+  try {
+    token = await AsyncStorage.getItem('token');
+  } catch (e) {
+    // read error
+  }
+  console.log('Done.');
+  if (token) {
+    return { 'x-access-token': token }; // for Node.js Express back-end
+  } else {
+    return {};
+  }
 }

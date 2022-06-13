@@ -2,29 +2,43 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/auth.config.js");
 const db = require("../models");
 const User = db.user;
+const e = require("express");
 
 const { TokenExpiredError } = jwt;
 const catchError = (err, res) => {
   if (err instanceof TokenExpiredError) {
+    console.log("Token was expired!");
     return res
       .status(401)
-      .send({ message: "Unauthorized! Access Token was expired!" });
+      .send({ message: "Access Token was expired!", errorCode: "190" });
   }
-  return res.sendStatus(401).send({ message: "Unauthorized!" });
+  console.log("User Unauthorized!");
+  console.log(err);
+  return res.status(401).send({ message: "Unauthorized!" });
 };
-
+/**
+ *
+ * @param {e.Request} req
+ * @param {*} res
+ * @param {*} next
+ * @returns
+ */
 const verifyToken = (req, res, next) => {
-  let token = req.headers["x-access-token"];
+  const token = req.headers["x-access-token"];
+
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
-  jwt.verify(token, config.secret, (err, decoded) => {
-    if (err) {
-      return catchError(err, res);
-    }
-    req.userId = decoded.id;
+  try {
+    const decoded = jwt.verify(token, config.secret);
+    res.locals.userId = decoded.id;
     next();
-  });
+  } catch (error) {
+    console.log("==================error==================");
+    console.log(error);
+    console.log("====================================");
+    return catchError(error, res);
+  }
 };
 
 isAdmin = (req, res, next) => {
@@ -85,7 +99,7 @@ isModeratorOrAdmin = (req, res, next) => {
 };
 
 const authJwt = {
-  verifyToken: verifyToken,
+  verifyToken,
   isAdmin: isAdmin,
   isModerator: isModerator,
   isModeratorOrAdmin: isModeratorOrAdmin,
