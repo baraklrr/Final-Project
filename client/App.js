@@ -82,8 +82,11 @@ export default function App() {
             },
             (error) => {
               console.log(error);
-              // console.log(error.response?.data?.message);
-              // Alert.alert(error.response?.data?.message);
+              Alert.alert(
+                'שגיאה',
+                'הוזנו פרטים שגויים, יש לנסות שוב. משתמש חדש? לחץ על "הירשם" .',
+                [{ text: 'אישור', onPress: () => console.log('OK Pressed') }]
+              );
             }
           )
           .catch((e) => console.log(e));

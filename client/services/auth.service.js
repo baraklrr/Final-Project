@@ -9,7 +9,7 @@ const register = (username, email, password) => {
   });
 };
 
-const login = (username, password) => {
+const login = async (username, password) => {
   return http
     .post('/auth/signin', {
       username,
@@ -24,11 +24,10 @@ const login = (username, password) => {
           response.data.phoneNumber
         );
       }
-      //else logout();
-      console.log('=================response.data===================');
-      console.log(response?.data);
-      console.log('====================================');
       return response?.data;
+    })
+    .catch((err) => {
+      console.log('user not exist');
     });
 };
 const saveUserToLocalStorage = async (data1, data2, data3, data4) => {
