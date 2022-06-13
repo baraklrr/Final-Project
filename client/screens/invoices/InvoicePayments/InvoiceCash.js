@@ -4,6 +4,7 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import DateCalendar from '../../../components/DateCalendar';
+import { Platform } from 'react-native';
 
 const InvoiceCash = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [cashObj, setCashObj] = useState({

@@ -1,36 +1,28 @@
-placeholder = 'סכום';
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Share } from 'react-native';
 import { Card } from '@rneui/themed';
 import { Button } from '@rneui/base';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from '../../components/Header';
 
 const InvoiceFinal = ({ navigation, route }) => {
-  const { sumPrice, sumPriceWithVAT, date } = route?.params;
+  const { sumPrice, sumPriceWithVAT, date, html } = route?.params;
   console.log(date);
   console.log(sumPrice);
   console.log(sumPriceWithVAT);
-  onShare = async () => {
-    try {
-      const result = await Share.share({
-        message: 'React Native | A framework for building native apps using React',
-      });
 
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
+  const printToFile = async () => {
+    // On iOS/android prints the given html. On web prints the HTML from the current page.
+    const { uri } = await Print.printToFileAsync({
+      html,
+    });
+    console.log('File has been saved to:', uri);
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   };
+
   return (
     <View style={styles.container}>
       <Card>
@@ -97,7 +89,7 @@ const InvoiceFinal = ({ navigation, route }) => {
           title={'שתף מסמך'}
           icon={<Icon name="upload" size={24} color="white" />}
           iconContainerStyle={{ background: '#000' }}
-          onPress={onShare}
+          onPress={printToFile}
           containerStyle={{
             padding: 15,
             marginVertical: 10,
