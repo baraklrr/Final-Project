@@ -6,26 +6,40 @@ import { COLORS } from '../core/theme';
 import Constants from 'expo-constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExpenseDataService from '../services/expense.service';
+import InvoiceDataService from '../services/invoice.service';
 
 
 
 export default function Dashboard({ navigation }) {
+const [invoiceSum,SetInvoiceSum]=useState(0);
+  const [sum, setSum] = useState(0);
+  const [sumVat, setSumVat] = useState(0);
+  const [sumIrs, setSumIrs] = useState(0);
 
-  const [sum, setSum] = useState();
-  const [sumVat, setSumVat] = useState();
-  const [sumIrs, setSumIrs] = useState();
+  const getInvoiceSum =async()=>{
+    InvoiceDataService.invoiceSum().then((response)=>{
+      SetInvoiceSum(response.data[0].incomeSum);
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data); // => the response payload
+      }
+    });
+
+  }
+
   const getExpenseSum = async()=>{
     ExpenseDataService.exppenseSum().then((response)=>{
-      setSum(response.data)
+      setSum(response.data[0].expenseSum)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
       }
     });
   }
+ 
   const getExpenseSumVat= async()=>{
     ExpenseDataService.exppenseVatSum().then((response)=>{
-      setSumIrs(response.data)
+      setSumVat(response.data[0].VatRefund)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
@@ -35,21 +49,21 @@ export default function Dashboard({ navigation }) {
 
   const getExpenseSumIrs= async()=>{
     ExpenseDataService.exppenseIrsSum().then((response)=>{
-      setSumVat(response.data)
+      setSumIrs(response.data[0].IrsRefund)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
       }
     });
   }
+
   useEffect(() => {
-    console.log('loading Data');
+    getInvoiceSum();
     getExpenseSum();
     getExpenseSumVat();
     getExpenseSumIrs();
-  }, []);
+  }, [navigation]);
 
-console.log(sumVat)
 
   return (
     <TabContainer>
@@ -81,7 +95,7 @@ console.log(sumVat)
               fontWeight: 'bold',
             }}
           >
-            {'\u20AA'}15443
+            {'\u20AA'}{invoiceSum-sum}
           </Text>
         </Card>
 
@@ -100,7 +114,7 @@ console.log(sumVat)
                   <Text style={styles.name}>סך הכנסות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}17000</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}{invoiceSum}</Text>
                 </View>
               </View>
             </View>
@@ -122,7 +136,7 @@ console.log(sumVat)
                   <Text style={styles.name}>סך הוצאות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}{sum}</Text>
                 </View>
               </View>
             </View>
@@ -143,7 +157,7 @@ console.log(sumVat)
                   <Text style={styles.name}>מס הכנסה</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}168.8</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}{sumIrs}</Text>
                 </View>
               </View>
             </View>
@@ -164,7 +178,7 @@ console.log(sumVat)
                   <Text style={styles.name}>מע"מ </Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}255</Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}{sumVat}</Text>
                 </View>
               </View>
             </View>

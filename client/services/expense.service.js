@@ -1,4 +1,5 @@
 import http from '../http-common';
+import authHeader from './auth-header';
 
 class ExpenseDataService {
   getAll() {
@@ -9,8 +10,9 @@ class ExpenseDataService {
     return http.get(`/expense/${id}`);
   }
 
-  create(data) {
-    return http.post('/expense/create', data);
+ async create(data) {
+    const auth = await authHeader();
+    return http.post('/expense/create', data,{ headers: auth });
   }
 
   update(id, data) {
@@ -29,16 +31,19 @@ class ExpenseDataService {
     return http.get(`/expense?title=${title}`);
   }
 
-  exppenseSum(){
-  return http.get(`/expense/sum`);
+  async exppenseSum(){
+  const auth = await authHeader();
+  return http.get(`/expense/sum`,{ headers: auth });
   }
 
-  exppenseVatSum(){
-    return http.get(`/expense/vatSum`);
+  async exppenseVatSum(){
+    const auth = await authHeader();
+    return http.get(`/expense/vatSum`,{ headers: auth });
  }
 
- exppenseIrsSum(){
-  return http.get(`/expense/irsSum`);
+ async exppenseIrsSum(){
+  const auth = await authHeader();
+  return http.get(`/expense/irsSum`,{ headers: auth });
 }
 
 

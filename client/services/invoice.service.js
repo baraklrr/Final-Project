@@ -32,9 +32,9 @@ class InvoiceDataService {
   findByTitle(title) {
     return http.get(`/invoices?title=${title}`);
   }
-
-  incomesSum() {
-    return http.get(`/income/sum`);
+  async invoiceSum() {
+    const auth = await authHeader();
+    return http.get(`/income/sum`, { headers: auth });
   }
 }
 

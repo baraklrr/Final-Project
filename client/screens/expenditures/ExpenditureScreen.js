@@ -49,7 +49,6 @@ const ExpenditureScreen = ({ navigation }) => {
     const uploadedImage = await uploadImage(imageform);
 
     let data = {
-      businessId: 3,
       date: selectedDate,
       VatType: selectedCategory['id'],
       name: title,
@@ -59,7 +58,7 @@ const ExpenditureScreen = ({ navigation }) => {
       expenseSum: sum,
       currency: currency,
     };
-    console.log(data);
+    //console.log(data);
     ExpenseDataService.create(data)
       .then((response) => {
         RootNavigation.navigate('תנועות');

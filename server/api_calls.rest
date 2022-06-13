@@ -48,7 +48,7 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:8080/api/income/all
-x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU0OTcxOTIzLCJleHAiOjE2NTQ5NzU1MjN9.ARlwcCVsnNkIw48I1Bl7uCs1rQI-Wsl05l0xuDE-KdA
+x-access-token:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTM0ODY1LCJleHAiOjE2NTUxMzg0NjV9.yCUvRRxe0zysczKf1BbIRJVz5u2-XLHNf4JFLiSb7BE
 
 ###
 
@@ -57,7 +57,7 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjUzNDA
 
 ###
 GET http://localhost:8080/api/income/grouped-by-months
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU0OTA2NTUzLCJleHAiOjE2NTQ5MTAxNTN9.3ewZYYJ5PzR3NczI0dE_qeixPsYsYFyp39RCF4aI_kA
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTQ0OTY4LCJleHAiOjE2NTUxNDg1Njh9.OIEMxXOb0MstVoAnVOtKCoegLILo_A9Xo6qgGmROwJ8
 
  ###
 
@@ -67,13 +67,13 @@ GET http://localhost:8080/api/expense/grouped-by-months
  ###
 
 ###
-GET http://localhost:8080/api/expense/irsSum
-
+GET http://localhost:8080/api/income/sum
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTU1MDU2LCJleHAiOjE2NTUxNTg2NTZ9.OpjJHIdX9fXSI49HeBdupibkjaqu_8fQM6euVVQ6mhE
  ###
  
 ###
-GET http://localhost:8080/api/expense/vatSum
-
+GET http://localhost:8080/api/expense/VatSum
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTUxNDI1LCJleHAiOjE2NTUxNTUwMjV9.1cRI5vcyt9Ew2Aci1-NVpPrp3qAO8rZ7Xpb1KVhDkmE
  ###
  
 ###
@@ -98,7 +98,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/expense/all/1
 
 ###
-GET http://localhost:8080/api/expense/sum
+GET http://localhost:8080/api/127.0.0.1:8080/api/income/sum
 ###
 
 DELETE  http://localhost:8080/api/expense/delete/1
