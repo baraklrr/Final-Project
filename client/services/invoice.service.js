@@ -11,7 +11,6 @@ class InvoiceDataService {
   }
 
   async create(data) {
-    console.log('chec');
     const auth = await authHeader();
     return http.post('/income/create', data, { headers: auth });
   }
