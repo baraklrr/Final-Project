@@ -46,10 +46,7 @@ exports.create = async (req, res) => {
         expenses
           .create(expense)
           .then((image) => {
-            fs.writeFileSync(
-              __basedir + "/resources/static/assets/tmp/" + req.body.expenseImg,
-              image.expenseImg
-            );
+
             return res.send(`File has been uploaded.`);
           })
           .catch((err) => {
