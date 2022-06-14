@@ -86,7 +86,7 @@ export default function RegisterScreen({ navigation }) {
         <TouchableOpacity onPress={() => navigation.replace('LoginScreen')}>
           <Text style={styles.link}>התחבר </Text>
         </TouchableOpacity>
-        <Text>יש לך משתמש? </Text>
+        <Text>   יש לך משתמש?  </Text>
       </View>
     </Background>
   );

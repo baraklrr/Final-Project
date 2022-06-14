@@ -10,7 +10,7 @@ export const Categories = memo((props) => {
     props.onCategorySelect(selected);
   };
   return (
-    <View>
+    <View style={[{marginTop: 20},Platform.select({ ios: { zIndex: 9 } })]}>
       <AutocompleteDropdown
         clearOnFocus={false}
         inputContainerStyle={{

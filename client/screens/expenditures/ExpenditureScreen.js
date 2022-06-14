@@ -100,13 +100,7 @@ const ExpenditureScreen = ({ navigation }) => {
             <DateSelect onDateSelect={addDateHandler} />
           )}
           {!image && (
-            <>
-              <View style={[styles.container]}>
-                <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
                   <Categories onCategorySelect={addCategoryHandler} />
-                </View>
-              </View>
-            </>
           )}
           <Card.Title
             style={{
