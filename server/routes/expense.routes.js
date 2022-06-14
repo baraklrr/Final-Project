@@ -175,6 +175,7 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
 
  expenseRouter.get(
     "/grouped-by-months",
+     [authJwt.verifyToken],
     expenseController.getexpenseGroupedByMonths
   );
 

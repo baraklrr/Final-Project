@@ -46,7 +46,10 @@ class ExpenseDataService {
   return http.get(`/expense/irsSum`,{ headers: auth });
 }
 
-
+async getbyMonthSum(){
+  const auth = await authHeader();
+  return http.get(`/expense/grouped-by-months`,{ headers: auth });
+}
 
 }
 
