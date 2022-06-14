@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 16,
     paddingRight: 6,
+    textAlign: 'left',
   },
   borderText: {
     marginTop: -27,
