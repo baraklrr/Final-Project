@@ -36,8 +36,8 @@ POST http://localhost:8080/api/auth/signup
 Content-Type: application/json
 
 {
-    "username": "a",
-    "email": "a@gmail.com",
+    "username": "b",
+    "email": "b@gmail.com",
     "password": "123456",
     "phoneNumber": "0324567890",
     "businessName": "my Business",
@@ -116,17 +116,17 @@ Content-Type: application/json
 GET http://xcount.cs.colman.ac.il
 ####
 POST  http://127.0.0.1:8080/api/income/create
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjU1MTk2OTEzLCJleHAiOjE2NTUyMTQ5MTN9.Tc7F_WiV5r6n0maX8ZUL_o3xq6i4iZxMOfpkUAmg14E
 Content-Type: application/json
 
 {
-    "businessId": 1,
-    "customerId": 1,
-    "date": "2022-01-17",
-    "title": "test",
-    "incomSum": 125.78,
-    "currency": "shekel",
-    "incomeType": "Tax invoice",
-    "paymentMethod": "Credit"
+    "saveCustomer":1,
+    "customerId":0,
+    "date": "2022-08-10",
+    "description": "a",
+    "items": [],
+    "incomeSum": 100,
+    "paymentMethods": []
 }
 
 ###
@@ -134,7 +134,7 @@ POST http://127.0.0.1:8080/api/auth/signin
 Content-Type: application/json
 
 {
-    "username" : "a",
+    "username" : "b",
     "password" : "123456"
 }
 
