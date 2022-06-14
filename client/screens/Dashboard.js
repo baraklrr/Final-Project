@@ -146,7 +146,7 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
                   <Text style={styles.name}>סך הוצאות כללית</Text>
                 </View>
                 <View style={{ flex: 1 }}>
-                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'} {sum} </Text>
+                  <Text style={{ textAlign: 'right', fontWeight: 'bold' }}>{'\u20AA'}{sum}</Text>
                 </View>
               </View>
             </View>
