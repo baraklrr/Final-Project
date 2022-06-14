@@ -1,33 +1,102 @@
-import React, { useRef, useState } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useRef, useState,useEffect,useCallback } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView ,FlatList,RefreshControl} from 'react-native';
 
 import { List, Chip } from 'react-native-paper';
 import TabContainer from '../../components/TabContainer';
 import { COLORS } from '../../core/theme';
 import Constants from 'expo-constants';
+import ExpenseDataService from '../../services/expense.service';
+import InvoiceDataService from '../../services/invoice.service'; 
 
-const VAT_Screen = () => {
+const VAT_Screen = ({route}) => {
+  const [refreshing, setRefreshing] = useState(false);
+  const [expenses, setExpenses] = useState([]);
+  const [income, setIncome] = useState([]);
+
+
+  const monthsShort = [
+    'ינואר',
+    'פברואר',
+    'מרץ',
+    'אפריל',
+    'מאי',
+    'יוני',
+    'יולי',
+    'אוגוסט',
+    'ספטמבר',
+    'אוקטובר',
+    'נובמבר',
+    'דצמבר',
+  ];
+
+
+
+  useEffect(() => {
+   // console.log('loading Data');
+    loadData1();
+    loadData2();
+  }, [route]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    loadData1();
+    loadData2();
+  }, []);
+
+
+  const loadData1 = () => {
+    ExpenseDataService.getbyMonthSum().then((data)=>{
+      setExpenses(data.data)
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data); // => the response payload
+      }
+    });
+  };
+   const loadData2 = () => {
+    InvoiceDataService.getbyMonthSum().then((data)=>{
+      setIncome(data.data)
+      setRefreshing(false);
+    }).catch((error) => {
+      if (error.response) {
+        console.log(error.response.data); // => the response payload
+      }
+    });
+  };
+  
+  var allData= expenses.reduce((arr,e)=>{
+    arr.push(Object.assign({},e,income.find(a=>a.month==e.month)?income.find(a=>a.month==e.month):{"incomeSum":0}
+    ))
+    return arr;
+   },[]).sort((a, b) => a.month.split('-')[0] - b.month.split('-')[0])
+   
+   console.log(allData)
+
   return (
     <TabContainer>
-      <View style={styles.container}>
-        <ScrollView>
+
+    <FlatList
+    refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+    data={allData && allData.length > 0 ? allData : []}
+    renderItem={({ item }) => (
           <List.Section>
-            <List.Accordion
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              title="ינואר - פברואר"
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪994.5
-                </Chip>
-              )}
-            >
-              <List.Item
+              <List.Accordion
+              
+                titleStyle={{ color: 'black', fontWeight: 'bold' }}
+                title= {monthsShort[parseInt(item.month.split('-')[0])-1] +' '+ item.month.split('-')[1]}
+                left={(props) => (
+                  <Chip
+                    style={{
+                      borderColor: `lightblue`,
+                      backgroundColor: `lightblue`,
+                      alignSelf: 'center',
+                    }}
+                  >
+                    ₪ {parseInt((item.incomeSum -parseInt(item.expenseSum * 0.66))*0.17)} 
+                  </Chip>
+                )}
+              >
+                  <List.Item
                 title="סך הכנסות חייבות במעמ -"
                 titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
                 right={() => (
@@ -40,7 +109,7 @@ const VAT_Screen = () => {
                       fontSize: 15,
                     }}
                   >
-                    ₪7,500
+                   ₪{item.incomeSum}
                   </Text>
                 )}
               />
@@ -57,7 +126,7 @@ const VAT_Screen = () => {
                       fontSize: 15,
                     }}
                   >
-                    ₪2,500
+                   ₪{item.expenseSum}
                   </Text>
                 )}
               />
@@ -74,7 +143,8 @@ const VAT_Screen = () => {
                       fontSize: 15,
                     }}
                   >
-                    ₪1,650
+                    
+                    ₪{parseInt(item.expenseSum * 0.66)}
                   </Text>
                 )}
               />
@@ -91,105 +161,112 @@ const VAT_Screen = () => {
                       fontSize: 15,
                     }}
                   >
-                    ₪5,850
+                   ₪{ item.incomeSum -parseInt(item.expenseSum * 0.66)}
                   </Text>
                 )}
               />
-            </List.Accordion>
-            <List.Accordion
-              title="מרץ - אפריל"
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪23,124
-                </Chip>
-              )}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
-            <List.Accordion
-              title="מאי - יוני"
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪15,243
-                </Chip>
-              )}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
-            <List.Accordion
-              title="יולי - אוגוסט"
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪17,341
-                </Chip>
-              )}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
-            <List.Accordion
-              title="ספטמבר - אוקטובר"
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪5,241
-                </Chip>
-              )}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
-            <List.Accordion
-              title="נובמבר - דצמבר"
-              titleStyle={{ color: 'black', fontWeight: 'bold' }}
-              left={(props) => (
-                <Chip
-                  style={{
-                    borderColor: `lightblue`,
-                    backgroundColor: `lightblue`,
-                    alignSelf: 'center',
-                  }}
-                >
-                  ₪6,754
-                </Chip>
-              )}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion>
-          </List.Section>
-        </ScrollView>
-      </View>
-    </TabContainer>
+                </List.Accordion>
+        </List.Section>
+    )}
+    ItemSeparatorComponent={() => <List.Section/>}
+  />
+
+</TabContainer>
+
+
+
+    // <TabContainer>
+    //   <View style={styles.container}>
+    //     <ScrollView>
+    //       <List.Section>
+    //         <List.Accordion
+    //           titleStyle={{ color: 'black', fontWeight: 'bold' }}
+    //           title="ינואר - פברואר"
+    //           left={(props) => (
+    //             <Chip
+    //               style={{
+    //                 borderColor: `lightblue`,
+    //                 backgroundColor: `lightblue`,
+    //                 alignSelf: 'center',
+    //               }}
+    //             >
+    //               ₪994.5
+    //             </Chip>
+    //           )}
+    //         >
+    //           <List.Item
+    //             title="סך הכנסות חייבות במעמ -"
+    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
+    //             right={() => (
+    //               <Text
+    //                 style={{
+    //                   color: '#274c77',
+    //                   textAlignVertical: 'center',
+    //                   marginRight: 15,
+    //                   fontWeight: 'bold',
+    //                   fontSize: 15,
+    //                 }}
+    //               >
+    //                 ₪7,500
+    //               </Text>
+    //             )}
+    //           />
+    //           <List.Item
+    //             title="סך הוצאות מוכרות למעמ -"
+    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
+    //             right={() => (
+    //               <Text
+    //                 style={{
+    //                   color: '#274c77',
+    //                   textAlignVertical: 'center',
+    //                   marginRight: 15,
+    //                   fontWeight: 'bold',
+    //                   fontSize: 15,
+    //                 }}
+    //               >
+    //                 ₪2,500
+    //               </Text>
+    //             )}
+    //           />
+    //           <List.Item
+    //             title="סך קיזוז למעמ -"
+    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
+    //             right={() => (
+    //               <Text
+    //                 style={{
+    //                   color: '#274c77',
+    //                   textAlignVertical: 'center',
+    //                   marginRight: 15,
+    //                   fontWeight: 'bold',
+    //                   fontSize: 15,
+    //                 }}
+    //               >
+    //                 ₪1,650
+    //               </Text>
+    //             )}
+    //           />
+    //           <List.Item
+    //             title="סך הפרשים למעמ -"
+    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
+    //             right={() => (
+    //               <Text
+    //                 style={{
+    //                   color: '#274c77',
+    //                   textAlignVertical: 'center',
+    //                   marginRight: 15,
+    //                   fontWeight: 'bold',
+    //                   fontSize: 15,
+    //                 }}
+    //               >
+    //                 ₪5,850
+    //               </Text>
+    //             )}
+    //           />
+    //         </List.Accordion>
+    //       </List.Section>
+    //     </ScrollView>
+    //   </View>
+    // </TabContainer>
   );
 };
 const styles = StyleSheet.create({

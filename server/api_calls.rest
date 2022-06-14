@@ -68,7 +68,7 @@ GET http://localhost:8080/api/expense/grouped-by-months
 
 ###
 GET http://localhost:8080/api/income/sum
-x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTU1MDU2LCJleHAiOjE2NTUxNTg2NTZ9.OpjJHIdX9fXSI49HeBdupibkjaqu_8fQM6euVVQ6mhE
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTkzNDQyLCJleHAiOjE2NTUxOTcwNDJ9.gc71jkKdQdZK2t3mhrI8e0ghxUWfi_uq8KDoC2KmADc
  ###
  
 ###
@@ -79,10 +79,11 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTU
 ###
 POST http://localhost:8080/api/expense/create
 Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTk3MzY4LCJleHAiOjE2NTUyMTUzNjh9.FewyQJmsFLjBrEPysmnuC3fKDA4utjoy_zKK4OedE_Q
 
 {
     "businessId": 1,
-    "date": "2022-08-10",
+    "date": "2022-01-30",
     "name": "1",
     "expenseImg": "1655059404832-xcount-SomeImageName.jpg",
     "expenseSum": 300,

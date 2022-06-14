@@ -52,7 +52,7 @@ const logout = async () => {
     // remove error
   }
 
-  console.log('Done.');
+  //console.log('Done.');
 };
 
 const AuthService = {

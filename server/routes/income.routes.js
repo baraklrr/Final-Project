@@ -21,6 +21,7 @@ incomeRouter.get(
   [authJwt.verifyToken],
   IncomeController.getIncomesGroupedByMonths
 );
+
 incomeRouter.get("/all", [authJwt.verifyToken], IncomeController.getAllIncomes);
 
 incomeRouter.put("/:incomeId", IncomeController.updateIncomeById);
