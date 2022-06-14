@@ -17,7 +17,7 @@ const createIncome = (req, res) => {
   const businessId = res.locals.userId; //from token
   const saveCustomer = false; //req.body.saveCustomer;
   const customerId = req.body.customerId || null;
-  const date = new Date().toISOString(); //req.body.date;
+  const date = new Date(req.body.date).toISOString(); //req.body.date;
   const description = req.body.description;
   const incomeSum = parseFloat(req.body.incomeSum);
   const incomeType = req.body.incomeType || "";

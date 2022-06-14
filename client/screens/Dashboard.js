@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useEffect, useState,useCallback } from 'react';
+import { Text, View, StyleSheet,RefreshControl,FlatList} from 'react-native';
 import { Card } from '@rneui/themed';
 import TabContainer from '../components/TabContainer';
 import { COLORS } from '../core/theme';
@@ -18,7 +18,10 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
 
   const getInvoiceSum =async()=>{
     InvoiceDataService.invoiceSum().then((response)=>{
-      SetInvoiceSum(response.data[0].incomeSum);
+      if(response.data[0].incomeSum!=null)
+      {
+        SetInvoiceSum(response.data[0].incomeSum);
+      }
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
@@ -29,7 +32,8 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
 
   const getExpenseSum = async()=>{
     ExpenseDataService.exppenseSum().then((response)=>{
-      setSum(response.data[0].expenseSum)
+      if(response.data[0].expenseSum!=null)
+          setSum(response.data[0].expenseSum)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
@@ -39,7 +43,8 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
  
   const getExpenseSumVat= async()=>{
     ExpenseDataService.exppenseVatSum().then((response)=>{
-      setSumVat(response.data[0].VatRefund)
+      if(response.data[0].VatRefund!=null)
+         setSumVat(response.data[0].VatRefund)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
@@ -49,24 +54,29 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
 
   const getExpenseSumIrs= async()=>{
     ExpenseDataService.exppenseIrsSum().then((response)=>{
+      if(response.data[0].IrsRefund!=null)
       setSumIrs(response.data[0].IrsRefund)
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
+        setSumIrs(0);
       }
     });
   }
 
   useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
     getInvoiceSum();
     getExpenseSum();
     getExpenseSumVat();
     getExpenseSumIrs();
+    });
   }, [navigation]);
 
 
   return (
     <TabContainer>
+         
       <View style={styles.screenContainer}>
         <Card>
           <View style={styles.user}>

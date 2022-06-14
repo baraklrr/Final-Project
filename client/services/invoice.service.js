@@ -33,8 +33,14 @@ class InvoiceDataService {
   }
   async invoiceSum() {
     const auth = await authHeader();
-    return http.get(`/income/sum`, { headers: auth });
-  }
+    return http.get(`/income/sum`,{ headers: auth });
+    }
+  
+  async  getbyMonthSum(){
+      const auth = await authHeader();
+      return http.get(`/income/grouped-by-months`,{ headers: auth });
+    }
+ 
 }
 
 export default new InvoiceDataService();

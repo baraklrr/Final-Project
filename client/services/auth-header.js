@@ -7,7 +7,7 @@ export default async function authHeader() {
   } catch (e) {
     // read error
   }
-  console.log('Done.');
+  //console.log('Done.');
   if (token) {
     return { 'x-access-token': token }; // for Node.js Express back-end
   } else {
