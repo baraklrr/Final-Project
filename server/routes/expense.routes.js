@@ -71,9 +71,7 @@ const authJwt = require("../middleware/authJwt");
  *                 $ref: '#/components/schemas/Expense'
  */
 
-expenseRouter.post("/create",
-[authJwt.verifyToken]
-,expenseController.create);
+expenseRouter.post("/create", [authJwt.verifyToken], expenseController.create);
 
 /**
  * @swagger
@@ -96,9 +94,7 @@ expenseRouter.post("/create",
  *                 $ref: '#/components/schemas/Expense'
  */
 
-expenseRouter.get("/all",  
-[authJwt.verifyToken]
-,expenseController.getexpenses);
+expenseRouter.get("/all", [authJwt.verifyToken], expenseController.getexpenses);
 
 /**
  * @swagger
@@ -165,29 +161,23 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
- expenseRouter.get("/find/:name",[authJwt.verifyToken] ,expenseController.find);
+expenseRouter.get("/find/:name", [authJwt.verifyToken], expenseController.find);
 
- expenseRouter.get(
-  "/sum", 
-   [authJwt.verifyToken],
-   expenseController.sum
- );
+expenseRouter.get("/sum", [authJwt.verifyToken], expenseController.sum);
 
- expenseRouter.get(
-    "/grouped-by-months",
-    expenseController.getexpenseGroupedByMonths
-  );
+expenseRouter.get(
+  "/grouped-by-months",
+  expenseController.getexpenseGroupedByMonths
+);
 
-  expenseRouter.get(
-    "/vatSum",
-    [authJwt.verifyToken],
-    expenseController.sumVat
-  );
+expenseRouter.get("/vatSum", [authJwt.verifyToken], expenseController.sumVat);
 
-  expenseRouter.get(
-    "/irsSum",
-    [authJwt.verifyToken],
-    expenseController.sumIrs
-  );
+expenseRouter.get("/irsSum", [authJwt.verifyToken], expenseController.sumIrs);
+
+expenseRouter.get(
+  "/expenseImage/:id",
+  [authJwt.verifyToken],
+  expenseController.getImageById
+);
 
 module.exports = expenseRouter;

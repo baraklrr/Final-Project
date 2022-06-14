@@ -1,6 +1,6 @@
 const { db } = require("../models");
 const fs = require("fs");
-const { ModelCtor ,  Sequelize } = require("sequelize");
+const { ModelCtor, Sequelize } = require("sequelize");
 
 /**
  * @type {ModelCtor<Model<any, any>>}
@@ -13,11 +13,10 @@ const Op = db.Sequelize.Op;
 
 //create and save a new expend
 exports.create = async (req, res) => {
-
   expenseType
     .findOne({
-      attributes: ["vatPercentage","IrsPercentage"],
-      where: { expensetypeId: req.body.VatType-1},
+      attributes: ["vatPercentage", "IrsPercentage"],
+      where: { expensetypeId: req.body.VatType - 1 },
     })
     .then((data) => {
       try {
@@ -99,6 +98,22 @@ exports.update = (req, res) => {
       });
     });
 };
+exports.getImageById = (req, res) => {
+  const id = req.params.id;
+  expenses
+    .findOne({
+      // attributes: ["expenseImg"],
+      where: { id: id },
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 
 exports.delete = (req, res) => {
   const id = req.params.id;
@@ -133,7 +148,8 @@ exports.find = (req, res) => {
     ? { businessId: { [Op.like]: `%${businessId}%` } }
     : null;
 
-  exports.findAll({
+  exports
+    .findAll({
       where: { [Op.and]: [{ name: condition2 }, { businessId: condition }] },
     })
     .then((data) => {
@@ -147,15 +163,16 @@ exports.find = (req, res) => {
 };
 
 exports.sum = (req, res) => {
- const businessId = res.locals.userId;
- expenses.findAll({
-    attributes: [
-      [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
-    ],
-    where: {
-      [Op.and]: [{ businessId: businessId }],
-    },
-  })
+  const businessId = res.locals.userId;
+  expenses
+    .findAll({
+      attributes: [
+        [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
+      ],
+      where: {
+        [Op.and]: [{ businessId: businessId }],
+      },
+    })
     .then((data) => {
       res.send(data);
     })
@@ -168,14 +185,15 @@ exports.sum = (req, res) => {
 
 exports.getexpenseGroupedByMonths = (req, res) => {
   //const userId = res.locals.userId;
-  expenses.findAll({
-    attributes: [
-      [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
-      [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
-    ],
-    order: [[Sequelize.literal('"month"'), "ASC"]],
-    group: "month",
-  })
+  expenses
+    .findAll({
+      attributes: [
+        [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
+        [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
+      ],
+      order: [[Sequelize.literal('"month"'), "ASC"]],
+      group: "month",
+    })
     .then((data) => {
       res.send(data);
     })
@@ -186,43 +204,44 @@ exports.getexpenseGroupedByMonths = (req, res) => {
     });
 };
 
-
 exports.sumVat = (req, res) => {
   const businessId = res.locals.userId;
-  expenses.findAll({
-     attributes: [
-       [Sequelize.fn("SUM", Sequelize.col("VatRefund")), "VatRefund"],
-     ],
-     where: {
-       [Op.and]: [{ businessId: businessId }],
-     },
-   })
-     .then((data) => {
-       res.send(data);
-     })
-     .catch((err) => {
-       res.status(500).send({
-         message: err.message || "some error occured while retrieving",
-       });
-     });
+  expenses
+    .findAll({
+      attributes: [
+        [Sequelize.fn("SUM", Sequelize.col("VatRefund")), "VatRefund"],
+      ],
+      where: {
+        [Op.and]: [{ businessId: businessId }],
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
 };
 
-exports.sumIrs= (req, res) => {
+exports.sumIrs = (req, res) => {
   const businessId = res.locals.userId;
-  expenses.findAll({
-     attributes: [
-       [Sequelize.fn("SUM", Sequelize.col("IrsRefund")), "IrsRefund"],
-     ],
-     where: {
-       [Op.and]: [{ businessId: businessId }],
-     },
-   })
-     .then((data) => {
-       res.send(data);
-     })
-     .catch((err) => {
-       res.status(500).send({
-         message: err.message || "some error occured while retrieving",
-       });
-     });
+  expenses
+    .findAll({
+      attributes: [
+        [Sequelize.fn("SUM", Sequelize.col("IrsRefund")), "IrsRefund"],
+      ],
+      where: {
+        [Op.and]: [{ businessId: businessId }],
+      },
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
 };

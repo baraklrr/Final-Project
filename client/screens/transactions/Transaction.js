@@ -10,7 +10,6 @@ import {
   Image,
 } from 'react-native';
 import TransactionService from '../../services/transaction.service';
-import { useIsFocused } from '@react-navigation/native';
 import { base64ArrayBuffer } from '../../helpers/bufferToBase64';
 import { Card } from '@rneui/themed';
 import { Chip } from 'react-native-paper';
@@ -39,8 +38,6 @@ const monthsShort = [
 const Transaction = ({ route, navigation }) => {
   const [base64Image, setBase64Image] = useState(null);
   const { data, onDelete } = route.params;
-  // console.log(data.name);
-  // const isFocused = useIsFocused();
   const timeToString = (time) => {
     const date = new Date(time);
     const splitDate = date.toISOString().split('T')[0].split('-');
@@ -48,10 +45,21 @@ const Transaction = ({ route, navigation }) => {
     return splitDate[2] + ' ' + month + ', ' + splitDate[0];
   };
   useEffect(() => {
-    let imageBuffer = base64ArrayBuffer(data.expenseImg.data);
-    setBase64Image(imageBuffer);
+    loadImage();
   }, [navigation]);
 
+  const loadImage = async () => {
+    await TransactionService.getImageById(data.id)
+      .then((response) => {
+        let imageBuffer = base64ArrayBuffer(response.data.expenseImg.data);
+        setBase64Image(imageBuffer);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data); // => the response payload
+        }
+      });
+  };
   const deleteTransaction = () => {
     TransactionService.delete(data.id)
       .then((response) => {

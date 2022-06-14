@@ -16,7 +16,7 @@ exports.findAll = (req, res) => {
   //     });
   //   });
 
-  Expense.findAll()
+  Expense.findAll({ attributes: { exclude: ["expenseImg"] } })
     .then((data) => {
       res.send(data);
     })
