@@ -12,6 +12,7 @@ import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TransactionsNavigation from './TransactionsNavigation';
+import { color } from '@rneui/base';
 
 const Tab = createBottomTabNavigator();
 

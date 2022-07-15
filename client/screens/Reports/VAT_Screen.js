@@ -7,6 +7,7 @@ import { COLORS } from '../../core/theme';
 import Constants from 'expo-constants';
 import ExpenseDataService from '../../services/expense.service';
 import InvoiceDataService from '../../services/invoice.service'; 
+import Header from '../../components/Header';
 
 const VAT_Screen = ({route}) => {
   const [refreshing, setRefreshing] = useState(false);
@@ -63,6 +64,16 @@ const VAT_Screen = ({route}) => {
       }
     });
   };
+
+  const EmptyListMessage = ({item}) => {
+    return (
+      // Flat List Item
+      <Text
+      style={styles.emptyListStyle}>
+          אין נתונים להציג
+      </Text>
+    );
+  };
   
   var allData= expenses.reduce((arr,e)=>{
     arr.push(Object.assign({},e,income.find(a=>a.month==e.month)?income.find(a=>a.month==e.month):{"incomeSum":0}
@@ -74,14 +85,13 @@ const VAT_Screen = ({route}) => {
 
   return (
     <TabContainer>
-
+      
     <FlatList
     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     data={allData && allData.length > 0 ? allData : []}
     renderItem={({ item }) => (
           <List.Section>
               <List.Accordion
-              
                 titleStyle={{ color: 'black', fontWeight: 'bold' }}
                 title= {monthsShort[parseInt(item.month.split('-')[0])-1] +' '+ item.month.split('-')[1]}
                 left={(props) => (
@@ -169,131 +179,21 @@ const VAT_Screen = ({route}) => {
         </List.Section>
     )}
     ItemSeparatorComponent={() => <List.Section/>}
+    ListEmptyComponent={EmptyListMessage}
   />
 
 </TabContainer>
-
-
-
-    // <TabContainer>
-    //   <View style={styles.container}>
-    //     <ScrollView>
-    //       <List.Section>
-    //         <List.Accordion
-    //           titleStyle={{ color: 'black', fontWeight: 'bold' }}
-    //           title="ינואר - פברואר"
-    //           left={(props) => (
-    //             <Chip
-    //               style={{
-    //                 borderColor: `lightblue`,
-    //                 backgroundColor: `lightblue`,
-    //                 alignSelf: 'center',
-    //               }}
-    //             >
-    //               ₪994.5
-    //             </Chip>
-    //           )}
-    //         >
-    //           <List.Item
-    //             title="סך הכנסות חייבות במעמ -"
-    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
-    //             right={() => (
-    //               <Text
-    //                 style={{
-    //                   color: '#274c77',
-    //                   textAlignVertical: 'center',
-    //                   marginRight: 15,
-    //                   fontWeight: 'bold',
-    //                   fontSize: 15,
-    //                 }}
-    //               >
-    //                 ₪7,500
-    //               </Text>
-    //             )}
-    //           />
-    //           <List.Item
-    //             title="סך הוצאות מוכרות למעמ -"
-    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
-    //             right={() => (
-    //               <Text
-    //                 style={{
-    //                   color: '#274c77',
-    //                   textAlignVertical: 'center',
-    //                   marginRight: 15,
-    //                   fontWeight: 'bold',
-    //                   fontSize: 15,
-    //                 }}
-    //               >
-    //                 ₪2,500
-    //               </Text>
-    //             )}
-    //           />
-    //           <List.Item
-    //             title="סך קיזוז למעמ -"
-    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
-    //             right={() => (
-    //               <Text
-    //                 style={{
-    //                   color: '#274c77',
-    //                   textAlignVertical: 'center',
-    //                   marginRight: 15,
-    //                   fontWeight: 'bold',
-    //                   fontSize: 15,
-    //                 }}
-    //               >
-    //                 ₪1,650
-    //               </Text>
-    //             )}
-    //           />
-    //           <List.Item
-    //             title="סך הפרשים למעמ -"
-    //             titleStyle={{ marginLeft: 20, fontWeight: 'bold' }}
-    //             right={() => (
-    //               <Text
-    //                 style={{
-    //                   color: '#274c77',
-    //                   textAlignVertical: 'center',
-    //                   marginRight: 15,
-    //                   fontWeight: 'bold',
-    //                   fontSize: 15,
-    //                 }}
-    //               >
-    //                 ₪5,850
-    //               </Text>
-    //             )}
-    //           />
-    //         </List.Accordion>
-    //       </List.Section>
-    //     </ScrollView>
-    //   </View>
-    // </TabContainer>
-  );
+);
 };
+
+
+ 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#efefef',
-    padding: 20,
-  },
-  overflow: {
-    overflow: 'hidden',
-    backgroundColor: 'white',
-    borderRadius: 6,
-  },
-  button: {
-    padding: 10,
+  emptyListStyle: {
+    padding: 100,
+    fontSize: 20,
     textAlign: 'center',
   },
-  buttonText: {
-    fontSize: 20,
-  },
-  textContainer: {
-    padding: 15,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bg,
-    marginBottom: 60,
-  },
 });
+
 export default VAT_Screen;

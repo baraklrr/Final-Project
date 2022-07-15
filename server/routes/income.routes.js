@@ -3,6 +3,40 @@ const incomeRouter = express.Router();
 const IncomeController = require("../controllers/income_controller");
 const authJwt = require("../middleware/authJwt");
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: income
+ *   description: incomes
+ */
+
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     User:
+ *      type: object
+ *      required:
+ *        - email
+ *        - username
+ *        - password
+ *      properties:
+ *        email:
+ *          type: string
+ *          description: The user email
+ *        username:
+ *          type: string
+ *          description: The user name
+ *        password:
+ *          type: string
+ *          description: The user password
+ *      example:
+ *        email: 'bob@gmail.com'
+ *        username : 'bob123'
+ *        password: '123456'
+ */
+
 incomeRouter.post(
   "/create",
   [authJwt.verifyToken],

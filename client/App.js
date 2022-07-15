@@ -63,6 +63,7 @@ export default function App() {
     } catch (e) {
       // Restoring token failed
       console.log('error ' + e);
+      authContext.logout();
     }
     // After restoring token, we may need to validate it in production app
     // This will switch to the App screen or Auth screen and this loading

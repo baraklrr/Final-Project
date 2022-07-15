@@ -65,16 +65,26 @@ const Income_Tax_Screen = ({route}) => {
   };
   
   var allData= expenses.reduce((arr,e)=>{
-    arr.push(Object.assign({},e,income.find(a=>a.month==e.month)?income.find(a=>a.month==e.month):{"incomeSum":0}
+    arr.push(Object.assign({},e,income.find(a=>a.month==e.month)?income.find(a=>a.month==e.month):
+    {"incomeSum":0}
     ))
     return arr;
    },[]).sort((a, b) => a.month.split('-')[0] - b.month.split('-')[0])
    
    console.log(allData)
 
+   const EmptyListMessage = ({item}) => {
+    return (
+      // Flat List Item
+      <Text
+      style={styles.emptyListStyle}>
+          אין נתונים להציג
+      </Text>
+    );
+  };
+
   return (
     <TabContainer>
-
     <FlatList
     refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
     data={allData && allData.length > 0 ? allData : []}
@@ -161,7 +171,7 @@ const Income_Tax_Screen = ({route}) => {
                       fontSize: 15,
                     }}
                   >
-                   ₪{ item.incomeSum -parseInt(item.expenseSum * 0.3)}
+                   ₪{item.incomeSum -parseInt(item.expenseSum * 0.3)}
                   </Text>
                 )}
               />
@@ -169,6 +179,8 @@ const Income_Tax_Screen = ({route}) => {
         </List.Section>
     )}
     ItemSeparatorComponent={() => <List.Section/>}
+    ListEmptyComponent={EmptyListMessage}
+
   />
 
 </TabContainer>
@@ -176,30 +188,10 @@ const Income_Tax_Screen = ({route}) => {
   )
 };
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#efefef',
-    padding: 20,
-  },
-  overflow: {
-    overflow: 'hidden',
-    backgroundColor: 'white',
-    borderRadius: 6,
-  },
-  button: {
-    padding: 10,
-    textAlign: 'center',
-  },
-  buttonText: {
+  emptyListStyle: {
+    padding: 100,
     fontSize: 20,
-  },
-  textContainer: {
-    padding: 15,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.bg,
-    marginBottom: 60,
+    textAlign: 'center',
   },
 });
 export default Income_Tax_Screen;

@@ -186,6 +186,7 @@ exports.sum = (req, res) => {
 exports.getexpenseGroupedByMonths = (req, res) => {
 
   const userId = res.locals.userId;
+  console.log(userId);
   expenses.findAll({
     attributes: [
       [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
