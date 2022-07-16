@@ -14,23 +14,8 @@ const login = async (username, password) => {
     username,
     password,
   });
-  // .then((response) => {
-  //   if (response?.data?.accessToken) {
-  //     console.log('inside then');
-  //     return saveUserToLocalStorage(
-  //       response.data.username,
-  //       response.data.accessToken,
-  //       response.data.email,
-  //       response.data.phoneNumber
-  //     );
-  //   }
-  //   return response?.data;
-  // })
-  // .catch((err) => {
-  //   console.log('error: ' + err);
-  //   console.log('user not exist');
-  // });
 };
+
 const saveUserToLocalStorage = async (data1, data2, data3, data4) => {
   try {
     const jsonValueToken = data2; //JSON.stringify(data2);
@@ -51,7 +36,6 @@ const logout = async () => {
   } catch (e) {
     // remove error
   }
-
   //console.log('Done.');
 };
 

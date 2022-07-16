@@ -57,17 +57,17 @@ export default function App() {
   const bootstrapAsync = async () => {
     let userToken;
     try {
-      // Restore token stored in `SecureStore` or any other encrypted storage
+      // Restore token 
       userToken = await AsyncStorage.getItem('token');
       console.log('token :' + userToken);
     } catch (e) {
       // Restoring token failed
       console.log('error ' + e);
-      authContext.logout();
     }
     // After restoring token, we may need to validate it in production app
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
+    
     dispatch({ type: 'RESTORE_TOKEN', token: userToken });
   };
 
@@ -78,7 +78,6 @@ export default function App() {
         // We will also need to handle errors if sign in failed
         await AuthService.login(username, password)
           .then(async (response) => {
-            console.log('logged in');
             AuthService.saveUserToLocalStorage(
               response.data.username,
               response.data.accessToken,
@@ -93,6 +92,10 @@ export default function App() {
             Alert.alert('שגיאה', 'הוזנו פרטים שגויים, יש לנסות שוב. משתמש חדש? לחץ על "הירשם" .', [
               { text: 'אישור', onPress: () => console.log('OK Pressed') },
             ]);
+            if(error.response.status==401)
+            {
+              dispatch({ type: 'SIGN_OUT' });
+            }
           });
       },
       signOut: () => {
@@ -115,6 +118,7 @@ export default function App() {
     }),
     []
   );
+  
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Text,Image, StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screens/Dashboard';
-import NotificationScreen from '../screens/NotificationScreen';
-import SettingNavigation from './SettingNavigation';
 import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
 import { useTabMenu } from '../context/TabContext';
 import AddButton from '../components/AddButton';
@@ -12,7 +9,6 @@ import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TransactionsNavigation from './TransactionsNavigation';
-import { color } from '@rneui/base';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,7 +48,7 @@ export default function TabNavigation() {
         tabBarStyle: styles.tabBar,
         headerTitleStyle: { alignItems: 'center' },
         headerStyle: {
-          height: 120,
+          height: 150,
         },
         headerBackTitleStyle: {
           color: 'transparent',
@@ -64,7 +60,11 @@ export default function TabNavigation() {
         name="בית"
         component={Dashboard}
         options={{
-          headerTitle: user + ' ,' + greet,
+          headerTitle: ()=>{
+            return (
+              <Text numberOfLines={2} style={styles.Text} >{greet} {"\n"} ! {user}</Text>
+            )
+          },
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
@@ -171,6 +171,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     // elevation: 3,
+  },
+  Text:{
+    textAlign:'center',
+    fontSize:20,
   },
   tabIconContainer: {
     position: 'absolute',

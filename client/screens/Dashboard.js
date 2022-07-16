@@ -59,7 +59,6 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
     }).catch((error) => {
       if (error.response) {
         console.log(error.response.data); // => the response payload
-        setSumIrs(0);
       }
     });
   }
@@ -76,7 +75,6 @@ const [invoiceSum,SetInvoiceSum]=useState(0);
 
   return (
     <TabContainer>
-         
       <View style={styles.screenContainer}>
         <Card>
           <View style={styles.user}>
@@ -213,7 +211,7 @@ const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: COLORS.bg,
+    backgroundColor: COLORS.bg
   },
   box1: {
     flex: 2,
