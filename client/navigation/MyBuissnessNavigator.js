@@ -3,12 +3,12 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import MyBuissnessScreen from '../screens/myBuissness/MyBuissnessScreen';
 import MyProfileScreen from '../screens/myBuissness/MyProfileScreen';
+import EditMyProfile from '../screens/myBuissness/EditMyProfile';
 import Myfiles from '../screens/myBuissness/MyFiles';
 import { COLORS } from '../core/theme';
 import InstructionScreen from '../screens/myBuissness/InstructionsScreen';
 import ReportsNavigation from './ReportsNavigation';
 import DocViewer from '../screens/files/DocViewer';
-
 const Stack = createStackNavigator();
 
 const MybuissnessNavigator = () => {
@@ -26,6 +26,7 @@ const MybuissnessNavigator = () => {
       <Stack.Screen name="העסק שלי" component={MyBuissnessScreen} />
       <Stack.Screen name="הדיווחים שלי" component={ReportsNavigation} />
       <Stack.Screen name="פרטי העסק שלי" component={MyProfileScreen} />
+      <Stack.Screen name="ערוך את פרטי העסק" component={EditMyProfile} />
       <Stack.Screen name="המסמכים שלי" component={Myfiles} />
       <Stack.Screen name="נהלים" component={InstructionScreen} />
       <Stack.Screen

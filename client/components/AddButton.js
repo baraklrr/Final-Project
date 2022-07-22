@@ -71,32 +71,7 @@ const AddButton = ({ opened, toggleOpened }) => {
               </View>
             </TouchableOpacity>
           </Animated.View>
-          <Animated.View
-            style={[
-              styles.item,
-              opacity,
-              {
-                transform: [
-                  {
-                    translateY: animation.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, -100],
-                    }),
-                  },
-                ],
-              },
-            ]}
-          >
-            <TouchableOpacity onPress={()=>GoToButton("trasactions")}>
-              <View style={styles.IconContainer}>
-                <Image
-                  source={require("../assets/images/Transactions.png")}
-                  resizeMode="contain"
-                  style={styles.itemIcon}
-                />
-              </View>
-            </TouchableOpacity>
-          </Animated.View>
+          
           <Animated.View
             style={[
               styles.item,

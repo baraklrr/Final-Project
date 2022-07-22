@@ -78,12 +78,13 @@ export default function App() {
         // We will also need to handle errors if sign in failed
         await AuthService.login(username, password)
           .then(async (response) => {
-            AuthService.saveUserToLocalStorage(
-              response.data.username,
-              response.data.accessToken,
-              response.data.email,
-              response.data.phoneNumber
-            );
+            AuthService.saveUserToLocalStorage("token",response.data.accessToken);
+            AuthService.saveUserToLocalStorage("username",response.data.username);
+            AuthService.saveUserToLocalStorage("email",response.data.email);
+            AuthService.saveUserToLocalStorage("phone",response.data.phoneNumber);
+            AuthService.saveUserToLocalStorage("buissnesname",response.data.businessName);
+            AuthService.saveUserToLocalStorage("businessAddress",response.data.businessAddress);
+
             let userToken = await AsyncStorage.getItem('token');
             dispatch({ type: 'SIGN_IN', token: userToken });
           })

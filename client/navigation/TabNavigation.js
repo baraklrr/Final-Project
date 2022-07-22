@@ -19,12 +19,13 @@ const getIconColor = (focused) => ({
 export default function TabNavigation() {
   const { opened, toggleOpened } = useTabMenu();
   const [user, setUser] = useState();
-  const [greet, setGreet] = useState('ערב');
+  const [greet, setGreet] = useState('ערב טוב');
 
   const findGreet = () => {
     const hrs = new Date().getHours();
     if (hrs === 0 || hrs < 12) setGreet('בוקר טוב');
-    if (hrs > 12 || hrs < 21) setGreet(' צהריים טובים');
+    if (hrs > 12 || hrs < 21) setGreet('צהריים טובים');
+    if (hrs > 21) setGreet('לילה טוב')
   };
   const findUser = async () => {
     const username = await AsyncStorage.getItem('username');
@@ -42,18 +43,16 @@ export default function TabNavigation() {
       initialRouteName="Dashboard"
       screenOptions={{
         headerShown: true,
+        keyboardHidesTabBar: true,
         tabBarShowLabel: true,
         tabBarLabelStyle: styles.tabLabel,
         headerTitleAlign: 'center',
         tabBarStyle: styles.tabBar,
         headerTitleStyle: { alignItems: 'center' },
-        headerStyle: {
-          height: 150,
-        },
-        headerBackTitleStyle: {
-          color: 'transparent',
-        },
+        headerStyle: { height: 150, },
+        headerBackTitleStyle: { color: 'transparent',} ,
         headerBackTitleVisible: false,
+  
       }}
     >
       <Tab.Screen
@@ -62,7 +61,7 @@ export default function TabNavigation() {
         options={{
           headerTitle: ()=>{
             return (
-              <Text numberOfLines={2} style={styles.Text} >{greet} {"\n"} ! {user}</Text>
+              <Text numberOfLines={2} style={styles.Text} >{greet} , {"\n"} ! {user}</Text>
             )
           },
           tabBarIcon: ({ focused }) => (
@@ -155,6 +154,7 @@ export default function TabNavigation() {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
+    display:'flex',
     padding: 0,
     // left: 16,
     // right: 16,
