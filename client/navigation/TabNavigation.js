@@ -24,7 +24,8 @@ export default function TabNavigation() {
   const findGreet = () => {
     const hrs = new Date().getHours();
     if (hrs === 0 || hrs < 12) setGreet('בוקר טוב');
-    if (hrs > 12 || hrs < 21) setGreet('צהריים טובים');
+    if (hrs > 12 || hrs < 16) setGreet('צהריים טובים');
+    if(hrs>17 || hrs<21) setGreet('ערב טוב')
     if (hrs > 21) setGreet('לילה טוב')
   };
   const findUser = async () => {

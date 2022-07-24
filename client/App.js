@@ -84,7 +84,7 @@ export default function App() {
             AuthService.saveUserToLocalStorage("phone",response.data.phoneNumber);
             AuthService.saveUserToLocalStorage("buissnesname",response.data.businessName);
             AuthService.saveUserToLocalStorage("businessAddress",response.data.businessAddress);
-
+            
             let userToken = await AsyncStorage.getItem('token');
             dispatch({ type: 'SIGN_IN', token: userToken });
           })

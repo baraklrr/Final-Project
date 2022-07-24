@@ -5,6 +5,7 @@ import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import DateCalendar from '../../../components/DateCalendar';
 import { Platform } from 'react-native';
+import DateSelect from '../../../components/DateSelect';
 
 const InvoicePaypal = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [paypalObj, setPaypalObj] = useState({

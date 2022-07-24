@@ -35,13 +35,7 @@ const InvoiceBank = ({ handleSubmit, sumPrice, sumPricePayment }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            {/* <Input
-              textAlign="right"
-              textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
-              placeholder="תאריך החשבונית"
-              onChangeText={(e) => setBankObj({ ...bankObj, date: e })}
-            /> */}
+        
 
             {Platform.OS === 'ios' ? (
               <DateCalendar title="תאריך החשבונית:" setCardObj={setBankObj} cardObj={bankObj} />

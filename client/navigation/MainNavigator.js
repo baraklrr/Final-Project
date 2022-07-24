@@ -14,7 +14,7 @@ const MainNavigator = () => {
     <TabContextProvider>
       <NavigationContainer ref={navigationRef}>
         <Stack.Navigator initialRouteName="Root" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Root" component={TabsNavigator} />
+          <Stack.Screen name="Root" component={TabsNavigator} options={{animationTypeForReplace:'push'}} />
           <Stack.Screen
             name="InvoicesStack"
             component={InvoiceFormNavigator}
@@ -30,6 +30,7 @@ const MainNavigator = () => {
             options={{
               headerShown: false,
               presentation: 'modal',
+
               // ...TransitionPresets.ModalPresentationIOS,
             }}
           />

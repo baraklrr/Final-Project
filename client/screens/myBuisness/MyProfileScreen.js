@@ -13,6 +13,7 @@ import { COLORS } from '../../core/theme';
 
 
 export default function MyProfileScreen({ navigation }) {
+
   const [user,setUser]=useState();
   const [email,setemail]=useState();
   const [phone,setphone]=useState();
@@ -26,16 +27,21 @@ export default function MyProfileScreen({ navigation }) {
     const phone = await AsyncStorage.getItem("phone");
     const email = await AsyncStorage.getItem("email");
     const address = await AsyncStorage.getItem("businessAddress");
-    const bname = await AsyncStorage.getItem("businessName")
+    const bname = await AsyncStorage.getItem("businessName");
+    console.log(bname);
 
     setUser(username)
     setemail(email)
     setphone(phone)
+    setaddress(address)
+    setbuissnessname(bname)
     };
-    
     useEffect(()=>{
       findUser();
     },[]);
+
+    console.log(phone)
+
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
@@ -52,7 +58,6 @@ export default function MyProfileScreen({ navigation }) {
       <Text style={styles.aboutUser}>נייד : {phone ? phone:"לא נרשם"} </Text>
       <Text style={styles.aboutUser}>שם העסק: {buissnessname ? buissnessname:"לא נרשם"} </Text>
       <Text style={styles.aboutUser}>כתובת העסק : {address ? address:"לא נרשם"} </Text>
-      {/* <Text style={styles.aboutUser}>מספר הטלפון של העסק : {buissnessPhone ? buissnessPhone:"לא נרשם"} </Text> */}
       <Button mode="outlined" onPress={()=>{navigation.navigate("ערוך את פרטי העסק")}} >
         ערוך פרטים
         </Button>

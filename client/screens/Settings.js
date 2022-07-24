@@ -48,6 +48,8 @@ export default function Settings({ navigation }) {
   useEffect(()=>{
     findUser();
   },[]);
+
+  
   return (
     <TabContainer>
       <View style={styles.container}>

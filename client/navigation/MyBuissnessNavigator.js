@@ -1,12 +1,11 @@
 import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import MyBuissnessScreen from '../screens/myBuissness/MyBuissnessScreen';
-import MyProfileScreen from '../screens/myBuissness/MyProfileScreen';
-import EditMyProfile from '../screens/myBuissness/EditMyProfile';
-import Myfiles from '../screens/myBuissness/MyFiles';
-import { COLORS } from '../core/theme';
-import InstructionScreen from '../screens/myBuissness/InstructionsScreen';
+import MyBuissnessScreen from '../screens/myBuisness/MyBuisnessScreen';
+import MyProfileScreen from '../screens/myBuisness/MyProfileScreen';
+import EditMyProfile from '../screens/myBuisness/EditMyProfile';
+import Myfiles from '../screens/myBuisness/MyFiles';
+import InstructionScreen from '../screens/myBuisness/InstructionsScreen';
 import ReportsNavigation from './ReportsNavigation';
 import DocViewer from '../screens/files/DocViewer';
 const Stack = createStackNavigator();
