@@ -1,12 +1,12 @@
 import React, { useEffect, useState }from 'react';
 
 import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
-import Header from '../components/Header';
-import TabContainer from '../components/TabContainer';
+import Header from '../../components/Header';
+import TabContainer from '../../components/TabContainer';
 import { Card, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from 'expo-constants';
-import { COLORS } from '../core/theme';
+import { COLORS } from '../../core/theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,29 +54,16 @@ export default function Settings({ navigation }) {
               />
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('המסמכים שלי');
-              }}
-            >
-              <Card.Title
-                style={styles.list}
-                title="מגירת מסמכים"
-                titleStyle={{ fontSize: 16 }}
-                left={() => <Icon name="file-tray-outline" color="#212121" size={27} />}
-                right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
-              />
-            </TouchableOpacity> */}
 
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('ערוך את הפרטים שלי');
+                navigation.navigate('פרטי העסק שלי');
               }}
             >
               <Card.Title
                 style={styles.list}
                 titleStyle={{ fontSize: 16 }}
-                title="ערוך פרטים אישיים"
+                title="פרטי העסק שלי"
                 left={() => <Icon name="md-pencil" color="#212121" size={27} />}
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Text,Image, StyleSheet, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Dashboard from '../screens/Dashboard';
-import NotificationScreen from '../screens/NotificationScreen';
-import SettingNavigation from './SettingNavigation';
 import MyBuissnessNavigator from '../navigation/MyBuissnessNavigator';
 import { useTabMenu } from '../context/TabContext';
 import AddButton from '../components/AddButton';
@@ -22,12 +19,13 @@ const getIconColor = (focused) => ({
 export default function TabNavigation() {
   const { opened, toggleOpened } = useTabMenu();
   const [user, setUser] = useState();
-  const [greet, setGreet] = useState('ערב');
+  const [greet, setGreet] = useState('ערב טוב');
 
   const findGreet = () => {
     const hrs = new Date().getHours();
     if (hrs === 0 || hrs < 12) setGreet('בוקר טוב');
-    if (hrs > 12 || hrs < 21) setGreet(' צהריים טובים');
+    if (hrs > 12 || hrs < 21) setGreet('צהריים טובים');
+    if (hrs > 21) setGreet('לילה טוב')
   };
   const findUser = async () => {
     const username = await AsyncStorage.getItem('username');
@@ -45,25 +43,27 @@ export default function TabNavigation() {
       initialRouteName="Dashboard"
       screenOptions={{
         headerShown: true,
+        keyboardHidesTabBar: true,
         tabBarShowLabel: true,
         tabBarLabelStyle: styles.tabLabel,
         headerTitleAlign: 'center',
         tabBarStyle: styles.tabBar,
         headerTitleStyle: { alignItems: 'center' },
-        headerStyle: {
-          height: 120,
-        },
-        headerBackTitleStyle: {
-          color: 'transparent',
-        },
+        headerStyle: { height: 150, },
+        headerBackTitleStyle: { color: 'transparent',} ,
         headerBackTitleVisible: false,
+  
       }}
     >
       <Tab.Screen
         name="בית"
         component={Dashboard}
         options={{
-          headerTitle: user + ' ,' + greet,
+          headerTitle: ()=>{
+            return (
+              <Text numberOfLines={2} style={styles.Text} >{greet} , {"\n"} ! {user}</Text>
+            )
+          },
           tabBarIcon: ({ focused }) => (
             <View style={styles.tabIconContainer}>
               <Image
@@ -154,6 +154,7 @@ export default function TabNavigation() {
 const styles = StyleSheet.create({
   tabBar: {
     position: 'absolute',
+    display:'flex',
     padding: 0,
     // left: 16,
     // right: 16,
@@ -170,6 +171,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     // elevation: 3,
+  },
+  Text:{
+    textAlign:'center',
+    fontSize:20,
   },
   tabIconContainer: {
     position: 'absolute',

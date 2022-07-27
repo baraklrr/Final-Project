@@ -12,8 +12,8 @@ export default function StartScreen({ navigation }) {
     <Background>
       <Logo />
       <Header>Xcount</Header>
-      <Paragraph>
-        הצטרך עכשיו לאפליקציה שמחליפה את רואה החשבון שלך
+      <Paragraph style={{fontWeight:'bold',marginBottom: 10,fontSize: 16}}>
+        הצטרף עכשיו לאפליקציה שמחליפה את רואה החשבון שלך
       </Paragraph>
       <Button
         mode="contained"

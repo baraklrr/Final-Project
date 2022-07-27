@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SafeAreaView, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
-import TabContainer from '../components/TabContainer';
+import TabContainer from '../../components/TabContainer';
 import { Card, Paragraph } from 'react-native-paper';
 
 const styles = StyleSheet.create({

@@ -71,9 +71,7 @@ const authJwt = require("../middleware/authJwt");
  *                 $ref: '#/components/schemas/Expense'
  */
 
-expenseRouter.post("/create",
-[authJwt.verifyToken]
-,expenseController.create);
+expenseRouter.post("/create", [authJwt.verifyToken], expenseController.create);
 
 /**
  * @swagger
@@ -96,9 +94,7 @@ expenseRouter.post("/create",
  *                 $ref: '#/components/schemas/Expense'
  */
 
-expenseRouter.get("/all",  
-[authJwt.verifyToken]
-,expenseController.getexpenses);
+expenseRouter.get("/all", [authJwt.verifyToken], expenseController.getexpenses);
 
 /**
  * @swagger
@@ -165,30 +161,131 @@ expenseRouter.delete("/delete/:id", expenseController.delete);
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
- expenseRouter.get("/find/:name",[authJwt.verifyToken] ,expenseController.find);
+expenseRouter.get("/find/:name", [authJwt.verifyToken], expenseController.find);
 
- expenseRouter.get(
-  "/sum", 
-   [authJwt.verifyToken],
-   expenseController.sum
- );
+/**
+ * @swagger
+ * /api/expenses/sum:
+ *   post:
+ *     summary: get sum of all expenses of the user
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: get sum of all expenses of the user
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
 
- expenseRouter.get(
-    "/grouped-by-months",
-     [authJwt.verifyToken],
-    expenseController.getexpenseGroupedByMonths
-  );
+expenseRouter.get("/sum", [authJwt.verifyToken], expenseController.sum);
 
-  expenseRouter.get(
-    "/vatSum",
-    [authJwt.verifyToken],
-    expenseController.sumVat
-  );
 
-  expenseRouter.get(
-    "/irsSum",
-    [authJwt.verifyToken],
-    expenseController.sumIrs
-  );
+/**
+ * @swagger
+ * /api/expenses/grouped-by-months:
+ *   post:
+ *     summary: get all expenses of the user by grouped by months
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: get all expenses of the user by grouped-by-months
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+
+expenseRouter.get(
+  "/grouped-by-months",
+  [authJwt.verifyToken],
+  expenseController.getexpenseGroupedByMonths
+);
+
+/**
+ * @swagger
+ * /api/expenses/vatSum:
+ *   post:
+ *     summary: get vatSum all expenses 
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: get vatSum all expenses 
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+
+expenseRouter.get("/vatSum",
+ [authJwt.verifyToken], 
+ expenseController.sumVat);
+
+/**
+ * @swagger
+ * /api/expenses/irsSum:
+ *   post:
+ *     summary: get irsSum all expenses 
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: get irsSum all expenses 
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+
+expenseRouter.get("/irsSum", [authJwt.verifyToken], expenseController.sumIrs);
+
+/**
+ * @swagger
+ * /api/expenses/irsSum:
+ *   post:
+ *     summary: get expenses picture
+ *     tags: [Expenses]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         expenseRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Expense'
+ *       responses:
+ *         200:
+ *           description: get expenses picture 
+ *           content:
+ *             expenseRouterlication/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Expense'
+ */
+expenseRouter.get(
+  "/expenseImage/:id",
+  [authJwt.verifyToken],
+  expenseController.getImageById
+);
 
 module.exports = expenseRouter;

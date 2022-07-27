@@ -6,7 +6,7 @@ import { theme } from '../core/theme'
 export default function Background({ children }) {
   return (
     <ImageBackground
-      resizeMode="repeat"
+     source={require('../assets/background.jpeg')}
       style={styles.background}>
       
       <KeyboardAvoidingView style={styles.container} >

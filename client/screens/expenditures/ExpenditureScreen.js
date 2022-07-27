@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   Platform,
   Image,
+  LogBox,
 } from 'react-native';
 import { Card, Input } from '@rneui/themed';
 import DateSelect from '../../components/DateSelect';
@@ -26,6 +27,7 @@ const options = [
   { label: '₪', value: '1', testID: 'switch-one', accessibilityLabel: 'switch-one' },
   { label: '$', value: '2', testID: 'switch-two', accessibilityLabel: 'switch-two' },
 ];
+LogBox.ignoreAllLogs(true);
 
 const ExpenditureScreen = ({ navigation }) => {
   const [sum, setSum] = useState();
@@ -98,13 +100,7 @@ const ExpenditureScreen = ({ navigation }) => {
             <DateSelect onDateSelect={addDateHandler} />
           )}
           {!image && (
-            <>
-              <View style={[styles.container]}>
-                <View style={[styles.section, Platform.select({ ios: { zIndex: 100 } })]}>
                   <Categories onCategorySelect={addCategoryHandler} />
-                </View>
-              </View>
-            </>
           )}
           <Card.Title
             style={{
@@ -193,7 +189,7 @@ const ExpenditureScreen = ({ navigation }) => {
             )}
           </View>
         </View>
-        
+
         <View style={styles.bottomContainer}>
           <View style={{ flex: 1 }}>
             {image && (
