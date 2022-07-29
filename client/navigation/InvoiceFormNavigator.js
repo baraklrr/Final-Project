@@ -8,6 +8,7 @@ import InvoicePayment from '../screens/invoices/InvoicePayment';
 import InvoiceFinal from '../screens/invoices/InvoiceFinal';
 import InvoiceView from '../screens/invoices/InvoiceView';
 import InvoiceViewOptions from '../screens/invoices/InvoiceViewOptions';
+import CustomerList from '../screens/customerList/customerList'
 import { TouchableOpacity } from 'react-native';
 import * as RootNavigation from '../navigation/RootNavigation';
 
@@ -20,6 +21,20 @@ const InvoiceFormNavigator = () => {
         <ModalStack.Screen
           name="חשבונית מס/קבלה"
           component={InvoiceFirst}
+          options={({ navigation, route }) => ({
+            headerShown: true,
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Ionicons name="close-sharp" size={28} color="black" />
+              </TouchableOpacity>
+            ),
+            entation: 'modal',
+          })}
+        />
+        <ModalStack.Screen
+          name="רשימת לקוחות"
+          component={CustomerList}
           options={({ navigation, route }) => ({
             headerShown: true,
             headerTitleAlign: 'center',

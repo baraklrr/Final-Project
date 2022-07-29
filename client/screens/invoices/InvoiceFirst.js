@@ -94,8 +94,13 @@ const InvoiceFirst = ({ navigation, route }) => {
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
-            rightIcon={<Icon name="account-plus" size={20} />}
+            rightIcon={
+              <TouchableOpacity onPress={()=> navigation.navigate('רשימת לקוחות', {setClientObj})}>
+                <Icon name="account-plus" size={20} />
+              </TouchableOpacity>
+            }
             icon
+            value={clientObj.name}
             placeholder="שם"
             onChangeText={(e) => setClientObj({ ...clientObj, name: e })}
           />
@@ -107,6 +112,7 @@ const InvoiceFirst = ({ navigation, route }) => {
             rightIcon={<Icon name="phone" size={20} />}
             placeholder="טלפון"
             keyboardType="number-pad"
+            value={clientObj.phone}
             onChangeText={(e) => setClientObj({ ...clientObj, phone: e })}
           />
           <Input
@@ -114,6 +120,7 @@ const InvoiceFirst = ({ navigation, route }) => {
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="מספר עוסק או ח.פ"
+            value={clientObj.companyNumber}
             keyboardType="number-pad"
             onChangeText={(e) => setClientObj({ ...clientObj, companyNumber: e })}
           />
