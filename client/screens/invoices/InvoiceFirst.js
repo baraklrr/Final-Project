@@ -95,7 +95,9 @@ const InvoiceFirst = ({ navigation, route }) => {
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
             rightIcon={
-              <TouchableOpacity onPress={()=> navigation.navigate('רשימת לקוחות', {setClientObj})}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('רשימת לקוחות', { setClientObj })}
+              >
                 <Icon name="account-plus" size={20} />
               </TouchableOpacity>
             }
@@ -396,6 +398,8 @@ const InvoiceFirst = ({ navigation, route }) => {
                 sumPrice: sumPrice,
                 clientObj: clientObj,
                 date: date,
+                saveCustomer: checked,
+                customerInfo: clientObj
               });
             }
           }}

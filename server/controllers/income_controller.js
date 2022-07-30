@@ -3,6 +3,7 @@ const receiptController = require("../controllers/receipt.controller");
 const { ModelCtor, Sequelize } = require("sequelize");
 
 const Income = db.income;
+const Customer = db.customer;
 const Op = db.Sequelize.Op;
 
 const createIncome = (req, res) => {
@@ -17,7 +18,7 @@ const createIncome = (req, res) => {
   const businessId = res.locals.userId; //from token
   const saveCustomer = false; //req.body.saveCustomer;
   const customerId = req.body.customerId || null;
-  const date = new Date(req.body.date).toISOString(); //req.body.date;
+  const date = req.body.date.split("/").reverse().join("-"); //req.body.date;
   const description = req.body.description;
   const incomeSum = parseFloat(req.body.incomeSum);
   const incomeType = req.body.incomeType || "";
@@ -46,6 +47,32 @@ const createIncome = (req, res) => {
     items,
     incomeSum,
     paymentMethods,
+  })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log("error: " + err);
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating Income.",
+      });
+    });
+};
+const createCustomer = (req, res) => {
+  if (!req.body.companyNumber || !req.body.name || !req.body.phone) {
+    res.status(405).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
+  const customerId = req.body.companyNumber;
+  const customerName = req.body.name;
+  const customerPhone = req.body.phone;
+
+  Customer.create({
+    customerId,
+    customerName,
+    customerPhone,
   })
     .then((data) => {
       res.send(data);
@@ -211,7 +238,17 @@ const getIncomesByDate = (req, res) => {
       });
     });
 };
-
+const getAllCustomers = (req, res) => {
+  Customer.findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 // Delete Invoices by date from the database.
 const deleteIncomesByDate = (req, res) => {
   const { startDate, endDate } = req.body;
@@ -236,6 +273,8 @@ module.exports = {
   deleteIncomesByDate,
   createIncome,
   getAllIncomes,
+  getAllCustomers,
+  createCustomer,
   getIncomeById,
   updateIncomeById,
   deleteIncomeById,

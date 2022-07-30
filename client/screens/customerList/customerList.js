@@ -1,51 +1,35 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, ScrollView, Alert } from 'react-native';
 import { Card, Input, Divider } from '@rneui/themed';
 import { List } from 'react-native-paper';
-
-const mockCustomerList = [
-  {
-    customerId: 123456789,
-    customerName: 'אופיר בע״מ',
-    customerPhone: "0547234107"
-  },
-  {
-    customerId: 987654321,
-    customerName: 'ברק בע״מ',
-    customerPhone: "0547234105"
-  },
-  {
-    customerId: 123123123,
-    customerName: 'קורל בע״מ',
-    customerPhone: "0547234104"
-  },
-  {
-    customerId: 456456456,
-    customerName: 'לוריין בע״מ',
-    customerPhone: "0547234103"
-  },
-  {
-    customerId: 123789456,
-    customerName: 'ברזלים בע״מ',
-    customerPhone: "0547234102"
-  },
-  {
-    customerId: 444444444,
-    customerName: 'מברגים בע״מ',
-    customerPhone: "0547234101"
-  },
-];
+import InvoiceService from '../../services/invoice.service';
 
 const CustomerList = ({ navigation, route }) => {
   const { setClientObj } = route.params;
-  const [searchArray, setSearchArray] = useState(mockCustomerList);
+  const [customers, setCustomers] = useState([]);
+  const [searchArray, setSearchArray] = useState([]);
 
-  const handleSearchByName = useCallback((search) => {
-    const filteredData = mockCustomerList.filter(
-      ({ customerName }) => customerName.indexOf(search) > -1
-    );
-    setSearchArray(search.length ? filteredData : mockCustomerList);
-  }, []);
+  useEffect(() => {
+    loadData();
+  }, [route]);
+
+  const loadData = () => {
+    InvoiceService.getAllCustomers()
+      .then((response) => {
+        setCustomers(response.data);
+        setSearchArray(response.data);
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data); // => the response payload
+        }
+      });
+  };
+
+  const handleSearchByName = (search) => {
+    const filteredData = customers.filter(({ customerName }) => customerName.indexOf(search) > -1);
+    setSearchArray(search.length ? filteredData : customers);
+  };
 
   return (
     <View>
@@ -66,7 +50,7 @@ const CustomerList = ({ navigation, route }) => {
                   onPress={() => {
                     setClientObj({
                       name: obj.customerName,
-                      phone: obj.customerPhone,
+                      phone: `0${obj.customerPhone}`,
                       companyNumber: `${obj.customerId}`,
                     });
                     navigation.navigate('חשבונית מס/קבלה');

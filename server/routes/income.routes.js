@@ -3,7 +3,6 @@ const incomeRouter = express.Router();
 const IncomeController = require("../controllers/income_controller");
 const authJwt = require("../middleware/authJwt");
 
-
 /**
  * @swagger
  * tags:
@@ -43,12 +42,13 @@ incomeRouter.post(
   IncomeController.createIncome
 );
 
-incomeRouter.get(
-  "/sum",
+incomeRouter.post(
+  "/createCustomer",
   [authJwt.verifyToken],
-  IncomeController.getIncomesSum
+  IncomeController.createCustomer
 );
 
+incomeRouter.get("/sum", [authJwt.verifyToken], IncomeController.getIncomesSum);
 
 incomeRouter.get(
   "/grouped-by-months",
@@ -57,6 +57,11 @@ incomeRouter.get(
 );
 
 incomeRouter.get("/all", [authJwt.verifyToken], IncomeController.getAllIncomes);
+incomeRouter.get(
+  "/allCustomers",
+  [authJwt.verifyToken],
+  IncomeController.getAllCustomers
+);
 
 incomeRouter.put("/:incomeId", IncomeController.updateIncomeById);
 incomeRouter.get("/{incomeId}", IncomeController.getIncomeById);

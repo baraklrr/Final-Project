@@ -10,6 +10,9 @@ module.exports = (sequelize, Sequelize) => {
       customerName: {
         type: Sequelize.STRING,
       },
+      customerPhone: {
+        type: Sequelize.INTEGER,
+      },
     },
     {
       timestamps: false,

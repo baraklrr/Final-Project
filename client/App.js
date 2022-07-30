@@ -123,7 +123,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>
-        {state.userToken !== null ? <AuthStack /> : <MainNavigator />}
+        {state.userToken === null ? <AuthStack /> : <MainNavigator />}
       </Provider>
     </AuthContext.Provider>
   );
