@@ -9,7 +9,7 @@ import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TransactionsNavigation from './TransactionsNavigation';
-
+import  SettingNavigation from './SettingNavigation'
 const Tab = createBottomTabNavigator();
 
 const getIconColor = (focused) => ({
@@ -131,7 +131,7 @@ export default function TabNavigation() {
 
       <Tab.Screen
         name="הגדרות"
-        component={SettingsScreen}
+        component={SettingNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

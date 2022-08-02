@@ -118,6 +118,9 @@ exports.signin = (req, res) => {
           username: user.username,
           email: user.email,
           roles: authorities,
+          phoneNumber: user.phoneNumber,
+          businessName: user.businessName,
+          businessAddress: user.businessAddress,
           accessToken: token,
           refreshToken: refreshToken,
         });

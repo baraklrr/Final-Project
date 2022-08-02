@@ -7,6 +7,7 @@ import { Card, Paragraph } from 'react-native-paper';
 import { COLORS } from '../core/theme';
 import { AuthContext } from '../context/AuthContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { navigate } from '../navigation/RootNavigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -58,11 +59,15 @@ export default function Settings({ navigation }) {
           <Paragraph style={styles.Text}> {email} </Paragraph>
           <Paragraph style={styles.Text}> {phone} </Paragraph>
         </Card>
-        <TouchableOpacity style={styles.list}>
+        <TouchableOpacity 
+        style={styles.list}
+        onPress={()=>navigation.navigate("aboutourapp")}>
           <Text>תנאי שימוש</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.list}>
+        <TouchableOpacity 
+        style={styles.list}
+        onPress={()=>navigation.navigate("aboutourapp")}>
           <Text>מדיניות פרטיות</Text>
         </TouchableOpacity>
 
