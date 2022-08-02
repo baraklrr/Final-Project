@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function InstructionScreen({ navigation }) {
+export default function InstructionsScreen({ navigation }) {
   const Base_Url = 'https://alonbab.github.io/Pdfs/';
   const pdf1 = 'דיווח דו חודשי למעמ.pdf';
   const pdf2 = 'דיווח דו חודשי למס הכנסה.pdf';

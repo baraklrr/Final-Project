@@ -126,11 +126,16 @@ const InvoiceFirst = ({ navigation, route }) => {
             keyboardType="number-pad"
             onChangeText={(e) => setClientObj({ ...clientObj, companyNumber: e })}
           />
-
+          <Checkbox.Item
+            label="שמור לקוח לפעם הבאה"
+            status={checked ? 'checked' : 'unchecked'}
+            onPress={() => {
+              setChecked(!checked);
+            }}
+          />
           <CustomDivider />
 
           <Card.Title style={{ textAlign: 'left' }}>פירוט עסקה ושירותים</Card.Title>
-
 
           <DataTable>
             <DataTable.Header>
@@ -315,7 +320,7 @@ const InvoiceFirst = ({ navigation, route }) => {
                 clientObj: clientObj,
                 date: date,
                 saveCustomer: checked,
-                customerInfo: clientObj
+                customerInfo: clientObj,
               });
             }
           }}
