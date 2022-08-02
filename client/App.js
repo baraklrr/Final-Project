@@ -57,9 +57,9 @@ export default function App() {
   const bootstrapAsync = async () => {
     let userToken;
     try {
-      // Restore token 
+      // Restore token
       userToken = await AsyncStorage.getItem('token');
-      console.log('token :' + userToken);
+      // console.log('token :' + userToken);
     } catch (e) {
       // Restoring token failed
       console.log('error ' + e);
@@ -67,7 +67,7 @@ export default function App() {
     // After restoring token, we may need to validate it in production app
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    
+
     dispatch({ type: 'RESTORE_TOKEN', token: userToken });
   };
 
@@ -78,13 +78,13 @@ export default function App() {
         // We will also need to handle errors if sign in failed
         await AuthService.login(username, password)
           .then(async (response) => {
-            AuthService.saveUserToLocalStorage("token",response.data.accessToken);
-            AuthService.saveUserToLocalStorage("username",response.data.username);
-            AuthService.saveUserToLocalStorage("email",response.data.email);
-            AuthService.saveUserToLocalStorage("phone",response.data.phoneNumber);
-            AuthService.saveUserToLocalStorage("buissnesname",response.data.businessName);
-            AuthService.saveUserToLocalStorage("businessAddress",response.data.businessAddress);
-            
+            AuthService.saveUserToLocalStorage('token', response.data.accessToken);
+            AuthService.saveUserToLocalStorage('username', response.data.username);
+            AuthService.saveUserToLocalStorage('email', response.data.email);
+            AuthService.saveUserToLocalStorage('phone', response.data.phoneNumber);
+            AuthService.saveUserToLocalStorage('buissnesname', response.data.businessName);
+            AuthService.saveUserToLocalStorage('businessAddress', response.data.businessAddress);
+            AuthService.saveUserToLocalStorage('roles', response.data.roles[0]);
             let userToken = await AsyncStorage.getItem('token');
             dispatch({ type: 'SIGN_IN', token: userToken });
           })
@@ -93,8 +93,7 @@ export default function App() {
             Alert.alert('שגיאה', 'הוזנו פרטים שגויים, יש לנסות שוב. משתמש חדש? לחץ על "הירשם" .', [
               { text: 'אישור', onPress: () => console.log('OK Pressed') },
             ]);
-            if(error.response.status==401)
-            {
+            if (error.response.status == 401) {
               dispatch({ type: 'SIGN_OUT' });
             }
           });
@@ -119,7 +118,7 @@ export default function App() {
     }),
     []
   );
-  
+
   return (
     <AuthContext.Provider value={authContext}>
       <Provider theme={theme}>

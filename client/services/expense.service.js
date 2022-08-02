@@ -6,13 +6,23 @@ class ExpenseDataService {
     return http.get('/expense/total');
   }
 
+  async getCategories() {
+    const auth = await authHeader();
+    return http.get('/expense/categories', { headers: auth });
+  }
+
   get(id) {
     return http.get(`/expense/${id}`);
   }
 
- async create(data) {
+  async create(data) {
     const auth = await authHeader();
-    return http.post('/expense/create', data,{ headers: auth });
+    return http.post('/expense/create', data, { headers: auth });
+  }
+
+  async addCategory(data) {
+    const auth = await authHeader();
+    return http.post('/expense/addCategory', data, { headers: auth });
   }
 
   update(id, data) {
@@ -23,6 +33,10 @@ class ExpenseDataService {
     return http.delete(`/expense/${id}`);
   }
 
+  deleteCategory(id) {
+    return http.delete(`/expense/deleteCategory/${id}`);
+  }
+
   deleteAll() {
     return http.delete(`/expense`);
   }
@@ -31,26 +45,25 @@ class ExpenseDataService {
     return http.get(`/expense?title=${title}`);
   }
 
-  async exppenseSum(){
-  const auth = await authHeader();
-  return http.get(`/expense/sum`,{ headers: auth });
+  async exppenseSum() {
+    const auth = await authHeader();
+    return http.get(`/expense/sum`, { headers: auth });
   }
 
-  async exppenseVatSum(){
+  async exppenseVatSum() {
     const auth = await authHeader();
-    return http.get(`/expense/vatSum`,{ headers: auth });
- }
+    return http.get(`/expense/vatSum`, { headers: auth });
+  }
 
- async exppenseIrsSum(){
-  const auth = await authHeader();
-  return http.get(`/expense/irsSum`,{ headers: auth });
-}
+  async exppenseIrsSum() {
+    const auth = await authHeader();
+    return http.get(`/expense/irsSum`, { headers: auth });
+  }
 
-async getbyMonthSum(){
-  const auth = await authHeader();
-  return http.get(`/expense/grouped-by-months`,{ headers: auth });
-}
-
+  async getbyMonthSum() {
+    const auth = await authHeader();
+    return http.get(`/expense/grouped-by-months`, { headers: auth });
+  }
 }
 
 export default new ExpenseDataService();

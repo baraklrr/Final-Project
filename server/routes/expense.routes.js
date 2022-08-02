@@ -186,7 +186,6 @@ expenseRouter.get("/find/:name", [authJwt.verifyToken], expenseController.find);
 
 expenseRouter.get("/sum", [authJwt.verifyToken], expenseController.sum);
 
-
 /**
  * @swagger
  * /api/expenses/grouped-by-months:
@@ -218,7 +217,7 @@ expenseRouter.get(
  * @swagger
  * /api/expenses/vatSum:
  *   post:
- *     summary: get vatSum all expenses 
+ *     summary: get vatSum all expenses
  *     tags: [Expenses]
  *     requestBody:
  *       required: true
@@ -228,22 +227,20 @@ expenseRouter.get(
  *             $ref: '#/components/schemas/Expense'
  *       responses:
  *         200:
- *           description: get vatSum all expenses 
+ *           description: get vatSum all expenses
  *           content:
  *             expenseRouterlication/json:
  *               schema:
  *                 $ref: '#/components/schemas/Expense'
  */
 
-expenseRouter.get("/vatSum",
- [authJwt.verifyToken], 
- expenseController.sumVat);
+expenseRouter.get("/vatSum", [authJwt.verifyToken], expenseController.sumVat);
 
 /**
  * @swagger
  * /api/expenses/irsSum:
  *   post:
- *     summary: get irsSum all expenses 
+ *     summary: get irsSum all expenses
  *     tags: [Expenses]
  *     requestBody:
  *       required: true
@@ -253,7 +250,7 @@ expenseRouter.get("/vatSum",
  *             $ref: '#/components/schemas/Expense'
  *       responses:
  *         200:
- *           description: get irsSum all expenses 
+ *           description: get irsSum all expenses
  *           content:
  *             expenseRouterlication/json:
  *               schema:
@@ -276,7 +273,7 @@ expenseRouter.get("/irsSum", [authJwt.verifyToken], expenseController.sumIrs);
  *             $ref: '#/components/schemas/Expense'
  *       responses:
  *         200:
- *           description: get expenses picture 
+ *           description: get expenses picture
  *           content:
  *             expenseRouterlication/json:
  *               schema:
@@ -286,6 +283,21 @@ expenseRouter.get(
   "/expenseImage/:id",
   [authJwt.verifyToken],
   expenseController.getImageById
+);
+
+expenseRouter.get(
+  "/categories",
+  [authJwt.verifyToken],
+  expenseController.getCategories
+);
+expenseRouter.post(
+  "/addCategory",
+  [authJwt.verifyToken],
+  expenseController.addCategory
+);
+expenseRouter.delete(
+  "/deleteCategory/:id",
+  expenseController.deleteCategory
 );
 
 module.exports = expenseRouter;
