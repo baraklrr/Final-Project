@@ -5,7 +5,6 @@ const { user: User, role: Role, refreshToken: RefreshToken, sequelize } = db;
 const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-const { devNull } = require("os");
 
 exports.signup = (req, res) => {
   const {
@@ -83,10 +82,10 @@ exports.signin = (req, res) => {
         for (let i = 0; i < roles.length; i++) {
           authorities.push("ROLE_" + roles[i].name.toUpperCase());
         }
-        res.cookie("jwt", token, {
-          httpOnly: true,
-          maxAge: config.jwtExpiration * 1000,
-        });
+        // res.cookie("jwt", token, {
+        //   httpOnly: true,
+        //   maxAge: config.jwtExpiration * 1000,
+        // });
         res.status(200).send({
           id: user.userId,
           username: user.username,

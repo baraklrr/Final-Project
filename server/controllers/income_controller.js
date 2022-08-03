@@ -1,6 +1,5 @@
 const { db } = require("../models");
-const receiptController = require("../controllers/receipt.controller");
-const { ModelCtor, Sequelize } = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 const Income = db.income;
 const Op = db.Sequelize.Op;
