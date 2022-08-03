@@ -88,7 +88,7 @@ export default function MyBuisnessScreen({ navigation }) {
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />
             </TouchableOpacity>
-            {!isAdmin && (
+            {isAdmin && (
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('קטגוריות');
