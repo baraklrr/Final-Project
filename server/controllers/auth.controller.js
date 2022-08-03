@@ -5,6 +5,7 @@ const { user: User, role: Role, refreshToken: RefreshToken, sequelize } = db;
 const Op = db.Sequelize.Op;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { devNull } = require("os");
 
 exports.signup = (req, res) => {
   const {
@@ -55,31 +56,29 @@ exports.signup = (req, res) => {
     });
 };
 
-exports.updateUser =(req,res)=>
-{
+exports.updateUser = (req, res) => {
   const businessId = res.locals.userId;
 
-  User.update( req.body, {
-    where: { userId: businessId }
+  User.update(req.body, {
+    where: { userId: businessId },
   })
-    .then(num => {
+    .then((num) => {
       if (num == 1) {
         res.send({
-          message: "User was updated successfully."
+          message: "User was updated successfully.",
         });
       } else {
         res.send({
-          message: `Cannot update User with id=${businessId}. Maybe User was not found or req.body is empty!`
+          message: `Cannot update User with id=${businessId}. Maybe User was not found or req.body is empty!`,
         });
       }
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(500).send({
-        message: "Error updating User with id=" + businessId
+        message: "Error updating User with id=" + businessId,
       });
     });
 };
-
 
 exports.signin = (req, res) => {
   const { username, password } = req.body;
@@ -130,7 +129,6 @@ exports.signin = (req, res) => {
     });
 };
 
-
 exports.signout = async (req, res) => {
   try {
     req.session = null;
@@ -141,8 +139,6 @@ exports.signout = async (req, res) => {
     this.next(err);
   }
 };
-
-
 
 exports.refreshToken = async (req, res) => {
   const { refreshToken: requestToken } = req.body;
