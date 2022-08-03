@@ -9,7 +9,7 @@ import { COLORS } from '../core/theme';
 import SettingsScreen from '../screens/Settings';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import TransactionsNavigation from './TransactionsNavigation';
-
+import  SettingNavigation from './SettingNavigation'
 const Tab = createBottomTabNavigator();
 
 const getIconColor = (focused) => ({
@@ -24,7 +24,8 @@ export default function TabNavigation() {
   const findGreet = () => {
     const hrs = new Date().getHours();
     if (hrs === 0 || hrs < 12) setGreet('בוקר טוב');
-    if (hrs > 12 || hrs < 21) setGreet('צהריים טובים');
+    if (hrs > 12 || hrs < 16) setGreet('צהריים טובים');
+    if(hrs>17 || hrs<21) setGreet('ערב טוב')
     if (hrs > 21) setGreet('לילה טוב')
   };
   const findUser = async () => {
@@ -130,7 +131,7 @@ export default function TabNavigation() {
 
       <Tab.Screen
         name="הגדרות"
-        component={SettingsScreen}
+        component={SettingNavigation}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

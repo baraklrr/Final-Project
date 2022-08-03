@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import MyDetails from "../screens/myBuissness/MyDetails";
+import MyDetails from "../screens/myBuisness/MyDetails";
 import { theme } from "../core/theme";
 
 const Tab = createMaterialTopTabNavigator();

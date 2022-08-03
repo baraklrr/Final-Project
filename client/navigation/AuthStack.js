@@ -24,7 +24,7 @@ const AuthStack = () => {
             component={StartScreen}
             options={{
               title: 'שלום!',
-              //animationTypeForReplace: state.isSignout ? 'pop' : 'push',
+              animationTypeForReplace: 'push',
             }}
           />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />

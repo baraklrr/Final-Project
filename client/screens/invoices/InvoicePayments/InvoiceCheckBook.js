@@ -5,6 +5,7 @@ import { Input } from '@rneui/themed';
 import { Button } from '@rneui/base';
 import DateCalendar from '../../../components/DateCalendar';
 import { Platform } from 'react-native';
+import DateSelect from '../../../components/DateSelect';
 
 const InvoiceCheckBook = ({ handleSubmit, sumPrice, sumPricePayment }) => {
   const [checkBookObj, setCheckBookObj] = useState({
@@ -34,13 +35,7 @@ const InvoiceCheckBook = ({ handleSubmit, sumPrice, sumPricePayment }) => {
 
         <View style={{ paddingHorizontal: 20 }}>
           <View style={{ marginTop: '10%' }}>
-            {/* <Input
-              textAlign="right"
-              textAlignVertical="center"
-              disabledInputStyle={{ background: '#ddd' }}
-              placeholder="תאריך החשבונית"
-              onChangeText={(e) => setCheckBookObj({ ...checkBookObj, date: e })}
-            /> */}
+    
             {Platform.OS === 'ios' ? (
               <DateCalendar
                 title="תאריך החשבונית:"
@@ -54,6 +49,7 @@ const InvoiceCheckBook = ({ handleSubmit, sumPrice, sumPricePayment }) => {
           <View style={{ marginTop: '10%' }}>
             <Input
               textAlign="right"
+              keyboardType='numeric'
               textAlignVertical="center"
               disabledInputStyle={{ background: '#ddd' }}
               placeholder="סכום"

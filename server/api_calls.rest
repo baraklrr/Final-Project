@@ -25,6 +25,14 @@ Content-Type: application/json
     "username" : "alon",
     "password" : "123456"
 }
+###
+PUT http://localhost:8080/api/auth/update
+Content-Type: application/json
+x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU4Njg2NTIyLCJleHAiOjE2NTg3MDQ1MjJ9.ROEASI9komfy6WZVxhsqiFPuftEEA7-Ls0t2ybOigx8
+
+{
+    "businessName":"flowers"
+}
 
 ###
 
@@ -96,7 +104,7 @@ x-access-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjU1MTk
 
 ###
 
-GET http://localhost:8080/api/expense/all/1
+GET http://localhost:8080/api/expense/all
 
 ###
 GET http://localhost:8080/api/127.0.0.1:8080/api/income/sum

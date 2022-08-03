@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function ReportScreen({ navigation }) {
+export default function MyFiles({ navigation }) {
   return (
     <TabContainer>
       <ScrollView>

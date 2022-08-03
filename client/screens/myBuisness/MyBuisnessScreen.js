@@ -1,4 +1,4 @@
-import React, { useEffect, useState }from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { ScrollView, Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import Header from '../../components/Header';
@@ -7,6 +7,7 @@ import { Card, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Constants from 'expo-constants';
 import { COLORS } from '../../core/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,16 +31,22 @@ const styles = StyleSheet.create({
   },
 });
 
+export default function MyBuisnessScreen({ navigation }) {
+  const [isAdmin, setIsAdmin] = useState(false);
 
-export default function Settings({ navigation }) {
-
+  const getRoles = async () => {
+    const storageRoles = await AsyncStorage.getItem('roles');
+    setIsAdmin(storageRoles === 'ROLE_ADMIN' ? true : false);
+  };
+  useEffect(() => {
+    getRoles();
+  }, [navigation]);
 
   return (
     <TabContainer>
       <View style={styles.screenContainer}>
         <ScrollView>
           <View style={styles.container}>
-
             <TouchableOpacity
               onPress={() => {
                 navigation.navigate('הדיווחים שלי');
@@ -53,7 +60,6 @@ export default function Settings({ navigation }) {
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />
             </TouchableOpacity>
-
 
             <TouchableOpacity
               onPress={() => {
@@ -70,9 +76,9 @@ export default function Settings({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-             onPress={() => {
-              navigation.navigate('נהלים');
-            }}
+              onPress={() => {
+                navigation.navigate('נהלים');
+              }}
             >
               <Card.Title
                 style={styles.list}
@@ -82,7 +88,21 @@ export default function Settings({ navigation }) {
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />
             </TouchableOpacity>
-
+            {isAdmin && (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('קטגוריות');
+                }}
+              >
+                <Card.Title
+                  style={styles.list}
+                  titleStyle={{ fontSize: 16 }}
+                  title="קטגוריות"
+                  left={() => <Icon name="construct-outline" color="#212121" size={27} />}
+                  right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
       </View>

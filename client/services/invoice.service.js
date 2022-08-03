@@ -5,7 +5,10 @@ class InvoiceDataService {
     const auth = await authHeader();
     return http.get('/income/all', { headers: auth });
   }
-
+  async getAllCustomers() {
+    const auth = await authHeader();
+    return http.get('/income/allCustomers', { headers: auth });
+  }
   get(id) {
     return http.get(`/invoices/${id}`);
   }
@@ -13,6 +16,11 @@ class InvoiceDataService {
   async create(data) {
     const auth = await authHeader();
     return http.post('/income/create', data, { headers: auth });
+  }
+
+  async createCustomer(data) {
+    const auth = await authHeader();
+    return http.post('/income/createCustomer', data, { headers: auth });
   }
 
   update(id, data) {
@@ -31,17 +39,16 @@ class InvoiceDataService {
   findByTitle(title) {
     return http.get(`/invoices?title=${title}`);
   }
-  
+
   async invoiceSum() {
     const auth = await authHeader();
-    return http.get(`/income/sum`,{ headers: auth });
-    }
-  
-  async  getbyMonthSum(){
-      const auth = await authHeader();
-      return http.get(`/income/grouped-by-months`,{ headers: auth });
-    }
- 
+    return http.get(`/income/sum`, { headers: auth });
+  }
+
+  async getbyMonthSum() {
+    const auth = await authHeader();
+    return http.get(`/income/grouped-by-months`, { headers: auth });
+  }
 }
 
 export default new InvoiceDataService();

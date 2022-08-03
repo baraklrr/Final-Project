@@ -94,8 +94,15 @@ const InvoiceFirst = ({ navigation, route }) => {
             textAlign="right"
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
-            rightIcon={<Icon name="account-plus" size={20} />}
+            rightIcon={
+              <TouchableOpacity
+                onPress={() => navigation.navigate('רשימת לקוחות', { setClientObj })}
+              >
+                <Icon name="account-plus" size={20} />
+              </TouchableOpacity>
+            }
             icon
+            value={clientObj.name}
             placeholder="שם"
             onChangeText={(e) => setClientObj({ ...clientObj, name: e })}
           />
@@ -107,6 +114,7 @@ const InvoiceFirst = ({ navigation, route }) => {
             rightIcon={<Icon name="phone" size={20} />}
             placeholder="טלפון"
             keyboardType="number-pad"
+            value={clientObj.phone}
             onChangeText={(e) => setClientObj({ ...clientObj, phone: e })}
           />
           <Input
@@ -114,22 +122,10 @@ const InvoiceFirst = ({ navigation, route }) => {
             textAlignVertical="center"
             disabledInputStyle={{ background: '#ddd' }}
             placeholder="מספר עוסק או ח.פ"
+            value={clientObj.companyNumber}
             keyboardType="number-pad"
             onChangeText={(e) => setClientObj({ ...clientObj, companyNumber: e })}
           />
-          {/* <Input
-            textAlign="right"
-            textAlignVertical="center"
-            disabledInputStyle={{ background: '#ddd' }}
-            placeholder="כתובת עסק"
-          /> */}
-          {/* <Input
-            textAlign="right"
-            textAlignVertical="center"
-            disabledInputStyle={{ background: '#ddd' }}
-            placeholder="אימייל"
-            keyboardType="email-address"
-          /> */}
           <Checkbox.Item
             label="שמור לקוח לפעם הבאה"
             status={checked ? 'checked' : 'unchecked'}
@@ -141,72 +137,6 @@ const InvoiceFirst = ({ navigation, route }) => {
 
           <Card.Title style={{ textAlign: 'left' }}>פירוט עסקה ושירותים</Card.Title>
 
-          {/* <View style={{ flex: 1, flexDirection: 'row' }}>
-            <View style={{ flex: 1 }}>
-              <RNPickerSelect
-                placeholder={{}}
-                ref={pickerRef}
-                items={[
-                  {
-                    label: 'רגיל (17%)',
-                    value: 'vatInculeded',
-                  },
-                  {
-                    label: 'סתם',
-                    value: 'vatNotInculeded',
-                  },
-                ]}
-                onValueChange={(value) => {
-                  setVat(value);
-                }}
-                style={{
-                  ...styles,
-                  iconContainer: {
-                    top: 10,
-                    right: 12,
-                  },
-                }}
-                value={vat}
-                useNativeAndroidPickerStyle={false}
-                textInputProps={{ underlineColor: 'yellow' }}
-                Icon={() => {
-                  return <MaterialCommunityIcons name="arrow-up-down" size={24} color="black" />;
-                }}
-              />
-            </View>
-            <View style={{ flex: 1 }}>
-              <RNPickerSelect
-                placeholder={{}}
-                ref={pickerRef}
-                items={[
-                  {
-                    label: 'שקל',
-                    value: 'shekel',
-                  },
-                  {
-                    label: 'דולר',
-                    value: 'usd',
-                  },
-                ]}
-                onValueChange={(value) => {
-                  setCurrency(value);
-                }}
-                style={{
-                  ...styles,
-                  iconContainer: {
-                    top: 10,
-                    right: 12,
-                  },
-                }}
-                value={currency}
-                useNativeAndroidPickerStyle={false}
-                textInputProps={{ underlineColor: 'yellow' }}
-                Icon={() => {
-                  return <MaterialCommunityIcons name="arrow-up-down" size={24} color="black" />;
-                }}
-              />
-            </View>
-          </View> */}
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>פריט</DataTable.Title>
@@ -389,6 +319,8 @@ const InvoiceFirst = ({ navigation, route }) => {
                 sumPrice: sumPrice,
                 clientObj: clientObj,
                 date: date,
+                saveCustomer: checked,
+                customerInfo: clientObj,
               });
             }
           }}

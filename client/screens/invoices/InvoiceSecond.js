@@ -23,8 +23,16 @@ const InvoiceSecond = ({ navigation, route }) => {
     sumPricePayment,
     clientObj,
     date,
+    saveCustomer,
   } = route?.params;
 
+  const saveNewCustomer = () => {
+    if (saveCustomer) {
+      console.log('SAVE CUSTOMER');
+      console.log(clientObj);
+      invoiceDataService.createCustomer(clientObj);
+    }
+  };
   const html = ReactDOMServer.renderToStaticMarkup(
     <View
       style={{
@@ -360,7 +368,7 @@ const InvoiceSecond = ({ navigation, route }) => {
               console.log(date, sumPrice, dataTableValues, paymentTableValues);
               console.log('**************************************');
               const result = await onPressCreateInvoice(
-                false,
+                saveCustomer,
                 1,
                 date.date,
                 description,
@@ -368,6 +376,7 @@ const InvoiceSecond = ({ navigation, route }) => {
                 dataTableValues,
                 paymentTableValues
               );
+              await saveNewCustomer();
               console.log('*******************onPressResult*******************');
               console.log(result);
               console.log('**************************************');

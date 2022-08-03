@@ -2,6 +2,7 @@ const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
 const express = require("express");
 const authRouter = express.Router();
+const authJwt = require("../middleware/authJwt");
 
 /**
  * @swagger
@@ -112,6 +113,32 @@ authRouter.post(
  *               $ref: '#/components/schemas/Tokens'
  */
 authRouter.post("/signin", controller.signin);
+
+
+/**
+ * @swagger
+ * /api/auth/update:
+ *   post:
+ *     summary: update a user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         authRouterlication/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       200:
+ *         description: gets new value from user and updates
+ *         content:
+ *           authRouterlication/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
+authRouter.put ("/update",
+[authJwt.verifyToken],
+ controller.updateUser);
+
 
 /**
  * @swagger

@@ -57,7 +57,46 @@ exports.create = async (req, res) => {
       }
     });
 };
+exports.getCategories = async (req, res) => {
+  expenseType
+    .findAll()
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "some error occured while retrieving",
+      });
+    });
+};
 
+exports.addCategory = (req, res) => {
+  if (!req.body.name || !req.body.vatPercentage || !req.body.IrsPercentage) {
+    res.status(405).send({
+      message: "Content can not be empty!",
+    });
+    return;
+  }
+  const name = req.body.name;
+  const vatPercentage = req.body.vatPercentage;
+  const IrsPercentage = req.body.IrsPercentage;
+
+  expenseType
+    .create({
+      name,
+      vatPercentage,
+      IrsPercentage,
+    })
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log("error: " + err);
+      res.status(500).send({
+        message: err.message || "Some error occurred while creating Income.",
+      });
+    });
+};
 exports.getexpenses = async (req, res) => {
   const businessId = res.locals.userId;
   var condition = businessId
@@ -139,6 +178,30 @@ exports.delete = (req, res) => {
     });
 };
 
+exports.deleteCategory = (req, res) => {
+  const id = req.params.id;
+  expenseType
+    .destroy({
+      where: { expensetypeId: id },
+    })
+    .then((num) => {
+      if (num == 1) {
+        res.send({
+          message: "category was deleted successfully!",
+        });
+      } else {
+        res.send({
+          message: `Cannot delete category with id=${id}. Maybe expense was not found!`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Could not delete category with id=" + id,
+      });
+    });
+};
+
 //todo: change the function and use user token
 exports.find = (req, res) => {
   var name = req.body.name;
@@ -184,20 +247,20 @@ exports.sum = (req, res) => {
 };
 
 exports.getexpenseGroupedByMonths = (req, res) => {
-
   const userId = res.locals.userId;
   console.log(userId);
-  expenses.findAll({
-    attributes: [
-      [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
-      [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
-    ],
-    where: {
-      [Op.and]: [{ businessId: userId }],
-    },
-    order: [[Sequelize.literal('"month"'), "ASC"]],
-    group: "month",
-  })
+  expenses
+    .findAll({
+      attributes: [
+        [Sequelize.fn("SUM", Sequelize.col("expenseSum")), "expenseSum"],
+        [Sequelize.fn("DATE_FORMAT", Sequelize.col("date"), "%m-%Y"), "month"],
+      ],
+      where: {
+        [Op.and]: [{ businessId: userId }],
+      },
+      order: [[Sequelize.literal('"month"'), "ASC"]],
+      group: "month",
+    })
     .then((data) => {
       res.send(data);
     })
