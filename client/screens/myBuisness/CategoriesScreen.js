@@ -11,6 +11,8 @@ export default function CategoriesScreen(props) {
   const [vat, setVat] = useState('');
   const [irs, setIrs] = useState('');
 
+  
+
   useEffect(() => {
     loadData();
   }, []);
@@ -78,6 +80,7 @@ export default function CategoriesScreen(props) {
       });
   };
 
+
   useEffect(() => {
     // console.log(categories.length, 'Categories List length');
   }, [categories]);
@@ -114,6 +117,8 @@ export default function CategoriesScreen(props) {
             key={category.expensetypeId}
             category={category}
             deleteCategory={() => deleteCategory(category.expensetypeId)}
+            editCategory={()=>props.navigation.navigate(("UpdateCategory"),{id:category.expensetypeId})
+          }
           />
         ))}
       </ScrollView>
@@ -134,6 +139,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   textbox: {
     borderWidth: 1,
     borderColor: '#405792',

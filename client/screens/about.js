@@ -12,7 +12,7 @@ export default function about({ navigation }) {
         showsVerticalScrollIndicator={false}
       >
     <Logo/>
-    <Text style={styles.userName}>האפליציה נוצרה לצורך פרויקט הגמר במכללה למנהל</Text>
+    <Text style={styles.userName}>האפליקציה נוצרה לצורך פרויקט הגמר במכללה למנהל</Text>
     <Text style={styles.userName}>נוצר על ידי :</Text>
     <Text style={styles.userName}>אלון בביצקי</Text>
     <Text style={styles.userName}> שירן פקדו</Text>

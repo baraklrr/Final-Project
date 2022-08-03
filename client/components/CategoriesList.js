@@ -7,12 +7,21 @@ export default function CategoriesList(props) {
     <View style={styles.listTile}>
       <Text style={styles.title}>{props.category.name}</Text>
       <Icon
+        name="edit"
+        style={styles.trailing}
+        size={20}
+        color="#666666"
+        onPress={() => props.editCategory(props.category.key)}
+      />
+      
+      <Icon
         name="delete"
         style={styles.trailing}
         size={20}
         color="#666666"
         onPress={() => props.deleteCategory(props.category.key)}
       />
+
     </View>
   );
 }

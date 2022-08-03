@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 export default function MyBuisnessScreen({ navigation }) {
   const [isAdmin, setIsAdmin] = useState(false);
-
+  
   const getRoles = async () => {
     const storageRoles = await AsyncStorage.getItem('roles');
     setIsAdmin(storageRoles === 'ROLE_ADMIN' ? true : false);
@@ -88,7 +88,7 @@ export default function MyBuisnessScreen({ navigation }) {
                 right={() => <Icon name="chevron-back-outline" color="#212121" size={27} />}
               />
             </TouchableOpacity>
-            {isAdmin && (
+            {!isAdmin && (
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('קטגוריות');

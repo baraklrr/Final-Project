@@ -70,6 +70,30 @@ exports.getCategories = async (req, res) => {
     });
 };
 
+exports.updatecategory = async(req, res) => {
+  const id = req.params.id;
+
+  expenseType.update( req.body, {
+    where: { expensetypeId: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "expense Type was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update expense Type with id=${id}. Maybe User was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating expense Type with id=" + id
+      });});
+    
+}
+
 exports.addCategory = (req, res) => {
   if (!req.body.name || !req.body.vatPercentage || !req.body.IrsPercentage) {
     res.status(405).send({
@@ -177,6 +201,23 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+exports.
+getexpenseTypeById = (req, res) => {
+
+  const id = req.params.id;
+
+  expenseType.findByPk(id)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving expense Type with id=" + id,
+      });
+    });
+};
+
 
 exports.deleteCategory = (req, res) => {
   const id = req.params.id;

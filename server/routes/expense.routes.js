@@ -300,4 +300,14 @@ expenseRouter.delete(
   expenseController.deleteCategory
 );
 
+expenseRouter.get(
+ "/getexpenseTypeById/:id",
+ expenseController.getexpenseTypeById
+);
+
+expenseRouter.put(
+  "/updateCategory/:id",
+  expenseController.updatecategory
+);
+
 module.exports = expenseRouter;

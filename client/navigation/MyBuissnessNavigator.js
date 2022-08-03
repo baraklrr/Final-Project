@@ -9,6 +9,8 @@ import InstructionsScreen from '../screens/myBuisness/InstructionsScreen';
 import CategoriesScreen from '../screens/myBuisness/CategoriesScreen';
 import ReportsNavigation from './ReportsNavigation';
 import DocViewer from '../screens/files/DocViewer';
+import updateCategory from '../screens/myBuisness/UpdateCategory';
+
 const Stack = createStackNavigator();
 
 const MybuissnessNavigator = () => {
@@ -30,6 +32,7 @@ const MybuissnessNavigator = () => {
       <Stack.Screen name="המסמכים שלי" component={MyFiles} />
       <Stack.Screen name="נהלים" component={InstructionsScreen} />
       <Stack.Screen name="קטגוריות" component={CategoriesScreen} />
+      <Stack.Screen name="UpdateCategory" component={updateCategory} options={{title:"עדכון קטגוריה"}}/>
       <Stack.Screen
         name="מסמך"
         component={DocViewer}

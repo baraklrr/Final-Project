@@ -29,6 +29,14 @@ class ExpenseDataService {
     return http.put(`/expense/${id}`, data);
   }
 
+  updateCategory(id, data) {
+    return http.put(`/expense/updateCategory/${id}`, data);
+  }
+
+  getexpenseTypeById (id) {
+    return http.get(`/expense/getexpenseTypeById/${id}`);
+  }
+
   delete(id) {
     return http.delete(`/expense/${id}`);
   }
