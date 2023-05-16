@@ -65,8 +65,7 @@ const Income_Tax_Screen = ({route}) => {
   };
   
   var allData= expenses.reduce((arr,e)=>{
-    arr.push(Object.assign({},e,income.find(a=>a.month==e.month)?income.find(a=>a.month==e.month):
-    {"incomeSum":0}
+    arr.push(Object.assign({},e,income.find(a=>a.month==e.month)
     ))
     return arr;
    },[]).sort((a, b) => a.month.split('-')[0] - b.month.split('-')[0])
